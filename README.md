@@ -1,7 +1,7 @@
 ## FRC2429_2022
 
-###Starting a new code repo for 2022 in robotpy.
-Stripped-down version of the 2020 Python code for our robot
+### Starting a new code repo for 2022 using robotpy
+Updating the 2020 and 2021 framework now that we have robotpy-commands-v2
 * includes a simulated drivetrain that takes advantage of all of the robotpy simulation capabilities (via the 2021 libraries).  
 * This is a work in progress designed to integrate the robot simulation of autonomous and pathweaver trajectories with jupyter notebooks testing our code. 
 
