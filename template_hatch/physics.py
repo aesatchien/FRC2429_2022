@@ -16,17 +16,19 @@ from wpimath.system.plant import DCMotor
 import wpimath.geometry as geo
 from wpilib import SmartDashboard
 
-
 import constants
 
 from pyfrc.physics.core import PhysicsInterface
 
+
 def clamp(value: float, bottom: float, top: float) -> float:
     return max(bottom, min(value, top))
+
 
 def distance(pose, point):
     """ Find the distance between a pose and a point """
     return ((pose.translation().x - point[0])**2 + (pose.translation().y - point[1])**2)**0.5
+
 
 class PhysicsEngine:
     """
