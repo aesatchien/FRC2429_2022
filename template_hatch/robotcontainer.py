@@ -15,6 +15,7 @@ from commands.releasehatch import ReleaseHatch
 
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.hatchsubsystem import HatchSubsystem
+from subsystems.elevator_subsystem import ElevatorSubsystem
 
 
 class RobotContainer:
@@ -34,6 +35,7 @@ class RobotContainer:
         # The robot's subsystems
         self.drive = DriveSubsystem()
         self.hatch = HatchSubsystem()
+        self.elevator = ElevatorSubsystem()
 
         # Autonomous routines
 
@@ -73,12 +75,16 @@ class RobotContainer:
         and then passing it to a JoystickButton.
         """
 
-        commands2.button.JoystickButton(self.driverController, 1).whenPressed(GrabHatch(self.hatch)        )
+        commands2.button.JoystickButton(self.driverController, 1).whenPressed(GrabHatch(self.hatch))
 
         commands2.button.JoystickButton(self.driverController, 2).whenPressed(ReleaseHatch(self.hatch))
 
         # set RB to half speed
         commands2.button.JoystickButton(self.driverController, 6).whenHeld(HalveDriveSpeed(self.drive))
+
+        # adding some elevator control commands
+        commands2.button.JoystickButton(self.driverController, 3).whenPressed(lambda: self.elevator.raise_elevator(0.99)).whenReleased(lambda: self.elevator.raise_elevator(0))
+        commands2.button.JoystickButton(self.driverController, 4).whenPressed(lambda: self.elevator.start_controller(50)).whenReleased(lambda: self.elevator.stop_controller())
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()

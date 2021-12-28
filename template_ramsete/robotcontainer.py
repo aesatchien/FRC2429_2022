@@ -144,9 +144,7 @@ class RobotContainer:
         # define a variable.
 
         (
-            JoystickButton(
-                self.driverController, XboxController.Button.kBumperRight.value
-            )
+            JoystickButton(self.driverController, XboxController.Button.kBumperRight.value)
             .whenPressed(lambda: self.robotDrive.setMaxOutput(0.5))
             .whenReleased(lambda: self.robotDrive.setMaxOutput(1))
         )

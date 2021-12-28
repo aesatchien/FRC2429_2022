@@ -42,6 +42,7 @@ class PhysicsEngine:
         # Motors
         self.l_motor = wpilib.simulation.PWMSim(1)
         self.r_motor = wpilib.simulation.PWMSim(2)
+        self.elevator_motor = wpilib.simulation.PWMSim(5)
 
         self.system = LinearSystemId.identifyDrivetrainSystem(1.98, 0.2, 1.5, 0.3)
         self.drivesim = wpilib.simulation.DifferentialDrivetrainSim(
@@ -54,6 +55,8 @@ class PhysicsEngine:
 
         self.leftEncoderSim = wpilib.simulation.EncoderSim.createForChannel(constants.kLeftEncoderPorts[0])
         self.rightEncoderSim = wpilib.simulation.EncoderSim.createForChannel(constants.kRightEncoderPorts[0])
+        self.elevator_encoder = wpilib.simulation.EncoderSim.createForChannel(4)
+        self.elevator_encoder.setDistancePerPulse(1 / 2048)
 
         # CJH added 2012 1227
         self.sim_padding = 0.0
@@ -63,6 +66,8 @@ class PhysicsEngine:
         obstacles = [(225, 334-131), (359, 334-75), (412, 334-201), (277, 334-257)]
         self.obstacles = [(self.x_limit/640 * i[0], self.y_limit/334 * i[1]) for i in obstacles]
         print(self.obstacles)
+
+        self.elevator_position = 0
 
     def update_sim(self, now: float, tm_diff: float) -> None:
         """
@@ -122,3 +127,9 @@ class PhysicsEngine:
         SmartDashboard.putNumber('field_x', round(self.x, 2))
         SmartDashboard.putNumber('field_y', round(self.y, 2))
         SmartDashboard.putNumber('field_rot', round(self.rot.degrees(), 2))
+
+        # physics for an elevator
+        # update 'position' (use tm_diff so the rate is constant) - this is for simulating an elevator, arm etc w/ limit switches
+        self.elevator_position += self.elevator_motor.getSpeed() * tm_diff * 200 - 1.0  # inserting something like gravity...
+        self.elevator_position = clamp(value=self.elevator_position, bottom=0, top=100)
+        self.elevator_encoder.setDistance(round(self.elevator_position, 2))
