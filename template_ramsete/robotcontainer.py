@@ -147,6 +147,6 @@ class RobotContainer:
             JoystickButton(
                 self.driverController, XboxController.Button.kBumperRight.value
             )
-            .whenPressed(lambda: self.robotDrive.setSlowMaxOutput(0.5))
-            .whenReleased(lambda: self.robotDrive.setNormalMaxOutput(1))
+            .whenPressed(lambda: self.robotDrive.setMaxOutput(0.5))
+            .whenReleased(lambda: self.robotDrive.setMaxOutput(1))
         )

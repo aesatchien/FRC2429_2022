@@ -13,11 +13,20 @@ import wpilib
 import wpilib.simulation
 from wpimath.system import LinearSystemId
 from wpimath.system.plant import DCMotor
+import wpimath.geometry as geo
+from wpilib import SmartDashboard
+
 
 import constants
 
 from pyfrc.physics.core import PhysicsInterface
 
+def clamp(value: float, bottom: float, top: float) -> float:
+    return max(bottom, min(value, top))
+
+def distance(pose, point):
+    """ Find the distance between a pose and a point """
+    return ((pose.translation().x - point[0])**2 + (pose.translation().y - point[1])**2)**0.5
 
 class PhysicsEngine:
     """
@@ -43,12 +52,17 @@ class PhysicsEngine:
             constants.kWheelRadius,
         )
 
-        self.leftEncoderSim = wpilib.simulation.EncoderSim.createForChannel(
-            constants.kLeftEncoderPorts[0]
-        )
-        self.rightEncoderSim = wpilib.simulation.EncoderSim.createForChannel(
-            constants.kRightEncoderPorts[0]
-        )
+        self.leftEncoderSim = wpilib.simulation.EncoderSim.createForChannel(constants.kLeftEncoderPorts[0])
+        self.rightEncoderSim = wpilib.simulation.EncoderSim.createForChannel(constants.kRightEncoderPorts[0])
+
+        # CJH added 2012 1227
+        self.sim_padding = 0.0
+        self.edge_bounce = 0.0
+        self.x_limit, self.y_limit = 15.47 + 0.5, 8.21 + 0.5
+        # grab four obstacles from the 2020 field
+        obstacles = [(225, 334-131), (359, 334-75), (412, 334-201), (277, 334-257)]
+        self.obstacles = [(self.x_limit/640 * i[0], self.y_limit/334 * i[1]) for i in obstacles]
+        print(self.obstacles)
 
     def update_sim(self, now: float, tm_diff: float) -> None:
         """
@@ -64,8 +78,13 @@ class PhysicsEngine:
         l_motor = self.l_motor.getSpeed()
         r_motor = self.r_motor.getSpeed()
 
+        self.old_pose = self.drivesim.getPose()
+        self.lpos, self.rpos = self.drivesim.getLeftPosition(), self.drivesim.getRightPosition()
+        self.lvel, self.rvel = self.drivesim.getLeftVelocity(), self.drivesim.getRightVelocity()
+
         voltage = wpilib.RobotController.getInputVoltage()
         self.drivesim.setInputs(l_motor * voltage, -r_motor * voltage)
+
         self.drivesim.update(tm_diff)
 
         self.leftEncoderSim.setDistance(self.drivesim.getLeftPosition() * 39.37)
@@ -74,3 +93,32 @@ class PhysicsEngine:
         self.rightEncoderSim.setRate(self.drivesim.getRightVelocity() * 39.37)
 
         self.physics_controller.field.setRobotPose(self.drivesim.getPose())
+
+        # CJH added 2012 1227
+        pose = self.drivesim.getPose()
+        self.x, self.y, self.rot = pose.translation().x, pose.translation().y, pose.rotation()
+
+        # keep us on the simulated field - reverse the transform if we try to go out of bounds
+        bad_move = False  # see if we are out of bounds or hitting a barrier
+        if (pose.translation().x < -self.sim_padding or pose.translation().x > self.x_limit + self.sim_padding or
+                pose.translation().y < -self.sim_padding or pose.translation().y > self.y_limit + self.sim_padding):
+            bad_move = True
+        if any([distance(pose, i) < 0.5 for i in self.obstacles]):
+            bad_move = True
+
+
+        if bad_move:  # keep us in-bounds
+            x = clamp(value=self.x, bottom= self.edge_bounce, top=self.x_limit-self.edge_bounce)
+            y = clamp(value=self.y, bottom=self.edge_bounce, top=self.y_limit-self.edge_bounce)
+            #self.drivesim.setPose(geo.Pose2d(x, y, self.rot))
+
+            # or undo the motion
+            dx, dy = self.x - self.old_pose.X(), self.y - self.old_pose.Y()
+            self.drivesim.setPose(geo.Pose2d(self.x-2*dx, self.y-2*dy, self.rot))
+
+            self.physics_controller.field.setRobotPose(self.drivesim.getPose())
+            SmartDashboard.putNumber('dx', round(dx, 2))
+
+        SmartDashboard.putNumber('field_x', round(self.x, 2))
+        SmartDashboard.putNumber('field_y', round(self.y, 2))
+        SmartDashboard.putNumber('field_rot', round(self.rot.degrees(), 2))

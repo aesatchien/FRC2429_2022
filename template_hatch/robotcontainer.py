@@ -62,7 +62,7 @@ class RobotContainer:
             DefaultDrive(
                 self.drive,
                 lambda: -self.driverController.getY(GenericHID.Hand.kLeftHand),
-                lambda: self.driverController.getX(GenericHID.Hand.kLeftHand),
+                lambda: 0.5*self.driverController.getTwist(),
             )
         )
 
@@ -73,17 +73,12 @@ class RobotContainer:
         and then passing it to a JoystickButton.
         """
 
-        commands2.button.JoystickButton(self.driverController, 1).whenPressed(
-            GrabHatch(self.hatch)
-        )
+        commands2.button.JoystickButton(self.driverController, 1).whenPressed(GrabHatch(self.hatch)        )
 
-        commands2.button.JoystickButton(self.driverController, 2).whenPressed(
-            ReleaseHatch(self.hatch)
-        )
+        commands2.button.JoystickButton(self.driverController, 2).whenPressed(ReleaseHatch(self.hatch))
 
-        commands2.button.JoystickButton(self.driverController, 3).whenHeld(
-            HalveDriveSpeed(self.drive)
-        )
+        # set RB to half speed
+        commands2.button.JoystickButton(self.driverController, 6).whenHeld(HalveDriveSpeed(self.drive))
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()
