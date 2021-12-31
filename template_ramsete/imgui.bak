@@ -1,0 +1,1072 @@
+<<<<<<< HEAD
+[Window][Debug##Default]
+Pos=60,60
+Size=400,400
+Collapsed=0
+
+[Window][Robot State]
+Pos=5,20
+Size=92,99
+Collapsed=0
+
+[Window][###Other Devices]
+Pos=1025,20
+Size=250,695
+Collapsed=0
+
+[Window][###Timing]
+Pos=5,150
+Size=135,127
+Collapsed=0
+
+[Window][###NetworkTables]
+Pos=599,147
+Size=553,314
+Collapsed=0
+
+[Window][###FMS]
+Pos=5,540
+Size=235,169
+Collapsed=0
+
+[Window][###Joysticks]
+Pos=250,465
+Size=796,240
+Collapsed=0
+
+[Window][###System Joysticks]
+Pos=9,296
+Size=192,218
+Collapsed=0
+
+[Window][###Mechanism 2D]
+Pos=424,18
+Size=600,600
+Collapsed=0
+
+[Window][###/SmartDashboard/Field]
+Pos=174,39
+Size=400,262
+Collapsed=0
+
+[MainWindow][GLOBAL]
+width=1280
+height=720
+maximized=0
+xpos=462
+ypos=468
+userScale=2
+style=0
+
+[GlassStorage][/SmartDashboard/Field]
+image=
+top=0
+left=0
+bottom=-1
+right=-1
+width=15.980000
+height=8.210000
+
+[GlassStorage][/SmartDashboard/Field###Robot]
+image=
+width=0.685800
+length=0.820400
+style=0
+weight=4.000000
+color=-16776961
+arrows=1
+arrowSize=50
+arrowWeight=4.000000
+arrowColor=-16711936
+selectable=1
+
+[GlassStorage][NetworkTables]
+tree=1
+connections=0
+flags=0
+timestamp=0
+createNonCanonical=0
+
+[GlassStorage][NetworkTables###FMSInfo]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow]
+open=1
+
+[GlassStorage][NetworkTables###LiveWindow###.status]
+open=1
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped]
+open=1
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###ADXRS450_Gyro[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DifferentialDrive[1]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[1]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[2]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[3]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###Encoder[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###Encoder[2]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[1]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[2]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[3]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###Scheduler]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###class frc2::SubsystemBase]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard]
+open=1
+
+[GlassStorage][NetworkTables###SmartDashboard###Field]
+open=1
+
+[GlassStorage][Other Devices###ADXRS450[0]]
+name=
+name###open=1
+
+[Data Sources][Joystick[0] Button[7]]
+name=
+
+[Data Sources][NT:/FMSInfo/FMSControlData]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[3]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[3]/.actuator]
+name=
+
+[Data Sources][NT:/LiveWindow/.status/LW Enabled]
+name=
+
+[Data Sources][Joystick[0] Axis[1]]
+name=
+
+[Data Sources][NT:/FMSInfo/StationNumber]
+name=
+
+[Data Sources][Y Accel[0]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/.actuator]
+name=
+
+[Data Sources][Joystick[0] Axis[5]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[3]/Value]
+name=
+
+[Data Sources][FMS:MatchTime]
+name=
+
+[Data Sources][Joystick[0] Button[4]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/class frc2::SubsystemBase/.hasCommand]
+name=
+
+[Data Sources][Joystick[0] Button[8]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/Right Motor Speed]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[2]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[2]/.actuator]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[0]/Speed]
+name=
+
+[Data Sources][Joystick[0] POV[0]]
+name=
+
+[Data Sources][Joystick[0] Axis[2]]
+name=
+
+[Data Sources][Z Accel[0]]
+name=
+
+[Data Sources][NT:/FMSInfo/MatchType]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[2]/Value]
+name=
+
+[Data Sources][Joystick[0] Button[1]]
+name=
+
+[Data Sources][FMS:AutonomousMode]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[2]/Distance per Tick]
+name=
+
+[Data Sources][Joystick[0] Button[5]]
+name=
+
+[Data Sources][NT:/FMSInfo/MatchNumber]
+name=
+
+[Data Sources][FMS:FMSAttached]
+name=
+
+[Data Sources][Joystick[0] Button[9]]
+name=
+
+[Data Sources][FMS:AllianceStationID]
+name=
+
+[Data Sources][Gyro:ADXRS450[0]-angle_x]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[0]/Distance]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[1]/Value]
+name=
+
+[Data Sources][Gyro:ADXRS450[0]-rate_x]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[1]/.actuator]
+name=
+
+[Data Sources][FMS:RobotEnabled]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[2]/Distance]
+name=
+
+[Data Sources][FMS:DSAttached]
+name=
+
+[Data Sources][Joystick[0] Axis[3]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[1]/Value]
+name=
+
+[Data Sources][Joystick[0] Button[2]]
+name=
+
+[Data Sources][NT:/FMSInfo/ReplayNumber]
+name=
+
+[Data Sources][Joystick[0] Button[6]]
+name=
+
+[Data Sources][FMS:TestMode]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/class frc2::SubsystemBase/.hasDefault]
+name=
+
+[Data Sources][FMS:EStop]
+name=
+
+[Data Sources][NT:/SmartDashboard/Field/.controllable]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[0]/.actuator]
+name=
+
+[Data Sources][Joystick[0] Button[10]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[0]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[2]/Speed]
+name=
+
+[Data Sources][Joystick[0] Axis[0]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/Left Motor Speed]
+name=
+
+[Data Sources][X Accel[0]]
+name=
+
+[Data Sources][Joystick[0] Axis[4]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[0]/Value]
+name=
+
+[Data Sources][NT:/FMSInfo/IsRedAlliance]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[0]/Distance per Tick]
+name=
+
+[Data Sources][Joystick[0] Button[3]]
+name=
+
+[SimWindow][Mechanism 2D]
+name=
+visible=1
+enabled=1
+
+[HALProvider][Other Devices]
+name=
+visible=1
+enabled=1
+
+[HALProvider][Timing]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][/SmartDashboard/Field]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][NetworkTables]
+name=
+visible=1
+enabled=1
+
+[NTProvider][/FMSInfo]
+name=FMSInfo
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[0]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[1]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[2]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[3]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/Scheduler]
+name=Scheduler
+
+[NTProvider][/LiveWindow/Ungrouped/class frc2::SubsystemBase]
+name=Subsystem
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[0]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/ADXRS450_Gyro[0]]
+name=Gyro
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[1]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[2]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[3]]
+name=Speed Controller
+
+[NTProvider][/SmartDashboard/Field]
+name=Field2d
+
+[NTProvider][/LiveWindow/Ungrouped/DifferentialDrive[1]]
+name=DifferentialDrive
+
+[DSManager][FMS]
+name=
+visible=1
+enabled=1
+
+[DSManager][Joysticks]
+name=
+visible=1
+enabled=1
+
+[DSManager][Keyboard 0 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 1 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 2 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 3 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][System Joysticks]
+name=
+visible=1
+enabled=1
+
+[Joystick][0]
+useGamepad=1
+guid=78696e70757401000000000000000000
+
+[KeyboardJoystick][0]
+axisCount=3
+buttonCount=4
+povCount=1
+axis0incKey=68
+axis0decKey=65
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=83
+axis1decKey=87
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+axis2incKey=82
+axis2decKey=69
+axis2keyRate=0.010000
+axis2decayRate=0.000000
+axis2maxAbsValue=1.000000
+button0=90
+button1=88
+button2=67
+button3=86
+pov0key0=328
+pov0key45=329
+pov0key90=326
+pov0key135=323
+pov0key180=322
+pov0key225=321
+pov0key270=324
+pov0key315=327
+
+[KeyboardJoystick][1]
+axisCount=2
+buttonCount=4
+povCount=0
+axis0incKey=76
+axis0decKey=74
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=75
+axis1decKey=73
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+button0=77
+button1=44
+button2=46
+button3=47
+
+[KeyboardJoystick][2]
+axisCount=2
+buttonCount=6
+povCount=0
+axis0incKey=262
+axis0decKey=263
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=264
+axis1decKey=265
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+button0=260
+button1=268
+button2=266
+button3=261
+button4=269
+button5=267
+
+[KeyboardJoystick][3]
+axisCount=0
+buttonCount=0
+povCount=0
+
+[DriverStation][Main]
+disable=0
+zeroDisconnectedJoysticks=1
+enableDisableKeys=0
+estopKey=0
+
+[Mechanism2D][Mechanism2D]
+jsonLocation=
+
+=======
+[Window][Debug##Default]
+Pos=60,60
+Size=400,400
+Collapsed=0
+
+[Window][Robot State]
+Pos=5,20
+Size=126,129
+Collapsed=0
+
+[Window][###Other Devices]
+Pos=1025,20
+Size=250,695
+Collapsed=0
+
+[Window][###Timing]
+Pos=5,150
+Size=188,157
+Collapsed=0
+
+[Window][###NetworkTables]
+Pos=599,147
+Size=553,314
+Collapsed=0
+
+[Window][###FMS]
+Pos=3,631
+Size=326,211
+Collapsed=0
+
+[Window][###Joysticks]
+Pos=618,529
+Size=1156,202
+Collapsed=0
+
+[Window][###System Joysticks]
+Pos=219,122
+Size=273,290
+Collapsed=0
+
+[Window][###Mechanism 2D]
+Pos=424,18
+Size=600,600
+Collapsed=0
+
+[Window][###/SmartDashboard/Field]
+Pos=1368,117
+Size=400,262
+Collapsed=0
+
+[Window][###Keyboard 0 Settings]
+Pos=310,66
+Size=300,914
+Collapsed=0
+
+[MainWindow][GLOBAL]
+width=1280
+height=720
+maximized=1
+xpos=0
+ypos=23
+userScale=4
+style=0
+
+[GlassStorage][/SmartDashboard/Field]
+image=
+top=0
+left=0
+bottom=-1
+right=-1
+width=15.980000
+height=8.210000
+
+[GlassStorage][/SmartDashboard/Field###Robot]
+image=
+width=0.685800
+length=0.820400
+style=0
+weight=4.000000
+color=-16776961
+arrows=1
+arrowSize=50
+arrowWeight=4.000000
+arrowColor=-16711936
+selectable=1
+
+[GlassStorage][NetworkTables]
+tree=1
+connections=0
+flags=0
+timestamp=0
+createNonCanonical=0
+
+[GlassStorage][NetworkTables###FMSInfo]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow]
+open=1
+
+[GlassStorage][NetworkTables###LiveWindow###.status]
+open=1
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped]
+open=1
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###ADXRS450_Gyro[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DifferentialDrive[1]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[1]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[2]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###DigitalInput[3]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###Encoder[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###Encoder[2]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[0]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[1]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[2]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###PWMSparkMax[3]]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###Scheduler]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow###Ungrouped###class frc2::SubsystemBase]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard]
+open=1
+
+[GlassStorage][NetworkTables###SmartDashboard###Field]
+open=1
+
+[GlassStorage][Other Devices###ADXRS450[0]]
+name=
+name###open=1
+
+[Data Sources][Joystick[0] Button[7]]
+name=
+
+[Data Sources][NT:/FMSInfo/FMSControlData]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[3]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[3]/.actuator]
+name=
+
+[Data Sources][NT:/LiveWindow/.status/LW Enabled]
+name=
+
+[Data Sources][Joystick[0] Axis[1]]
+name=
+
+[Data Sources][NT:/FMSInfo/StationNumber]
+name=
+
+[Data Sources][Y Accel[0]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/.actuator]
+name=
+
+[Data Sources][Joystick[0] Axis[5]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[3]/Value]
+name=
+
+[Data Sources][FMS:MatchTime]
+name=
+
+[Data Sources][Joystick[0] Button[4]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/class frc2::SubsystemBase/.hasCommand]
+name=
+
+[Data Sources][Joystick[0] Button[8]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/Right Motor Speed]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[2]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[2]/.actuator]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[0]/Speed]
+name=
+
+[Data Sources][Joystick[0] POV[0]]
+name=
+
+[Data Sources][Joystick[0] Axis[2]]
+name=
+
+[Data Sources][Z Accel[0]]
+name=
+
+[Data Sources][NT:/FMSInfo/MatchType]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[2]/Value]
+name=
+
+[Data Sources][Joystick[0] Button[1]]
+name=
+
+[Data Sources][FMS:AutonomousMode]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[2]/Distance per Tick]
+name=
+
+[Data Sources][Joystick[0] Button[5]]
+name=
+
+[Data Sources][NT:/FMSInfo/MatchNumber]
+name=
+
+[Data Sources][FMS:FMSAttached]
+name=
+
+[Data Sources][Joystick[0] Button[9]]
+name=
+
+[Data Sources][FMS:AllianceStationID]
+name=
+
+[Data Sources][Gyro:ADXRS450[0]-angle_x]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[0]/Distance]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[1]/Value]
+name=
+
+[Data Sources][Gyro:ADXRS450[0]-rate_x]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[1]/.actuator]
+name=
+
+[Data Sources][FMS:RobotEnabled]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[2]/Distance]
+name=
+
+[Data Sources][FMS:DSAttached]
+name=
+
+[Data Sources][Joystick[0] Axis[3]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[1]/Value]
+name=
+
+[Data Sources][Joystick[0] Button[2]]
+name=
+
+[Data Sources][NT:/FMSInfo/ReplayNumber]
+name=
+
+[Data Sources][Joystick[0] Button[6]]
+name=
+
+[Data Sources][FMS:TestMode]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/class frc2::SubsystemBase/.hasDefault]
+name=
+
+[Data Sources][FMS:EStop]
+name=
+
+[Data Sources][NT:/SmartDashboard/Field/.controllable]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[0]/.actuator]
+name=
+
+[Data Sources][Joystick[0] Button[10]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DigitalInput[0]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[2]/Speed]
+name=
+
+[Data Sources][Joystick[0] Axis[0]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/Left Motor Speed]
+name=
+
+[Data Sources][X Accel[0]]
+name=
+
+[Data Sources][Joystick[0] Axis[4]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[0]/Value]
+name=
+
+[Data Sources][NT:/FMSInfo/IsRedAlliance]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Encoder[0]/Distance per Tick]
+name=
+
+[Data Sources][Joystick[0] Button[3]]
+name=
+
+[SimWindow][Mechanism 2D]
+name=
+visible=1
+enabled=1
+
+[HALProvider][Other Devices]
+name=
+visible=1
+enabled=1
+
+[HALProvider][Timing]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][/SmartDashboard/Field]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][NetworkTables]
+name=
+visible=1
+enabled=1
+
+[NTProvider][/FMSInfo]
+name=FMSInfo
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[0]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[1]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[2]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/DigitalInput[3]]
+name=Digital Input
+
+[NTProvider][/LiveWindow/Ungrouped/Scheduler]
+name=Scheduler
+
+[NTProvider][/LiveWindow/Ungrouped/class frc2::SubsystemBase]
+name=Subsystem
+
+[NTProvider][/LiveWindow/Ungrouped/ADXRS450_Gyro[0]]
+name=Gyro
+
+[NTProvider][/SmartDashboard/Field]
+name=Field2d
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[1]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[2]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[3]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[0]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/DifferentialDrive[1]]
+name=DifferentialDrive
+
+[DSManager][FMS]
+name=
+visible=1
+enabled=1
+
+[DSManager][Joysticks]
+name=
+visible=1
+enabled=1
+
+[DSManager][Keyboard 0 Settings]
+name=
+visible=1
+enabled=1
+
+[DSManager][Keyboard 1 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 2 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 3 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][System Joysticks]
+name=
+visible=1
+enabled=1
+
+[Joystick][0]
+useGamepad=0
+guid=Keyboard0
+
+[KeyboardJoystick][0]
+axisCount=3
+buttonCount=8
+povCount=1
+axis0incKey=68
+axis0decKey=65
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=83
+axis1decKey=87
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+axis2incKey=82
+axis2decKey=69
+axis2keyRate=0.010000
+axis2decayRate=0.000000
+axis2maxAbsValue=1.000000
+button0=49
+button1=50
+button2=51
+button3=52
+button4=53
+button5=54
+button6=55
+button7=56
+pov0key0=328
+pov0key45=329
+pov0key90=326
+pov0key135=323
+pov0key180=322
+pov0key225=321
+pov0key270=324
+pov0key315=327
+
+[KeyboardJoystick][1]
+axisCount=2
+buttonCount=4
+povCount=0
+axis0incKey=76
+axis0decKey=74
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=75
+axis1decKey=73
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+button0=77
+button1=44
+button2=46
+button3=47
+
+[KeyboardJoystick][2]
+axisCount=2
+buttonCount=6
+povCount=0
+axis0incKey=262
+axis0decKey=263
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=264
+axis1decKey=265
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+button0=260
+button1=268
+button2=266
+button3=261
+button4=269
+button5=267
+
+[KeyboardJoystick][3]
+axisCount=0
+buttonCount=0
+povCount=0
+
+[DriverStation][Main]
+disable=0
+zeroDisconnectedJoysticks=1
+enableDisableKeys=0
+estopKey=0
+
+[Mechanism2D][Mechanism2D]
+jsonLocation=
+
+>>>>>>> 9b365cf40171986cd3734f127911846aae8cf4d0
