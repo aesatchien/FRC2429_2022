@@ -6,6 +6,8 @@ import commands2
 
 from robotcontainer import RobotContainer
 
+import warnings
+warnings.filterwarnings(action='ignore', message='.*Button.*')
 
 class MyRobot(commands2.TimedCommandRobot):
     """
