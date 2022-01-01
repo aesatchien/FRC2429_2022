@@ -1,3 +1,4 @@
+import time
 import wpilib
 from wpilib.interfaces import GenericHID
 
@@ -28,6 +29,7 @@ class RobotContainer:
 
     def __init__(self) -> None:
 
+        self.start_time = time.time()
         # The driver's controller
         # self.driverController = wpilib.XboxController(constants.kDriverControllerPort)
         self.driverController = wpilib.Joystick(constants.kDriverControllerPort)
@@ -68,6 +70,12 @@ class RobotContainer:
             )
         )
 
+    def set_start_time(self):  # call in teleopInit and autonomousInit in the robot
+        self.start_time = time.time()
+
+    def get_start_time(self):  # call when we want to know the start/elapsed time for status and debug messages
+        return self.start_time
+
     def configureButtonBindings(self):
         """
         Use this method to define your button->command mappings. Buttons can be created by
@@ -80,7 +88,7 @@ class RobotContainer:
         commands2.button.JoystickButton(self.driverController, 2).whenPressed(ReleaseHatch(self.hatch))
 
         # set RB to half speed
-        commands2.button.JoystickButton(self.driverController, 6).whenHeld(HalveDriveSpeed(self.drive))
+        commands2.button.JoystickButton(self.driverController, 6).whenHeld(HalveDriveSpeed(self, self.drive))
 
         # adding some elevator control commands
         commands2.button.JoystickButton(self.driverController, 3).whenPressed(lambda: self.elevator.raise_elevator(0.99)).whenReleased(lambda: self.elevator.raise_elevator(0))
