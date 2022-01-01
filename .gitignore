@@ -4,6 +4,9 @@
 /robot/sim/data/*.pkl
 /robot/imgui.ini
 
+# too many ini files for the gui
+*.ini
+
 #pycharm directory
 .idea/
 #jupyter stuff
