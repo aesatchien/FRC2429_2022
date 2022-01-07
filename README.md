@@ -9,7 +9,7 @@ Clone the git and install on your own machine:
 Use "git clone https://github.com/aesatchien/FRC2429_2022.git" from the git bash (or any git aware) shell to download.  If you don't have git and you just want to look at the code, you can download the repository from the links on the right.
 
 Notes on how to install python and the necessary accessories (particularly the robotpy libraries) that will get all of this running:
-https://docs.google.com/document/d/1W679sj9CLOkiDFmzm6XB7qWhNopZQdBrFIUEkC-TWZM/edit?usp=sharing but may be a bit cryptic.  I'll help if you need it.
+https://docs.google.com/document/d/1oS4aMhn9Rf_kpubbQ_JGEtOcRR36LoU-QbJQERZtyIU/edit#heading=h.665ussze99ev but may be a bit cryptic.  I'll help if you need it.
 
 Once everything is installed, you need to go to the folder with robot.py.  From there, commands like
 
