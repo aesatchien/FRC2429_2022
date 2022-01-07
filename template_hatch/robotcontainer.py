@@ -83,16 +83,26 @@ class RobotContainer:
         and then passing it to a JoystickButton.
         """
 
-        commands2.button.JoystickButton(self.driverController, 1).whenPressed(GrabHatch(self.hatch))
+        button_A = commands2.button.JoystickButton(self.driverController, 1)
+        button_B = commands2.button.JoystickButton(self.driverController, 2)
+        button_X = commands2.button.JoystickButton(self.driverController, 3)
+        button_Y = commands2.button.JoystickButton(self.driverController, 4)
+        button_RB = commands2.button.JoystickButton(self.driverController, 6)
+        button_start = commands2.button.JoystickButton(self.driverController, 8)
 
-        commands2.button.JoystickButton(self.driverController, 2).whenPressed(ReleaseHatch(self.hatch))
+        button_A.whenPressed(GrabHatch(self.hatch))
+        button_B.whenPressed(ReleaseHatch(self.hatch))
 
         # set RB to half speed
-        commands2.button.JoystickButton(self.driverController, 6).whenHeld(HalveDriveSpeed(self, self.drive))
+        button_RB.whenHeld(HalveDriveSpeed(self, self.drive))
 
         # adding some elevator control commands
-        commands2.button.JoystickButton(self.driverController, 3).whenPressed(lambda: self.elevator.raise_elevator(0.99)).whenReleased(lambda: self.elevator.raise_elevator(0))
-        commands2.button.JoystickButton(self.driverController, 4).whenPressed(lambda: self.elevator.start_controller(50)).whenReleased(lambda: self.elevator.stop_controller())
+        button_X.whenPressed(lambda: self.elevator.raise_elevator(0.99)).whenReleased(lambda: self.elevator.raise_elevator(0))
+        button_Y.whenPressed(lambda: self.elevator.start_controller(50)).whenReleased(lambda: self.elevator.stop_controller())
+
+        # adding a compressor toggle lambda
+        button_start = button_start.whenPressed(lambda: self.hatch.toggle_compressor_control())
+
 
     def getAutonomousCommand(self) -> commands2.Command:
         return self.chooser.getSelected()

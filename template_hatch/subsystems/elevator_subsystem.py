@@ -16,9 +16,9 @@ class ElevatorSubsystem(commands2.SubsystemBase):
         self.kp = 0.5
         self.ki = 0
         self.kd = 0
-        wpilib.SmartDashboard.putNumber('elevator_kp', round(self.kp, 2))
-        wpilib.SmartDashboard.putNumber('elevator_ki', round(self.ki, 2))
-        wpilib.SmartDashboard.putNumber('elevator_kd', round(self.kd, 2))
+        wpilib.SmartDashboard.putNumber('elevator/elevator_kp', round(self.kp, 2))
+        wpilib.SmartDashboard.putNumber('elevator/elevator_ki', round(self.ki, 2))
+        wpilib.SmartDashboard.putNumber('elevator/elevator_kd', round(self.kd, 2))
         self.controller = wpilib.controller.PIDController(Kp=self.kp, Ki=self.ki, Kd=self.kd)
         self.controlled = False
 
@@ -37,9 +37,9 @@ class ElevatorSubsystem(commands2.SubsystemBase):
 
     def start_controller(self, setpoint) -> None:
         """Sets the control to true"""
-        self.kp = wpilib.SmartDashboard.getNumber('elevator_kp', 0)
-        self.ki = wpilib.SmartDashboard.getNumber('elevator_ki', 0)
-        self.kd = wpilib.SmartDashboard.getNumber('elevator_kd', 0)
+        self.kp = wpilib.SmartDashboard.getNumber('elevator/elevator_kp', 0)
+        self.ki = wpilib.SmartDashboard.getNumber('elevator/elevator_ki', 0)
+        self.kd = wpilib.SmartDashboard.getNumber('elevator/elevator_kd', 0)
         print(f'kp: {self.kp}, ki: {self.ki}, kd: {self.kd}')
         self.controller = wpilib.controller.PIDController(Kp=self.kp, Ki=self.ki, Kd=self.kd)
         self.controller.setSetpoint(setpoint)
@@ -59,4 +59,4 @@ class ElevatorSubsystem(commands2.SubsystemBase):
             pid_output = self.controller.calculate(self.encoder.getDistance())
             self.motor.set(pid_output)
 
-        wpilib.SmartDashboard.putNumber('elevator', round(self.encoder.getDistance(), 2))
+        wpilib.SmartDashboard.putNumber('elevator/encoder', round(self.encoder.getDistance(), 2))

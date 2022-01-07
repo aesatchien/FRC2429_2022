@@ -126,9 +126,9 @@ class PhysicsEngine:
             self.physics_controller.field.setRobotPose(self.drivesim.getPose())
             SmartDashboard.putNumber('dx', round(dx, 2))
 
-        SmartDashboard.putNumber('field_x', round(self.x, 2))
-        SmartDashboard.putNumber('field_y', round(self.y, 2))
-        SmartDashboard.putNumber('field_rot', round(self.rot.degrees(), 2))
+        SmartDashboard.putNumber('sim/field_x', round(self.x, 2))
+        SmartDashboard.putNumber('sim/field_y', round(self.y, 2))
+        SmartDashboard.putNumber('sim/field_rot', round(self.rot.degrees(), 2))
 
         # physics for an elevator
         # update 'position' (use tm_diff so the rate is constant) - this is for simulating an elevator, arm etc w/ limit switches
