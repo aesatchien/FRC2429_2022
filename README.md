@@ -20,9 +20,15 @@ should bring up the simulator and allow you to check to see if your gamepad is r
 ---
 #### Organization:
 * notebooks - folder with jupyter notebooks for analyzing telemetry from the robot (and the simulated robot)
-* robot - folder with standard robotpy components: robot.py, physics.py etc
+* robot - folder with standard robotpy components: robot.py, physics.py etc for the 2022 bot
   * subsystems, commands, triggers - more classes for the robot
   * sim - folder containing images for the playing field and telemetry data exported from the robot
   * pathweaver - project folder for the trajectories (slalom, barrel, bounce) at 0.75 and 1.25 m/s- still optimizing these but slalom is quite good
   * guis - backups for the imgui.ini for the simulation interface
-  
+ * templates - robot code for students to practice w/o fear of breaking the main robot (mainly from the robotpy examples)
+   * template_auto - a place to try autonomous homework and sim it
+   * template_hatch - a pre-built simple bot with a pneumatics subsystem
+   * template_ramsete - pre-built robot that can follow a ramsete (trajectory) command
+   * template_romi - pre-built that lets you run the romi remotely just using the sim 
+     * no driver station needed! just use your laptop and connect to the romi's 2429_RedRomi network
+     * run `python robot.py sim --ws-client` to use it
