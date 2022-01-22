@@ -31,6 +31,8 @@ class Drivetrain(SubsystemBase):
         self.spark_neo_right_rear = rev.CANSparkMax(constants.k_right_motor2_port, motor_type)
         self.controllers = [self.spark_neo_left_front, self.spark_neo_left_rear,
                             self.spark_neo_right_front, self.spark_neo_right_rear]
+        [controller.setInverted(True) for controller in self.controllers]
+
 
         # add two dummy PWMs so we can track the SparkMax in the sim (updated in periodic)
         self.dummy_motor_left = PWMSparkMax(1)

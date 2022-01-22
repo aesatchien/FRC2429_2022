@@ -20,7 +20,7 @@ class AutonomousDistance(commands2.SequentialCommandGroup):
 
         self.addCommands(
             DriveDistance(-0.5, 10, drive),
-            TurnDegrees(-0.5, 180, drive),
+            TurnDegrees(0.25, 180, drive),
             DriveDistance(-0.5, 10, drive),
-            TurnDegrees(0.5, 180, drive),
+            TurnDegrees(0.25, 180, drive),
         )

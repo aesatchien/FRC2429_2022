@@ -43,7 +43,7 @@ class RobotContainer:
         self.robot_drive.setDefaultCommand(
             RunCommand(
                 lambda: self.robot_drive.arcade_drive(-self.driver_controller.getRawAxis(constants.k_controller_thrust_axis),
-                                                      self.driver_controller.getRawAxis(constants.k_controller_twist_axis) * 0.65, ),
+                                                      self.driver_controller.getRawAxis(constants.k_controller_twist_axis) * 0.45, ),
                 self.robot_drive,)
         )
 

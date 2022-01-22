@@ -27,6 +27,7 @@ class DriveDistance(commands2.CommandBase):
         """Called when the command is initially scheduled."""
         self.drive.arcadeDrive(0, 0)
         self.drive.resetEncoders()
+        print(f'Driving {self.distance}...')
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""

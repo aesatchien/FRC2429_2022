@@ -29,6 +29,8 @@ class TurnDegrees(commands2.CommandBase):
         # Set motors to stop, read encoder values for starting point
         self.drive.arcadeDrive(0, 0)
         self.drive.resetEncoders()
+        self.drive.resetGyro() # CJH
+        print(f'Turning {self.degrees}...')
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
@@ -48,7 +50,12 @@ class TurnDegrees(commands2.CommandBase):
         inchPerDegree = math.pi * 5.551 / 360.0
 
         # Compare distance travelled from start to distance based on degree turn
-        return self._getAverageTurningDistance() >= inchPerDegree * self.degrees
+        # return self._getAverageTurningDistance() >= inchPerDegree * self.degrees
+        if self.degrees > 0:
+            return self.drive.getGyroAngleZ() >= self.degrees  # CJH
+        else:
+            return self.drive.getGyroAngleZ() <= self.degrees  # CJH
+
 
     def _getAverageTurningDistance(self) -> float:
         leftDistance = abs(self.drive.getLeftDistanceInch())
