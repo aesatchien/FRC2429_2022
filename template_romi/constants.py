@@ -21,21 +21,13 @@ kWheelDiameterInches = 6
 # Assumes the encoders are directly mounted on the wheel shafts
 kEncoderDistancePerPulse = (kWheelDiameterInches * math.pi) / kEncoderCPR
 
-# Hatch
-kHatchSolenoidModule = 0
-kHatchSolenoidPorts = (0, 1)
 
-# Autonomous
-kAutoDriveDistanceInches = 60
-kAutoBackupDistanceInches = 20
-kAutoDriveSpeed = 0.5
-
-# Operator Interface
-kDriverControllerPort = 0
-
-# Physical parameters
+# Physical parameters  - in meters on the romi?
+ksVolts = 0.929
+kvVoltSecondsPerInch = 6.33
+kaVoltSecondsSquaredPerInch = 0.1 # 0.0175
 kDriveTrainMotorCount = 2
-kTrackWidth = 0.381 * 2
+kTrackWidth = 0.14
 kGearingRatio = 8
 kWheelRadius = 0.0508
 

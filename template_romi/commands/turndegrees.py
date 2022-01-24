@@ -3,6 +3,7 @@
 # the WPILib BSD license file in the root directory of this project.
 
 import math
+from wpilib import Timer
 import commands2
 
 from subsystems.drivetrain import Drivetrain
@@ -28,9 +29,14 @@ class TurnDegrees(commands2.CommandBase):
         """Called when the command is initially scheduled."""
         # Set motors to stop, read encoder values for starting point
         self.drive.arcadeDrive(0, 0)
-        self.drive.resetEncoders()
-        self.drive.resetGyro() # CJH
-        print(f'Turning {self.degrees}...')
+        #self.drive.resetEncoders()
+        #self.drive.resetGyro() # CJH
+        self.start_dist = self._getAverageTurningDistance()
+
+        # let's have a decent message telling us what we're doing
+        self.start_time = Timer.getFPGATimestamp()
+        print("\n" + f"** Started {self.__class__.__name__} turning {self.degrees}deg at {self.start_time:.1f} s **", flush=True)
+
 
     def execute(self) -> None:
         """Called every time the scheduler runs while the command is scheduled."""
@@ -38,6 +44,10 @@ class TurnDegrees(commands2.CommandBase):
 
     def end(self, interrupted: bool) -> None:
         """Called once the command ends or is interrupted."""
+        end_time = Timer.getFPGATimestamp()
+        message = 'Interrupted' if interrupted else 'Ended'
+        print(f"** {message} {self.__class__.__name__} - turned ? after {end_time - self.start_time:.1f} s **", flush=True)
+
         self.drive.arcadeDrive(0, 0)
 
     def isFinished(self) -> bool:
@@ -50,11 +60,11 @@ class TurnDegrees(commands2.CommandBase):
         inchPerDegree = math.pi * 5.551 / 360.0
 
         # Compare distance travelled from start to distance based on degree turn
-        # return self._getAverageTurningDistance() >= inchPerDegree * self.degrees
-        if self.degrees > 0:
-            return self.drive.getGyroAngleZ() >= self.degrees  # CJH
-        else:
-            return self.drive.getGyroAngleZ() <= self.degrees  # CJH
+        return self._getAverageTurningDistance() - self.start_dist >= inchPerDegree * self.degrees
+        #if self.degrees > 0:
+        #    return self.drive.getGyroAngleZ() >= self.degrees  # CJH
+        #else:
+        #    return self.drive.getGyroAngleZ() <= self.degrees  # CJH
 
 
     def _getAverageTurningDistance(self) -> float:
