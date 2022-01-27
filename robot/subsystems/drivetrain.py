@@ -73,6 +73,10 @@ class Drivetrain(SubsystemBase):
         # Reset the encoders upon the initialization of the robot
         self.reset_encoders()
 
+        # set us on the board where we want to be in simulation
+        if constants.k_is_simulation:
+            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y,0))
+
     # ----------------- SIMULATION AND TELEMETRY METHODS -----------------------
     def get_pose(self):  # used in ramsete and in this subsystem's updates
         """Returns the current position of the robot using its odometry."""
