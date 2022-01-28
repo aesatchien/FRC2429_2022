@@ -14,6 +14,9 @@ import wpilib.controller
 k_driver_controller_port = 0
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
+# controller axis scales
+k_thrust_scale = 0.8
+k_twist_scale = 0.6
 
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers
