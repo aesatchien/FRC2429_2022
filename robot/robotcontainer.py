@@ -11,6 +11,7 @@ from wpimath.geometry import Pose2d, Rotation2d, Translation2d
 
 from subsystems.drivetrain import Drivetrain
 from commands.autonomous_ramsete import AutonomousRamsete
+from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 
 import constants
 import trajectory_io
@@ -79,6 +80,7 @@ class RobotContainer:
         #self.axisButtonRT = AxisButton(self.driver_controller, 3)
 
         self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
+        self.buttonB.whenPressed(AutoRamseteWpilib(container=self))
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         (

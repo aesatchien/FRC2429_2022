@@ -4,7 +4,6 @@ This command recreates an commands2 ramsete command from the individual pieces s
 
 """
 
-import time
 from datetime import datetime
 import pickle
 from pathlib import Path
