@@ -37,12 +37,12 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def autonomousInit(self) -> None:
         """This autonomous runs the autonomous command selected by your RobotContainer class."""
-        self.autonomousCommand = self.container.getAutonomousCommand()
 
+        self.container.set_start_time()  # putting this after the scheduler is bad
+
+        self.autonomousCommand = self.container.get_autonomous_command()
         if self.autonomousCommand:
             self.autonomousCommand.schedule()
-
-        self.container.set_start_time()
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
@@ -52,10 +52,11 @@ class MyRobot(commands2.TimedCommandRobot):
         # teleop starts running. If you want the autonomous to
         # continue until interrupted by another command, remove
         # this line or comment it out.
+
+        self.container.set_start_time()  # putting this after the scheduler is bad
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
-        self.container.set_start_time()
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""

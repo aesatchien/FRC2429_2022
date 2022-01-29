@@ -1,17 +1,22 @@
+"""
+Updated 2022 0127 CJH
+This command recreates an commands2 ramsete command from the individual pieces so we can get more trajectory data
+
+"""
+
 import time
 from datetime import datetime
 import pickle
 from pathlib import Path
 
 import commands2
-from wpilib import SmartDashboard
-import wpilib.controller
+from wpilib import SmartDashboard, controller
 import wpimath.kinematics
 import wpimath.geometry as geo
 
 from subsystems.drivetrain import Drivetrain
-import constants
-import trajectory_io
+import constants  # 2429's drive constants
+import trajectory_io  # helper file for generating trajectories from our list of paths
 
 
 class AutonomousRamsete(commands2.CommandBase):
@@ -32,11 +37,12 @@ class AutonomousRamsete(commands2.CommandBase):
         SmartDashboard.putBoolean("/ramsete/ramsete_write", write_telemetry)
 
 
-    def __init__(self, container, drive: Drivetrain) -> None:
+    def __init__(self, container, drive: Drivetrain, relative=True) -> None:
         super().__init__()
         self.setName('autonomous_ramsete')
         self.drive = drive
         self.container = container
+        self.relative = True  # used to see if we will use absolute paths or relative ones
         self.addRequirements(drive)  # commandsv2 version of requirements
         #self.withTimeout(10)
 
@@ -57,7 +63,7 @@ class AutonomousRamsete(commands2.CommandBase):
         self.previous_time = -1
         self.telemetry = []
 
-        self.container.robot_drive.drive.feed() # this initialization is taking some time now
+        self.container.robot_drive.drive.feed()  # this initialization is taking some time now
         # update gains from dash if desired
         if self.dash is True:
             self.kp_vel = SmartDashboard.getNumber("/ramsete/ramsete_kpvel", self.kp_vel)
@@ -66,16 +72,16 @@ class AutonomousRamsete(commands2.CommandBase):
             self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
 
         # create controllers
-        self.follower = wpilib.controller.RamseteController(self.beta, self.zeta)
-        self.left_controller = wpilib.controller.PIDController(self.kp_vel, 0, self.kd_vel)
-        self.right_controller = wpilib.controller.PIDController(self.kp_vel, 0, self.kd_vel)
+        self.follower = controller.RamseteController(self.beta, self.zeta)
+        self.left_controller = controller.PIDController(self.kp_vel, 0, self.kd_vel)
+        self.right_controller = controller.PIDController(self.kp_vel, 0, self.kd_vel)
         self.left_controller.reset()
         self.right_controller.reset()
 
         trajectory_choice = self.container.path_chooser.getSelected()  # get path from the GUI
         self.velocity = float(self.container.velocity_chooser.getSelected())  # get the velocity from the GUI
         if 'z_' not in trajectory_choice:  # let me try a few of the other methods if the path starts with z_
-            self.trajectory = trajectory_io.generate_trajectory(trajectory_choice, self.velocity, save=True)
+            self.trajectory = trajectory_io.generate_trajectory(trajectory_choice, self.velocity, display=False, save=False)
             self.course = trajectory_choice
             if not constants.k_is_simulation:
                 self.start_pose = geo.Pose2d(self.trajectory.sample(0).pose.X(), self.trajectory.sample(0).pose.Y(),
@@ -85,6 +91,15 @@ class AutonomousRamsete(commands2.CommandBase):
                 field_x = SmartDashboard.getNumber('/sim/field_x', self.trajectory.sample(0).pose.X())
                 field_y = SmartDashboard.getNumber('/sim/field_y', self.trajectory.sample(0).pose.Y())
                 self.start_pose = geo.Pose2d(field_x, field_y, self.container.robot_drive.get_rotation2d())
+        else:  # a few more options for debugging paths
+            pass
+
+        if self.relative:  # clean way to take a trajectory and shift it to new start location and orientation
+            # more than one way to update the trajectory - reset the drive odometer to initial pose
+            # or use the current odometry reading as the beginning of the trajectory
+            transform = geo.Transform2d(self.trajectory.initialPose(), self.drive.get_pose())
+            self.trajectory = self.trajectory.transformBy(transform)
+
         self.container.robot_drive.drive.feed()  # this initialization is taking some time now
 
         #self.container.robot_drive.reset_odometry(self.start_pose)
@@ -96,6 +111,7 @@ class AutonomousRamsete(commands2.CommandBase):
         self.start_time = self.container.get_enabled_time()
         print("\n" + f"** Started {self.__class__.__name__} / {self.getName()} on {self.course} with load time {1000*(self.start_time-self.init_time):2.2f}ms"
                      f" (b={self.beta}, z={self.zeta}, kp_vel={self.kp_vel}) at {self.start_time:.1f} s **")
+        print(f'Attempting to run trajectory from {self.trajectory.initialPose()} to {self.trajectory.states()[-1].pose}')
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time:.1f} s **")
 
         print('Time\tTr Vel\tTr Rot\tlspd\trspd\tram ang\tram vx\tram vy\tlffw\trffw\tlpid\trpid')
@@ -172,8 +188,8 @@ class AutonomousRamsete(commands2.CommandBase):
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()
         message = 'Interrupted' if interrupted else 'Ended'
-        print(f"** {message} {self.getName()} at {end_time:.11f} s after {end_time - self.start_time:.1f} s **")
-        SmartDashboard.putString("alert", f"** {message} {self.getName()} at {end_time} s after {round(end_time - self.start_time, 1)} s **")
+        print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
+        SmartDashboard.putString(f"alert", f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
 
         # self.container.robot_drive.tank_drive_volts(0, 0)
 

@@ -15,6 +15,7 @@ class Drivetrain(commands2.SubsystemBase):
 
     kCountsPerRevolution = 1440.0
     kWheelDiameterInch = 2.75591
+    kWheelDiameterMeter = 2.75591 / 39.4
 
     def __init__(self) -> None:
         super().__init__()

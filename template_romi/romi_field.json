@@ -1,0 +1,10 @@
+{
+    "game": "Romi Test",
+    "field-image": "romi_field.png",
+    "field-corners": {
+      "top-left": [50, 50],
+      "bottom-right": [750, 370]
+    },
+    "field-size": [60, 30],
+    "field-unit": "feet"
+  }

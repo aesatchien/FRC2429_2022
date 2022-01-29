@@ -31,10 +31,12 @@ class Drivetrain(SubsystemBase):
         self.spark_neo_right_rear = rev.CANSparkMax(constants.k_right_motor2_port, motor_type)
         self.controllers = [self.spark_neo_left_front, self.spark_neo_left_rear,
                             self.spark_neo_right_front, self.spark_neo_right_rear]
+
+        # 2022 bot w/ 2021 robotpy: shifter gearboxes are CCW when motors are CW.  So we invert all four.
+        # However, on 2022 wpilib, the right side of differential drive will no longer be inverted by default
         [controller.setInverted(True) for controller in self.controllers]
 
-
-        # add two dummy PWMs so we can track the SparkMax in the sim (updated in periodic)
+        # add two dummy PWMs so we can track the SparkMax in the sim (should be updated in sim periodic)
         self.dummy_motor_left = PWMSparkMax(1)
         self.dummy_motor_right = PWMSparkMax(3)
 
@@ -71,17 +73,21 @@ class Drivetrain(SubsystemBase):
         # Reset the encoders upon the initialization of the robot
         self.reset_encoders()
 
+        # set us on the board where we want to be in simulation
+        if constants.k_is_simulation:
+            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y,0))
+
     # ----------------- SIMULATION AND TELEMETRY METHODS -----------------------
-    def get_pose(self):
+    def get_pose(self):  # used in ramsete and in this subsystem's updates
         """Returns the current position of the robot using its odometry."""
         return self.odometry.getPose()
 
-    def get_wheel_speeds(self):
+    def get_wheel_speeds(self):  # used in ramsete
         """Return an object which represents the wheel speeds of our drivetrain."""
         speeds = DifferentialDriveWheelSpeeds(self.left_encoder.getVelocity(), self.right_encoder.getVelocity())
         return speeds
 
-    def reset_odometry(self, pose):
+    def reset_odometry(self, pose):  # used in ramsete
         """ Resets the robot's odometry to a given position."""
         self.reset_encoders()
         self.odometry.resetPosition(pose, self.navx.getRotation2d())
@@ -89,6 +95,8 @@ class Drivetrain(SubsystemBase):
     def arcade_drive(self, fwd, rot):
         """Drive the robot with standard arcade controls."""
         self.drive.arcadeDrive(fwd, rot)
+
+        # need to update the simulated PWMs here
         self.dummy_motor_left.set(self.spark_neo_left_front.get())
         self.dummy_motor_right.set(self.spark_neo_right_front.get())
 
@@ -100,6 +108,7 @@ class Drivetrain(SubsystemBase):
         #  because its motors need to spin in the negative direction to move forward
         self.right_motors.setVoltage(right_volts)
 
+        # need to update the simulated PWMs here
         self.dummy_motor_left.set(left_volts/12)
         self.dummy_motor_right.set(right_volts/12)
         SmartDashboard.putNumber('/drive/left_volts', left_volts)
@@ -108,49 +117,49 @@ class Drivetrain(SubsystemBase):
         # Resets the timer for this motor's MotorSafety
         self.drive.feed()
 
-    def reset_encoders(self):
+    def reset_encoders(self):  # part of resetting odometry
         """Resets the encoders of the drivetrain."""
         self.left_encoder.setPosition(0)
         self.right_encoder.setPosition(0)
 
-    def get_average_encoder_distance(self):
+    def get_average_encoder_distance(self):  # never used
         """
         Take the sum of each encoder's traversed distance and divide it by two,
         since we have two encoder values, to find the average value of the two.
         """
         return (self.left_encoder.getPosition() + self.right_encoder.getPosition()) / 2
 
-    def get_left_encoder(self):
+    def get_left_encoder(self):  # used in ramsete
         """Returns the left encoder object."""
         return self.left_encoder
 
-    def get_right_encoder(self):
+    def get_right_encoder(self):  # used in ramsete
         """Returns the right encoder object."""
         return self.right_encoder
 
-    def set_max_output(self, max_output):
+    def set_max_output(self, max_output):  # used to scale all outputs down, used in the button lambda
         """Set the max percent output of the drivetrain, allowing for slower control."""
         self.drive.setMaxOutput(max_output)
 
-    def zero_heading(self):
+    def zero_heading(self):  # only used in reset drivetrain?
         """Zeroes the navx's heading."""
         self.navx.reset()
 
-    def get_heading(self):
+    def get_heading(self):  # never used
         """Return the current heading of the robot."""
         # return self.gyro.getRotation2d().getDegrees()
         return -self.navx.getAngle()
 
-    def get_rate(self, encoder): # spark maxes and regular encoders use different calls... annoying
+    def get_rate(self, encoder): # spark maxes and regular encoders use different calls... annoying.  used in ramsete.
         return encoder.getVelocity()
 
-    def get_average_encoder_rate(self):
+    def get_average_encoder_rate(self):  # used in ramsete
         return (self.left_encoder.getVelocity() + self.right_encoder.getVelocity())/2
 
-    def get_rotation2d(self):
+    def get_rotation2d(self):  # used in ramsete
         return geo.Rotation2d.fromDegrees(-self.navx.getAngle())
 
-    def get_turn_rate(self):
+    def get_turn_rate(self):  # never used
         """Returns the turning rate of the robot using the navx."""
         # The minus sign negates the value.
         #return -self.gyro.getRate()
@@ -185,5 +194,6 @@ class Drivetrain(SubsystemBase):
 
     def simulationPeriodic(self) -> None:
         pass
+        # do this in the functions that set the motors themselves?
         #self.dummy_motor_left.set(self.spark_neo_left_front.get())
         #self.dummy_motor_right.set(self.spark_neo_right_front.get())

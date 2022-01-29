@@ -87,7 +87,7 @@ class PhysicsEngine:
         self.edge_bounce = 0.0  # how much to force the robot to go back by when it hits the boundary
 
         # initial position
-        self.x, self.y = 2, 3
+        self.x, self.y = constants.k_start_x, constants.k_start_y
         initial_pose = geo.Pose2d(0, 0, geo.Rotation2d(0))
         self.pose = geo.Pose2d(self.x, self.y, geo.Rotation2d(0))
         initial_position_transform = geo.Transform2d(initial_pose, self.pose)

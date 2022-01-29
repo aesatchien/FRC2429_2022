@@ -17,15 +17,15 @@ def get_pathweaver_paths():  # use this to fill the drop down for file selection
 
 
 # used in ramsete command
-def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per_second, save=False) -> wpimath.trajectory:
+def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per_second, display=True, save=True) -> wpimath.trajectory:
     """
     Generate a wpilib trajectory from a pathweaver path.  Accepts regular and reversed paths.
 
     :param path_name: name of pathweaver file to be imported
     :param velocity: Maximum robot velocity for the generated trajectory
     :param save: Option to save generated trajectory to disk as 'test.json'
+    :param display: Option to print to console
     :return: generated trajectory
-
     """
 
     pathweaver_y_offfset = 4.572
@@ -52,4 +52,7 @@ def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per
             wpimath.trajectory.TrajectoryUtil.toPathweaverJson(pw_trajectory, 'pathweaver\\test.json')
     else:
         pw_trajectory = None  # do something else? generate an empty trajectory?
+        print(f'Trajectory: {p} not found', flush=True)
+    if display:
+        print(pw_trajectory.State())
     return pw_trajectory

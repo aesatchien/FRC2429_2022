@@ -21,8 +21,8 @@ class AutonomousTime(commands2.SequentialCommandGroup):
         super().__init__()
 
         self.addCommands(
-            DriveTime(-0.6, 2.0, drive),
+            DriveTime(0.6, 2.0, drive),
             TurnTime(-0.5, 1.3, drive),
-            DriveTime(-0.6, 2.0, drive),
+            DriveTime(0.6, 2.0, drive),
             TurnTime(0.5, 1.3, drive),
         )

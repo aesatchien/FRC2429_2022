@@ -39,10 +39,6 @@ k_robot_wheelbase = 18 * 0.5 * 0.0254
 # In meters, distance between wheels on each side of robot.
 k_drive_kinematics = DifferentialDriveKinematics(k_track_width_meters)
 
-# Encoder counts per revolution/rotation.
-# k_encoder_c_p_r = 1024
-# k_wheel_diameter_meters = 0.15
-
 # Configure encoders and controllers
 # should be wheel_diameter * pi / gear_ratio - and for the old double reduction gear box the gear ratio was 4.17:1.
 # With the shifter (low gear) I think it was a 12.26.  Then new 2020 WCD gearbox is 9.52, and the tuffbox is 12.75
@@ -52,9 +48,10 @@ k_gear_ratio = 4.17
 k_sparkmax_conversion_factor_meters = k_wheel_diameter_m * math.pi / k_gear_ratio  # used in drivetrain
 
 # --------------  SIMULATION  ---------------
-# NOTE: Please do NOT use these values on your robot. Rather, characterize your
-# drivetrain using the FRC Characterization tool. These are for demo purposes
-# only!
+
+k_start_x = 2
+k_start_y = 3
+
 robot_characterization = {'ks':0.446, 'kv':1.55, 'ka':0.40, 'track_width':0.73}
 ks_volts = robot_characterization['ks']  # so far this is only used in the Ramsete command, but in 2021 we used it in tank model as well
 kv_volt_seconds_per_meter = robot_characterization['kv']  # used in physics.py LinearSystemId and Ramsete
@@ -80,6 +77,7 @@ k_kp_drive_vel = 0 # 0.2  # used in Ramsete command
 k_drivetrain_motor_count = 4
 
 
+# --------------  HELPER FUNCTIONS  ---------------
 def clamp(value: float, bottom: float, top: float) -> float:
     return max(bottom, min(value, top))
 
