@@ -41,8 +41,8 @@ class RobotContainer:
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
         self.robot_drive.setDefaultCommand(
             RunCommand(
-                lambda: self.robot_drive.arcade_drive(-0.8*self.driver_controller.getRawAxis(constants.k_controller_thrust_axis),
-                                                      self.driver_controller.getRawAxis(constants.k_controller_twist_axis) * 0.6, ),
+                lambda: self.robot_drive.arcade_drive(-1*constants.k_thrust_scale*self.driver_controller.getRawAxis(constants.k_controller_thrust_axis),
+                                                      constants.k_twist_scale*self.driver_controller.getRawAxis(constants.k_controller_twist_axis), ),
                 self.robot_drive,)
         )
 
