@@ -1,13 +1,6 @@
-#
-# See the documentation for more details on how this works
-#
-# The idea here is you provide a simulation object that overrides specific
-# pieces of WPILib, and modifies motors/sensors accordingly depending on the
-# state of the simulation. An example of this would be measuring a motor
-# moving for a set period of time, and then changing a limit switch to turn
-# on after that period of time. This can help you do more complex simulations
-# of your robot code without too much extra effort.
-#
+# NOT A GOOD IDEA TO USE THIS WITH ROMI - you get conflicts -- 2022 0131 CJH
+# It'll take a lot of time to get a romi sim that plays nice with the actual romi
+
 
 import wpilib
 import wpilib.simulation

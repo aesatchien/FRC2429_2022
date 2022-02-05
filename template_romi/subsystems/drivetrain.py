@@ -7,6 +7,7 @@ import math
 import commands2
 import wpilib
 import wpilib.drive
+from wpilib import SmartDashboard
 
 from sensors.romigyro import RomiGyro
 
@@ -19,6 +20,7 @@ class Drivetrain(commands2.SubsystemBase):
 
     def __init__(self) -> None:
         super().__init__()
+        self.counter = 0
 
         # The Romi has the left and right motors set to
         # PWM channels 0 and 1 respectively
@@ -47,6 +49,15 @@ class Drivetrain(commands2.SubsystemBase):
             (math.pi * self.kWheelDiameterInch) / self.kCountsPerRevolution
         )
         self.resetEncoders()
+
+    def periodic(self) -> None:
+        self.counter += 1
+        if self.counter % 10 == 0:
+            rate = round((0.5*self.rightEncoder.getRate() + self.leftEncoder.getRate()),2)
+            distance = self.getAverageDistanceInch()
+            SmartDashboard.putNumber("/romi/velocity", rate)
+            SmartDashboard.putNumber("/romi/distance", rate)
+
 
     def arcadeDrive(self, fwd: float, rot: float) -> None:
         """
