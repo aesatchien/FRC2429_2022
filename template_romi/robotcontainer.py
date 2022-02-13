@@ -16,6 +16,7 @@ from commands.turndegrees_ffwd import TurnDegreesFFWD
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.onboardio import ChannelMode, OnBoardIO
+from subsystems.pixy import Pixy
 
 import time
 
@@ -34,6 +35,7 @@ class RobotContainer:
         # The robot's subsystems and commands are defined here...
         self.drivetrain = Drivetrain()
         self.onboardIO = OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT)
+        self.pixy = Pixy()
 
         # Assumes a gamepad plugged into channnel 0
         self.controller = wpilib.Joystick(0)

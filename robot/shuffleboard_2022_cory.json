@@ -1,0 +1,235 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "6,0": {
+            "size": [
+              6,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Autonomous Scoring Route",
+              "_title": "SmartDashboard/Autonomous Scoring Route"
+            }
+          },
+          "6,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Velocity Enc3",
+              "_title": "SmartDashboard/Velocity Enc3"
+            }
+          },
+          "9,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Velocity Enc3",
+              "_title": "Speedometer",
+              "Range/Min": -100.0,
+              "Range/Max": 100.0,
+              "Visuals/Show value": true
+            }
+          },
+          "14,3": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Velocity Enc3",
+              "_title": "SmartDashboard/Velocity Enc3",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Velocity Enc3": true
+            }
+          },
+          "13,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///FMSInfo/IsRedAlliance",
+              "_title": "FMSInfo/IsRedAlliance"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              4,
+              8
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "PDP",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+                  "_title": "PowerDistributionPanel[0]",
+                  "Visuals/Show voltage and current values": true
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[0]/Value",
+                  "_title": "DigitalInput[0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[4]/Value",
+                  "_title": "Spark[4]/Value"
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[8]",
+                  "_title": "Encoder[8]"
+                },
+                {
+                  "_type": "Mecanum Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/MecanumDrive[1]",
+                  "_title": "MecanumDrive[1]",
+                  "Visuals/Show velocity vectors": true
+                },
+                {
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+                  "_title": "Encoder[0]"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[7]/Value",
+                  "_title": "Spark[7]/Value"
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor",
+                  "_title": "navX-Sensor",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[1]/Value",
+                  "_title": "DigitalInput[1]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[8]/Value",
+                  "_title": "DigitalInput[8]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[8]/Value",
+                  "_title": "Spark[8]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[6]/Value",
+                  "_title": "Spark[6]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[9]/Value",
+                  "_title": "DigitalInput[9]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              ]
+            }
+          },
+          "4,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/peripherals",
+              "_title": "peripherals",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "8,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/ball_handler",
+              "_title": "ball_handler",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "12,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/climber",
+              "_title": "climber",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1536.0,
+    "height": 824.0
+  }
+}
