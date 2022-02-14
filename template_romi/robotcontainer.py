@@ -8,11 +8,14 @@ import commands2
 import commands2.button
 from commands2.button import JoystickButton
 import wpilib
+from wpilib import SmartDashboard
 
 from commands.arcadedrive import ArcadeDrive
 from commands.autonomous_distance import AutonomousDistance
 from commands.autonomous_time import AutonomousTime
 from commands.turndegrees_ffwd import TurnDegreesFFWD
+from commands.drivetoball import DriveToBall
+from commands.findball import FindBall
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.onboardio import ChannelMode, OnBoardIO
@@ -89,9 +92,15 @@ class RobotContainer:
         # setting up tests buttons for each button
         self.buttonA.whenPressed(TurnDegreesFFWD(speed=0.25, degrees=45, drive=self.drivetrain))
         self.buttonB.whenPressed(TurnDegreesFFWD(speed=0.5, degrees=90, drive=self.drivetrain))
-        self.buttonX.whenPressed(TurnDegreesFFWD(speed=0.25, degrees=-45, drive=self.drivetrain))
-        self.buttonY.whenPressed(TurnDegreesFFWD(speed=0.5, degrees=-180, drive=self.drivetrain))
+        # self.buttonX.whenPressed(TurnDegreesFFWD(speed=0.25, degrees=-45, drive=self.drivetrain))
+        # self.buttonY.whenPressed(TurnDegreesFFWD(speed=0.5, degrees=-180, drive=self.drivetrain))
 
+        SmartDashboard.putNumber('ball_debug/kp', 0.02)
+        SmartDashboard.putNumber('ball_debug/ki', 0.0)
+        SmartDashboard.putNumber('ball_debug/kd', 0.0)
+
+        self.buttonX.whileHeld(FindBall(speed=0.5, pixy=self.pixy, drive=self.drivetrain))
+        self.buttonY.whileHeld(DriveToBall(pixy=self.pixy, drive=self.drivetrain))
 
     def getAutonomousCommand(self) -> typing.Optional[commands2.CommandBase]:
         return self.chooser.getSelected()
@@ -101,10 +110,12 @@ class RobotContainer:
 
         :returns: the command to run in teleop
         """
+        dampen = 0.5
+
         return ArcadeDrive(
             self.drivetrain,
-            lambda: -self.controller.getRawAxis(1),
-            lambda: self.controller.getRawAxis(2),
+            lambda: dampen * -self.controller.getRawAxis(1),
+            lambda: dampen * self.controller.getRawAxis(2),
         )
 
     def get_enabled_time(self):  # call when we want to know the start/elapsed time for status and debug messages
