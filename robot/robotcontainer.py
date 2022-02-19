@@ -1,5 +1,5 @@
 import time
-from commands2 import RunCommand, RamseteCommand
+from commands2 import RunCommand, RamseteCommand, ConditionalCommand
 from commands2.button import JoystickButton, Button
 
 from wpilib import XboxController, SmartDashboard, SendableChooser
@@ -14,10 +14,12 @@ from subsystems.intake import Intake
 from subsystems.shooter import Shooter
 from subsystems.climber import Climber
 from subsystems.pneumatics import Pneumatics
+from subsystems.indexer import Indexer
 from commands.autonomous_ramsete import AutonomousRamsete
 from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.toggle_shooter import ToggleShooter
+from commands.toggle_indexer import ToggleIndexer
 
 
 import constants
@@ -45,6 +47,8 @@ class RobotContainer:
         self.robot_pneumatics = Pneumatics()
 
         self.robot_climber = Climber()
+
+        self.robot_indexer = Indexer()
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)
@@ -100,9 +104,17 @@ class RobotContainer:
         #self.buttonX.whenPressed(ToggleShooter(container=self, shooter=self.robot_shooter, rpm=1000))
         #self.buttonA.whenPressed(lambda: self.robot_shooter.set_flywheel(100))
         #self.buttonB.whenPressed(lambda: self.robot_shooter.stop_shooter())
-        self.buttonA.whenPressed(lambda: self.robot_pneumatics.climber_piston_long())
-        self.buttonB.whenPressed(lambda: self.robot_pneumatics.climber_piston_short())
+        self.is_endgame = False
+        self.buttonY.whenPressed(lambda: self.change_mode())
 
+        self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
+        self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
+        self.buttonX.whenPressed(lambda: self.robot_climber.stop_motor())
+        self.buttonY.whenPressed(lambda: self.robot_pneumatics.start_compressor())
+        self.buttonStart.whenPressed(lambda: self.robot_pneumatics.stop_compressor())
+
+        #self.buttonX.whenPressed(ConditionalCommand(ToggleShooter(self, self.robot_shooter, 500), ToggleIndexer(self, self.robot_indexer, 100), lambda: self.is_endgame))
+        
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         (
@@ -110,6 +122,9 @@ class RobotContainer:
             .whenPressed(lambda: self.robot_drive.set_max_output(0.15))
             .whenReleased(lambda: self.robot_drive.set_max_output(1))
         )
+
+    def change_mode(self):
+        self.is_endgame = True
 
     def initialize_dashboard(self):
         self.path_chooser = SendableChooser()

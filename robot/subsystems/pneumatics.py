@@ -29,7 +29,7 @@ class Pneumatics(SubsystemBase):
         self.compressor.stop()
 
     def start_compressor(self):
-        self.compressor.start()
+        self.compressor.setClosedLoopControl(True)
     
     def up_shift(self):
         self.shifter.set(True)
