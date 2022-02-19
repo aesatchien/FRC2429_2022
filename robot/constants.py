@@ -24,6 +24,26 @@ k_left_motor1_port = 1
 k_left_motor2_port = 2
 k_right_motor1_port = 3
 k_right_motor2_port = 4
+k_shifter_pneumatics_port = 3 # PCM
+
+# --------------  INTAKE  ---------------
+k_intake_motor_port = 5 # PWM
+k_intake_pneumatic_port = 2 # PCM
+
+# --------------  SHOOTER  ---------------
+k_flywheel_left_neo_port = 6 # CAN ID
+k_flywheel_right_neo_port = 5 # CAN ID
+k_flywheel_stage_one_neo_port = 7 # CAN ID
+
+# --------------  CLIMBER  ---------------
+k_climber_left_port = 6 # PWM
+k_climber_right_port = 7 # PWM
+k_climber_long_port = 0 # PCM
+k_climber_short_port = 1 # PCM
+
+# --------------  INDEXER  ---------------
+k_indexer_neo_port = 8 # CAN ID
+
 
 # ToDo: figure out which need to be reversed - these are not implemented yet
 k_left_encoder_reversed = False

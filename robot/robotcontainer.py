@@ -10,8 +10,15 @@ from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator, Trajectory
 from wpimath.geometry import Pose2d, Rotation2d, Translation2d
 
 from subsystems.drivetrain import Drivetrain
+from subsystems.intake import Intake
+from subsystems.shooter import Shooter
+from subsystems.climber import Climber
+from subsystems.pneumatics import Pneumatics
 from commands.autonomous_ramsete import AutonomousRamsete
 from commands.auto_ramsete_wpilib import AutoRamseteWpilib
+from commands.intake_motor_toggle import IntakeMotorToggle
+from commands.toggle_shooter import ToggleShooter
+
 
 import constants
 import trajectory_io
@@ -30,6 +37,14 @@ class RobotContainer:
 
         # Create an instance of the drivetrain subsystem.
         self.robot_drive = Drivetrain()
+
+        self.robot_intake = Intake()
+
+        self.robot_shooter = Shooter()
+
+        self.robot_pneumatics = Pneumatics()
+
+        self.robot_climber = Climber()
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)
@@ -79,8 +94,15 @@ class RobotContainer:
         #self.axisButtonLT = AxisButton(self.driver_controller, 2)
         #self.axisButtonRT = AxisButton(self.driver_controller, 3)
 
-        self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
-        self.buttonB.whenPressed(AutoRamseteWpilib(container=self))
+        #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
+        #self.buttonB.whenPressed(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.5))
+        #self.buttonA.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
+        #self.buttonX.whenPressed(ToggleShooter(container=self, shooter=self.robot_shooter, rpm=1000))
+        #self.buttonA.whenPressed(lambda: self.robot_shooter.set_flywheel(100))
+        #self.buttonB.whenPressed(lambda: self.robot_shooter.stop_shooter())
+        self.buttonA.whenPressed(lambda: self.robot_pneumatics.climber_piston_long())
+        self.buttonB.whenPressed(lambda: self.robot_pneumatics.climber_piston_short())
+
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         (
