@@ -17,10 +17,10 @@ class ToggleIndexer(commands2.CommandBase):
     def initialize(self) -> None:
 
         if (self.indexer_enable):
-            self.indexer.stop_shooter()
+            self.indexer.stop_motor()
             self.indexer_enable = False
         else:
-            self.indexer.set_flywheel(self.rpm)
+            self.indexer.set_velocity(self.rpm)
             self.indexer_enable = True
         
         """Called just before this Command runs the first time."""
