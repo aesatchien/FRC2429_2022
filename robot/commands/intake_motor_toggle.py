@@ -7,7 +7,7 @@ class IntakeMotorToggle(commands2.CommandBase):
 
     intake_motor_enable = False
 
-    def __init__(self, container, intake, velocity=100) -> None:
+    def __init__(self, container, intake, velocity) -> None:
         super().__init__()
         self.setName('toggle intake')
         self.intake = intake

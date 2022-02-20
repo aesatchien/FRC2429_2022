@@ -21,6 +21,7 @@ class ToggleShooter(commands2.CommandBase):
             self.shooter_enable = False
         else:
             self.shooter.set_flywheel(self.rpm)
+            #self.shooter.set_first_stage(self.rpm)
             self.shooter_enable = True
         
         """Called just before this Command runs the first time."""

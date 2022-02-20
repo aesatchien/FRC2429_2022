@@ -6,7 +6,7 @@ class ToggleIndexer(commands2.CommandBase):
 
     indexer_enable = False
 
-    def __init__(self, container, indexer, rpm = 100) -> None:
+    def __init__(self, container, indexer, rpm = 300) -> None:
         super().__init__()
         self.setName('toggle indexer')
         self.indexer = indexer
