@@ -31,8 +31,8 @@ k_intake_motor_port = 5 # PWM
 k_intake_pneumatic_port = 2 # PCM
 
 # --------------  SHOOTER  ---------------
-k_flywheel_left_neo_port = 6 # CAN ID
-k_flywheel_right_neo_port = 5 # CAN ID
+k_flywheel_left_neo_port = 8 # CAN ID
+k_flywheel_right_neo_port = 6 # CAN ID
 k_flywheel_stage_one_neo_port = 7 # CAN ID
 
 # --------------  CLIMBER  ---------------
@@ -42,7 +42,7 @@ k_climber_long_port = 0 # PCM
 k_climber_short_port = 1 # PCM
 
 # --------------  INDEXER  ---------------
-k_indexer_neo_port = 8 # CAN ID
+k_indexer_neo_port = 5 # CAN ID
 
 
 # ToDo: figure out which need to be reversed - these are not implemented yet
