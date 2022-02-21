@@ -27,7 +27,11 @@ class Drivetrain(commands2.SubsystemBase):
         self.leftMotor = wpilib.Spark(0)
         self.rightMotor = wpilib.Spark(1)
 
+<<<<<<< HEAD
         self.rightMotor.setInverted(True)
+=======
+        self.leftMotor.setInverted(True)
+>>>>>>> origin/romi_hw
 
         # The Romi has onboard encoders that are hardcoded
         # to use DIO pins 4/5 and 6/7 for the left and right
