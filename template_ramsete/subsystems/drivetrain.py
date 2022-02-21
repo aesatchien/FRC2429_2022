@@ -8,6 +8,9 @@ from wpimath.kinematics import DifferentialDriveOdometry, DifferentialDriveWheel
 
 import constants
 
+# CJH changes
+import rev
+rev.CANSparkMax
 
 class Drivetrain(SubsystemBase):
     def __init__(self):
