@@ -1,6 +1,6 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand
-from commands2.button import JoystickButton, Button
+from commands2.button import JoystickButton, Button, POVButton
 
 from wpilib import XboxController, SmartDashboard, SendableChooser
 from wpilib.controller import RamseteController, PIDController
@@ -20,6 +20,7 @@ from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.toggle_shooter import ToggleShooter
 from commands.toggle_indexer import ToggleIndexer
+from commands.toggle_compressor import ToggleCompressor
 
 import constants
 import trajectory_io
@@ -89,8 +90,13 @@ class RobotContainer:
         self.buttonRB = JoystickButton(self.driver_controller, 6)
         self.buttonBack = JoystickButton(self.driver_controller, 7)
         self.buttonStart = JoystickButton(self.driver_controller, 8)
+        self.buttonUp = POVButton(self.driver_controller, 0)
+        self.buttonDown = POVButton(self.driver_controller, 180)
+        self.buttonLeft = POVButton(self.driver_controller, 270)
+        self.buttonRight = POVButton(self.driver_controller, 90)
         #self.axisButtonLT = AxisButton(self.driver_controller, 2)
         #self.axisButtonRT = AxisButton(self.driver_controller, 3)
+        
 
         #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonB.whenPressed(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.5))
@@ -107,7 +113,14 @@ class RobotContainer:
 
         self.buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, rpm=1000))
         self.buttonY.whenPressed(lambda: self.robot_pneumatics.start_compressor())
-        self.buttonStart.whenPressed(lambda: self.robot_pneumatics.stop_compressor())
+        self.buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+        self.buttonUp.whenPressed(ToggleShooter(self, self.robot_shooter, 500))
+        self.buttonRight.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.5))
+        self.buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
+        self.buttonBack.whenPressed(lambda: self.robot_pneumatics.toggle_shifting())
+        #self.buttonLB.whenPressed(lambda: self.robot_pneumatics.climber_piston_long())
+        #self.buttonRB.whenPressed(lambda: self.robot_pneumatics.climber_piston_short())
+
 
         #self.buttonX.whenPressed(ConditionalCommand(ToggleShooter(self, self.robot_shooter, 500), ToggleIndexer(self, self.robot_indexer, 100), lambda: self.is_endgame))
         

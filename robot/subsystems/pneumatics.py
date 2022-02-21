@@ -31,6 +31,9 @@ class Pneumatics(SubsystemBase):
     def start_compressor(self):
         self.compressor.setClosedLoopControl(True)
     
+    def get_compressor(self):
+        return self.compressor.getClosedLoopControl()
+    
     def up_shift(self):
         self.shifter.set(True)
 
@@ -42,6 +45,7 @@ class Pneumatics(SubsystemBase):
 
     def toggle_climber_long(self):
         self.climber_piston_long.toggle()
+        
     def toggle_climber_short(self):
         self.climber_piston_short.toggle()
 

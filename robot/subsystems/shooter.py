@@ -48,15 +48,15 @@ class Shooter(SubsystemBase):
         return self.flywheel_left_encoder.getVelocity()
         
 
-    def periodic(self) -> None:
-        """Perform necessary periodic updates"""
+    """def periodic(self) -> None:
+        
         self.counter += 1
 
         if self.counter % 5 == 0:
 
             # ten per second updates
             
-            SmartDashboard.putNumber('shooter rpm', self.flywheel_left_encoder.getVelocity())
+            SmartDashboard.putNumber('shooter rpm', self.flywheel_left_encoder.getVelocity())"""
 
             
 

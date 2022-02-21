@@ -16,6 +16,14 @@ class ToggleShooter(commands2.CommandBase):
 
     def initialize(self) -> None:
 
+        if (self.shooter_enable):
+            self.shooter.stop_shooter()
+            self.shooter_enable = False
+        else:
+            self.shooter.set_flywheel(self.rpm)
+            #self.shooter.set_first_stage(self.rpm)
+            self.shooter_enable = True
+        
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
@@ -24,7 +32,6 @@ class ToggleShooter(commands2.CommandBase):
         if (self.shooter_enable):
             self.shooter.stop_shooter()
             self.shooter_enable = False
-            self.shooter.flywheel_left.
         else:
             self.shooter.set_flywheel(self.rpm)
             self.shooter_enable = True
