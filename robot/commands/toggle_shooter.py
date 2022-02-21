@@ -16,20 +16,22 @@ class ToggleShooter(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if (self.shooter_enable):
-            self.shooter.stop_shooter()
-            self.shooter_enable = False
-        else:
-            self.shooter.set_flywheel(self.rpm)
-            self.shooter_enable = True
-        
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
-
-
+        if (self.shooter_enable):
+            self.shooter.stop_shooter()
+            self.shooter_enable = False
+            self.shooter.flywheel_left.
+        else:
+            self.shooter.set_flywheel(self.rpm)
+            self.shooter_enable = True
+            p, i, d = self.shooter.flywheel_left_controller.getP(0), self.shooter.flywheel_left_controller.getI(0), self.shooter.flywheel_left_controller.getD(0)
+            # p_2, i_2, d_2 = self.flywheel_left_controller.getP(0), self.flywheel_left_controller.getI(0), self.flywheel_left_controller.getD(0)
+            print(f"** Using flywheel at vel {self.rpm} PID {p:.1e} {i:.1e} {d:.1e} **", flush=True)
+        
     def execute(self) -> None:
         pass
 

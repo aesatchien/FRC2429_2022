@@ -21,7 +21,6 @@ from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.toggle_shooter import ToggleShooter
 from commands.toggle_indexer import ToggleIndexer
 
-
 import constants
 import trajectory_io
 
@@ -39,15 +38,10 @@ class RobotContainer:
 
         # Create an instance of the drivetrain subsystem.
         self.robot_drive = Drivetrain()
-
         self.robot_intake = Intake()
-
         self.robot_shooter = Shooter()
-
         self.robot_pneumatics = Pneumatics()
-
         self.robot_climber = Climber()
-
         self.robot_indexer = Indexer()
 
         # Create the driver's controller.
@@ -105,11 +99,13 @@ class RobotContainer:
         #self.buttonA.whenPressed(lambda: self.robot_shooter.set_flywheel(100))
         #self.buttonB.whenPressed(lambda: self.robot_shooter.stop_shooter())
         self.is_endgame = False
-        self.buttonY.whenPressed(lambda: self.change_mode())
+        #self.buttonY.whenPressed(lambda: self.change_mode())
 
-        self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
-        self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
-        self.buttonX.whenPressed(lambda: self.robot_climber.stop_motor())
+        #self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
+        #self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
+        #self.buttonX.whenPressed(lambda: self.robot_climber.stop_motor())
+
+        self.buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, rpm=1000))
         self.buttonY.whenPressed(lambda: self.robot_pneumatics.start_compressor())
         self.buttonStart.whenPressed(lambda: self.robot_pneumatics.stop_compressor())
 

@@ -41,6 +41,7 @@ class Shooter(SubsystemBase):
     
     def stop_shooter(self):
         self.flywheel_left_controller.setReference(0, rev.ControlType.kVoltage)
+        self.flywheel_left.
         #self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
 
     def get_flywheel(self):

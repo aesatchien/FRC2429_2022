@@ -11,7 +11,7 @@ import wpilib.controller
 
 # --------------  OI  ---------------
 # ID for the driver's joystick (template)
-k_driver_controller_port = 0
+k_driver_controller_port = 1
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
 # controller axis scales
@@ -32,7 +32,7 @@ k_intake_pneumatic_port = 2 # PCM
 
 # --------------  SHOOTER  ---------------
 k_flywheel_left_neo_port = 6 # CAN ID
-k_flywheel_right_neo_port = 5 # CAN ID
+k_flywheel_right_neo_port = 8 # CAN ID
 k_flywheel_stage_one_neo_port = 7 # CAN ID
 
 # --------------  CLIMBER  ---------------
@@ -42,7 +42,7 @@ k_climber_long_port = 0 # PCM
 k_climber_short_port = 1 # PCM
 
 # --------------  INDEXER  ---------------
-k_indexer_neo_port = 8 # CAN ID
+k_indexer_neo_port = 5 # CAN ID
 
 
 # ToDo: figure out which need to be reversed - these are not implemented yet
