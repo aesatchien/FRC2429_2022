@@ -43,10 +43,10 @@ class Pneumatics(SubsystemBase):
     def toggle_shifting(self):
         self.shifter.toggle()
 
-    def toggle_climber_long(self):
+    def pp_long(self):
         self.climber_piston_long.toggle()
         
-    def toggle_climber_short(self):
+    def pp_short(self):
         self.climber_piston_short.toggle()
 
 
