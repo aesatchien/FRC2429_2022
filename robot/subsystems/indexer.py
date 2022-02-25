@@ -17,9 +17,11 @@ class Indexer(SubsystemBase):
 
         self.indexer_controller = self.indexer_neo.getPIDController()
 
+        self.indexer_neo.setInverted(True)
+
 
     def set_velocity(self, velocity):
-        self.indexer_controller.setReference(velocity, rev.ControlType.kSmartVelocity, 0)
+        self.indexer_controller.setReference(velocity, rev.ControlType.kVoltage, 0)
     
     def stop_motor(self):
         self.indexer_controller.setReference(0, rev.ControlType.kVoltage)

@@ -104,22 +104,22 @@ class RobotContainer:
         #self.buttonX.whenPressed(ToggleShooter(container=self, shooter=self.robot_shooter, rpm=1000))
         #self.buttonA.whenPressed(lambda: self.robot_shooter.set_flywheel(100))
         #self.buttonB.whenPressed(lambda: self.robot_shooter.stop_shooter())
-        self.is_endgame = False
         #self.buttonY.whenPressed(lambda: self.change_mode())
 
-        self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
-        self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
-        self.buttonX.whenPressed(lambda: self.robot_climber.stop_motor())
+        #self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
+        #self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
+        #self.buttonX.whenPressed(lambda: self.robot_climber.stop_motor())
 
         #self.buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, rpm=1000))
         #self.buttonY.whenPressed(lambda: self.robot_pneumatics.start_compressor())
         self.buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
-        self.buttonUp.whenPressed(ToggleShooter(self, self.robot_shooter, 500))
-        self.buttonRight.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.5))
+        self.buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+        self.buttonB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
         self.buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
         self.buttonBack.whenPressed(lambda: self.robot_pneumatics.toggle_shifting())
-        self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_long())
-        self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_short())
+        self.buttonX.whenPressed(ToggleIndexer(self, self.robot_indexer, 2))
+        
+
 
 
         #self.buttonX.whenPressed(ConditionalCommand(ToggleShooter(self, self.robot_shooter, 500), ToggleIndexer(self, self.robot_indexer, 100), lambda: self.is_endgame))

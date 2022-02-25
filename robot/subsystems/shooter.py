@@ -31,23 +31,25 @@ class Shooter(SubsystemBase):
         # controller
         self.flywheel_left_controller = self.flywheel_left.getPIDController()
         self.flywheel_first_stage_controller = self.flywheel_first_stage.getPIDController()
+        self.flywheel_left_controller.setP(0)
+
 
 
     def set_flywheel(self, rpm):
         self.flywheel_left_controller.setReference(rpm, rev.ControlType.kSmartVelocity, 0)
 
     def set_first_stage(self, rpm):
-        self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kSmartVelocity, 0)
+        self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kVoltage, 0)
     
     def stop_shooter(self):
         self.flywheel_left_controller.setReference(0, rev.ControlType.kVoltage)
-        #self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
+        self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
 
     def get_flywheel(self):
         return self.flywheel_left_encoder.getVelocity()
         
 
-    """def periodic(self) -> None:
+    def periodic(self) -> None:
         
         self.counter += 1
 
@@ -55,7 +57,8 @@ class Shooter(SubsystemBase):
 
             # ten per second updates
             
-            SmartDashboard.putNumber('shooter rpm', self.flywheel_left_encoder.getVelocity())"""
+            SmartDashboard.putNumber('shooter rpm', self.flywheel_left_encoder.getVelocity())
+            
 
             
 

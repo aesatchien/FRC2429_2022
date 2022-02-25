@@ -15,8 +15,8 @@ k_driver_controller_port = 0
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
 # controller axis scales
-k_thrust_scale = 0.8
-k_twist_scale = 0.6
+k_thrust_scale = 0.6 #halfed
+k_twist_scale = 0.45
 
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers
@@ -31,8 +31,8 @@ k_intake_motor_port = 5 # PWM
 k_intake_pneumatic_port = 2 # PCM
 
 # --------------  SHOOTER  ---------------
-k_flywheel_left_neo_port = 6 # CAN ID
-k_flywheel_right_neo_port = 8 # CAN ID
+k_flywheel_left_neo_port = 8 # CAN ID
+k_flywheel_right_neo_port = 6 # CAN ID
 k_flywheel_stage_one_neo_port = 7 # CAN ID
 
 # --------------  CLIMBER  ---------------
