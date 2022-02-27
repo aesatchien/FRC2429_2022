@@ -102,7 +102,7 @@ class RobotContainer:
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
-        self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
+        # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
 
         #self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
@@ -117,7 +117,7 @@ class RobotContainer:
         self.buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
         self.buttonBack.whenPressed(lambda: self.robot_pneumatics.toggle_shifting())
         self.buttonX.whenPressed(ToggleIndexer(self, self.robot_indexer, 2))
-        self.buttonY.whenPressed(SpinClimber(self, self.robot_climber))
+        self.buttonY.whileHeld(SpinClimber(self, self.robot_climber))
 
         #self.buttonX.whenPressed(ConditionalCommand(ToggleShooter(self, self.robot_shooter, 500), ToggleIndexer(self, self.robot_indexer, 100), lambda: self.is_endgame))
         

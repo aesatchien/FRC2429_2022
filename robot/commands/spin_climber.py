@@ -13,6 +13,7 @@ class SpinClimber(commands2.CommandBase):
         self.climber = climber
         self.container = container
         self.addRequirements(climber)  # commandsv2 version of requirements
+        self.addRequirements(self.container.robot_drive)  # CJH added for safety
         self.is_on = False
 
 
@@ -31,8 +32,8 @@ class SpinClimber(commands2.CommandBase):
             
 
     def isFinished(self) -> bool:  
-        return not self.container.driver_controller.getYButton()
-        
+        # return not self.container.driver_controller.getYButton()
+        return False
 
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()

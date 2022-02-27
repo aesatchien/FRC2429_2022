@@ -1,6 +1,6 @@
 from commands2 import SubsystemBase
 from wpilib import SmartDashboard
-
+from wpimath import MedianFilter
 import rev
 
 import constants
@@ -11,6 +11,8 @@ class Climber(SubsystemBase):
         super().__init__()
         self.setName('Climber')
         self.counter = 0
+
+        self.current_filter = MedianFilter(5)
 
         self.climber_left_neo = rev.CANSparkMax(constants.k_climber_left_port, rev.MotorType.kBrushless)
         self.climber_right_neo = rev.CANSparkMax(constants.k_climber_right_port, rev.MotorType.kBrushless)
@@ -37,12 +39,15 @@ class Climber(SubsystemBase):
 
         self.counter += 1
 
-        if self.counter % 5 == 0:
+        if self.counter % 2 == 0:
+            self.current_filter.calculate(self.climber_left_neo.getOutputCurrent())  # update the current filter
+
+        if self.counter % 10 == 0:
 
             # ten per second updates
             
-            SmartDashboard.putNumber('/climber/climber voltage', self.climber_left_neo.getBusVoltage())
-            
+            SmartDashboard.putNumber('/climber/climber voltage', self.climber_left_neo.getAppliedOutput())
+            SmartDashboard.putNumber('climber current', self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
 
 
 
