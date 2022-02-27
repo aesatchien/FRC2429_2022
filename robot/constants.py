@@ -36,8 +36,8 @@ k_flywheel_right_neo_port = 6 # CAN ID
 k_flywheel_stage_one_neo_port = 7 # CAN ID
 
 # --------------  CLIMBER  ---------------
-k_climber_left_port = 6 # PWM
-k_climber_right_port = 7 # PWM
+k_climber_left_port = 9 # CAN ID
+k_climber_right_port = 10 # CAN ID
 k_climber_long_port = 0 # PCM
 k_climber_short_port = 1 # PCM
 

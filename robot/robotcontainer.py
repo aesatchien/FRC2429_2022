@@ -1,8 +1,9 @@
 import time
-from commands2 import RunCommand, RamseteCommand, ConditionalCommand
+from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
 from commands2.button import JoystickButton, Button, POVButton
+from trigger.axis_button import AxisButton
 
-from wpilib import XboxController, SmartDashboard, SendableChooser
+from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 from wpilib.controller import RamseteController, PIDController
 from wpimath.controller import SimpleMotorFeedforwardMeters
 from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
@@ -21,6 +22,7 @@ from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.toggle_shooter import ToggleShooter
 from commands.toggle_indexer import ToggleIndexer
 from commands.toggle_compressor import ToggleCompressor
+from commands.spin_climber import SpinClimber
 
 import constants
 import trajectory_io
@@ -94,8 +96,10 @@ class RobotContainer:
         self.buttonDown = POVButton(self.driver_controller, 180)
         self.buttonLeft = POVButton(self.driver_controller, 270)
         self.buttonRight = POVButton(self.driver_controller, 90)
-        #self.axisButtonLT = AxisButton(self.driver_controller, 2)
-        #self.axisButtonRT = AxisButton(self.driver_controller, 3)
+        #self.buttonLeftAxis = AxisButton(self.driver_controller, 1)
+        #self.buttonRightAxis = AxisButton(self.driver_controller, 5)
+
+
         
 
         #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
@@ -118,9 +122,7 @@ class RobotContainer:
         self.buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
         self.buttonBack.whenPressed(lambda: self.robot_pneumatics.toggle_shifting())
         self.buttonX.whenPressed(ToggleIndexer(self, self.robot_indexer, 2))
-        
-
-
+        self.buttonY.whenPressed(SpinClimber(self, self.robot_climber))
 
         #self.buttonX.whenPressed(ConditionalCommand(ToggleShooter(self, self.robot_shooter, 500), ToggleIndexer(self, self.robot_indexer, 100), lambda: self.is_endgame))
         
