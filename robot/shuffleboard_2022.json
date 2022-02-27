@@ -2,27 +2,16 @@
   "tabPane": [
     {
       "title": "SmartDashboard",
-      "autoPopulate": false,
+      "autoPopulate": true,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 64.0,
+        "gridSize": 32.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "11,0": {
-            "size": [
-              5,
-              2
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Autonomous Scoring Route",
-              "_title": "SmartDashboard/Autonomous Scoring Route"
-            }
-          },
-          "16,0": {
+          "21,0": {
             "size": [
               3,
               2
@@ -33,10 +22,10 @@
               "_title": "SmartDashboard/Velocity Enc3"
             }
           },
-          "15,2": {
+          "24,0": {
             "size": [
-              4,
-              4
+              7,
+              7
             ],
             "content": {
               "_type": "Graph",
@@ -50,7 +39,7 @@
               "Y-axis/Unit": "ul"
             }
           },
-          "9,0": {
+          "16,0": {
             "size": [
               2,
               2
@@ -61,7 +50,7 @@
               "_title": "FMSInfo/IsRedAlliance"
             }
           },
-          "9,2": {
+          "19,0": {
             "size": [
               2,
               2
@@ -74,10 +63,10 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "14,6": {
+          "19,2": {
             "size": [
-              3,
-              3
+              5,
+              5
             ],
             "content": {
               "_type": "Gyro",
@@ -89,7 +78,7 @@
               "Visuals/Counter clockwise": false
             }
           },
-          "11,2": {
+          "15,2": {
             "size": [
               3,
               6
@@ -100,7 +89,7 @@
               "_title": "BallCam"
             }
           },
-          "5,4": {
+          "18,7": {
             "size": [
               6,
               4
@@ -116,6 +105,35 @@
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
+            }
+          },
+          "10,0": {
+            "size": [
+              5,
+              7
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List Layout",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
+                  "_title": "Point Trajectory"
+                }
+              ]
+            }
+          },
+          "10,7": {
+            "size": [
+              5,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/path velocity",
+              "_title": "SmartDashboard/path velocity"
             }
           }
         }
@@ -272,6 +290,100 @@
                   "_type": "Text View",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon[5]/Value",
                   "_title": "LiveWindow/Ungrouped/Talon[5]/Value"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Pneumatics",
+                  "_title": "Pneumatics"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]/Value",
+                  "_title": "Spark[5]/Value"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Climber",
+                  "_title": "Climber"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Shooter",
+                  "_title": "Shooter"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Indexer",
+                  "_title": "Indexer"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,3]/Value",
+                  "_title": "Solenoid[0,3]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Intake",
+                  "_title": "Intake"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/frc2::SubsystemBase",
+                  "_title": "frc2::SubsystemBase"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,2]/Value",
+                  "_title": "Solenoid[0,2]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,1]/Value",
+                  "_title": "Solenoid[0,1]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,0]/Value",
+                  "_title": "Solenoid[0,0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "_title": "Compressor[0]/Pressure switch",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Closed Loop Control",
+                  "_title": "Compressor[0]/Closed Loop Control",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]/Value",
+                  "_title": "PWMSparkMax[3]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Enabled",
+                  "_title": "Compressor[0]/Enabled",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]/Value",
+                  "_title": "PWMSparkMax[1]/Value"
                 }
               ]
             }
@@ -317,12 +429,25 @@
           }
         }
       }
+    },
+    {
+      "title": "Tab 3",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {}
+      }
     }
   ],
   "windowGeometry": {
-    "x": 524.0,
-    "y": 255.1999969482422,
-    "width": 850.4000244140625,
-    "height": 505.6000061035156
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1027.199951171875,
+    "height": 604.7999877929688
   }
 }

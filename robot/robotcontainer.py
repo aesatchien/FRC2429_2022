@@ -102,7 +102,7 @@ class RobotContainer:
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
-        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
+        self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
 
         #self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
@@ -125,7 +125,7 @@ class RobotContainer:
         # We won't do anything with this button itself, so we don't need to define a variable.
         (
             self.buttonRB
-            .whenPressed(lambda: self.robot_drive.set_max_output(0.15))
+            .whenPressed(lambda: self.robot_drive.set_max_output(0.25))
             .whenReleased(lambda: self.robot_drive.set_max_output(1))
         )
 

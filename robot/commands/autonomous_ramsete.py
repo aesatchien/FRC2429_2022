@@ -64,6 +64,7 @@ class AutonomousRamsete(commands2.CommandBase):
 
     def initialize(self) -> None:
         self.init_time = self.container.get_enabled_time()
+        self.start_time = self.container.get_enabled_time()
         self.previous_time = -1
         self.telemetry = []
 

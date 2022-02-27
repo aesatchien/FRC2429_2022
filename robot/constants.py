@@ -15,7 +15,7 @@ k_driver_controller_port = 0
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
 # controller axis scales
-k_thrust_scale = 0.6 #halfed
+k_thrust_scale = 0.7 #halfed
 k_twist_scale = 0.45
 
 # --------------  DRIVETRAIN  ---------------
@@ -36,8 +36,8 @@ k_flywheel_right_neo_port = 6 # CAN ID
 k_flywheel_stage_one_neo_port = 7 # CAN ID
 
 # --------------  CLIMBER  ---------------
-k_climber_left_port = 9 # CAN ID
-k_climber_right_port = 10 # CAN ID
+k_climber_left_port = 10 # CAN ID
+k_climber_right_port = 11 # CAN ID
 k_climber_long_port = 0 # PCM
 k_climber_short_port = 1 # PCM
 

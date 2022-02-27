@@ -76,7 +76,9 @@ def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_spe
         config.setReversed(True)
     point_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=waypoints, config=config)
     if save:
-        wpimath.trajectory.TrajectoryUtil.toPathweaverJson(point_trajectory, 'pathweaver\\test.json')
+        pass
+        #wpimath.trajectory.TrajectoryUtil.toPathweaverJson(point_trajectory, 'pathweaver\\test.json')
     if display:
         print(point_trajectory.State())
+
     return point_trajectory
