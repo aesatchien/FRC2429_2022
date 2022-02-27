@@ -3,6 +3,7 @@ import glob
 
 import wpimath
 import wpimath.trajectory
+import wpimath.geometry as geo
 from wpimath.trajectory.constraint import CentripetalAccelerationConstraint
 
 import constants
@@ -56,3 +57,26 @@ def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per
     if display:
         print(pw_trajectory.State())
     return pw_trajectory
+
+# used in ramsete command
+def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=True, save=True) -> wpimath.trajectory:
+    """
+    Generate a wpilib trajectory from a list of points.  Accepts regular and reversed paths.
+    :param velocity: Maximum robot velocity for the generated trajectory
+    :param save: Option to save generated trajectory to disk as 'test.json'
+    :param display: Option to print to console
+    :return: generated trajectory
+    """
+    config = wpimath.trajectory.TrajectoryConfig(velocity, constants.k_max_acceleration_meters_per_second_squared)
+    config.setKinematics(constants.k_drive_kinematics)
+    config.addConstraint(constants.k_autonomous_voltage_constraint)
+    config.addConstraint(CentripetalAccelerationConstraint(constants.k_max_centripetal_acceleration_meters_per_second_squared))
+    # check to see if the 'reversed' parameter was passed to us
+    if reverse:
+        config.setReversed(True)
+    point_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=waypoints, config=config)
+    if save:
+        wpimath.trajectory.TrajectoryUtil.toPathweaverJson(point_trajectory, 'pathweaver\\test.json')
+    if display:
+        print(point_trajectory.State())
+    return point_trajectory

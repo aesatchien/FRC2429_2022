@@ -79,7 +79,7 @@ ka_volt_seconds_squared_per_meter = robot_characterization['ka']  # used in phys
 
 # The max velocity and acceleration for our autonomous trajectories
 k_max_speed_meters_per_second = 3.0
-k_max_acceleration_meters_per_second_squared = 2.75
+k_max_acceleration_meters_per_second_squared = 4  # was 2.75 for 2021 paths
 k_max_centripetal_acceleration_meters_per_second_squared = 2.75
 k_max_voltage = 6
 

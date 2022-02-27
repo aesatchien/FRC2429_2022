@@ -41,7 +41,7 @@ class Climber(SubsystemBase):
 
             # ten per second updates
             
-            SmartDashboard.putNumber('climber voltage', self.climber_left_neo.getBusVoltage())
+            SmartDashboard.putNumber('/climber/climber voltage', self.climber_left_neo.getBusVoltage())
             
 
 

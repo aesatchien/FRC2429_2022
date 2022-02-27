@@ -57,7 +57,7 @@ class Shooter(SubsystemBase):
 
             # ten per second updates
             
-            SmartDashboard.putNumber('shooter rpm', self.flywheel_left_encoder.getVelocity())
+            SmartDashboard.putNumber('/shooter/shooter rpm', self.flywheel_left_encoder.getVelocity())
             
 
             

@@ -1,7 +1,7 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
 from commands2.button import JoystickButton, Button, POVButton
-from trigger.axis_button import AxisButton
+
 
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 from wpilib.controller import RamseteController, PIDController
@@ -99,16 +99,11 @@ class RobotContainer:
         #self.buttonLeftAxis = AxisButton(self.driver_controller, 1)
         #self.buttonRightAxis = AxisButton(self.driver_controller, 5)
 
-
-        
-
-        #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
-        #self.buttonB.whenPressed(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.5))
-        #self.buttonA.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
-        #self.buttonX.whenPressed(ToggleShooter(container=self, shooter=self.robot_shooter, rpm=1000))
-        #self.buttonA.whenPressed(lambda: self.robot_shooter.set_flywheel(100))
-        #self.buttonB.whenPressed(lambda: self.robot_shooter.stop_shooter())
-        #self.buttonY.whenPressed(lambda: self.change_mode())
+        # Testing autonomous calls - may want to bind them to calling on the dashboard
+         #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
+        #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
+        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
+        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
 
         #self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
         #self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
@@ -138,6 +133,7 @@ class RobotContainer:
         self.is_endgame = True
 
     def initialize_dashboard(self):
+
         self.path_chooser = SendableChooser()
         SmartDashboard.putData('ramsete path', self.path_chooser)
         choices = trajectory_io.get_pathweaver_paths() + ['z_loop', 'z_poses', 'z_points', 'z_test']

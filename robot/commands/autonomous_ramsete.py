@@ -34,9 +34,13 @@ class AutonomousRamsete(commands2.CommandBase):
         SmartDashboard.putNumber("/ramsete/ramsete_B", beta)
         SmartDashboard.putNumber("/ramsete/ramsete_Z", zeta)
         SmartDashboard.putBoolean("/ramsete/ramsete_write", write_telemetry)
+        SmartDashboard.putNumber("/ramsete/waypoint_x", 1)
+        SmartDashboard.putNumber("/ramsete/waypoint_y", 0)
+        SmartDashboard.putNumber("/ramsete/waypoint_heading", 0)
+        SmartDashboard.putBoolean("/ramsete/waypoint_reverse", False)
 
 
-    def __init__(self, container, drive: Drivetrain, relative=True) -> None:
+    def __init__(self, container, drive: Drivetrain, relative=True, source=None) -> None:
         super().__init__()
         self.setName('autonomous_ramsete')
         self.drive = drive
@@ -50,6 +54,7 @@ class AutonomousRamsete(commands2.CommandBase):
         self.use_PID = True
         self.counter = 0
         self.telemetry = []
+        self.source = source
         self.trajectory = None
 
         self.feed_forward = constants.k_feed_forward
@@ -77,21 +82,38 @@ class AutonomousRamsete(commands2.CommandBase):
         self.left_controller.reset()
         self.right_controller.reset()
 
-        trajectory_choice = self.container.path_chooser.getSelected()  # get path from the GUI
-        self.velocity = float(self.container.velocity_chooser.getSelected())  # get the velocity from the GUI
-        if 'z_' not in trajectory_choice:  # let me try a few of the other methods if the path starts with z_
-            self.trajectory = trajectory_io.generate_trajectory(trajectory_choice, self.velocity, display=False, save=False)
-            self.course = trajectory_choice
-            if not constants.k_is_simulation:
-                self.start_pose = geo.Pose2d(self.trajectory.sample(0).pose.X(), self.trajectory.sample(0).pose.Y(),
-                                             self.container.robot_drive.get_rotation2d())
-                self.container.robot_drive.reset_odometry(self.start_pose)
-            else:
-                field_x = SmartDashboard.getNumber('/sim/field_x', self.trajectory.sample(0).pose.X())
-                field_y = SmartDashboard.getNumber('/sim/field_y', self.trajectory.sample(0).pose.Y())
-                self.start_pose = geo.Pose2d(field_x, field_y, self.container.robot_drive.get_rotation2d())
-        else:  # a few more options for debugging paths
-            pass
+        if self.source is None or self.source == 'pathweaver':
+            trajectory_choice = self.container.path_chooser.getSelected()  # get path from the GUI
+            self.velocity = float(self.container.velocity_chooser.getSelected())  # get the velocity from the GUI
+            if 'z_' not in trajectory_choice:  # let me try a few of the other methods if the path starts with z_
+                self.trajectory = trajectory_io.generate_trajectory(trajectory_choice, self.velocity, display=False, save=False)
+                self.course = trajectory_choice
+                if not constants.k_is_simulation:
+                    self.start_pose = geo.Pose2d(self.trajectory.sample(0).pose.X(), self.trajectory.sample(0).pose.Y(),
+                                                 self.container.robot_drive.get_rotation2d())
+                    self.container.robot_drive.reset_odometry(self.start_pose)
+                else:
+                    field_x = SmartDashboard.getNumber('/sim/field_x', self.trajectory.sample(0).pose.X())
+                    field_y = SmartDashboard.getNumber('/sim/field_y', self.trajectory.sample(0).pose.Y())
+                    self.start_pose = geo.Pose2d(field_x, field_y, self.container.robot_drive.get_rotation2d())
+        elif self.source == 'waypoint':  # we told it to calculate a trajectory
+            self.velocity = float(self.container.velocity_chooser.getSelected())
+            start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
+            end_x = SmartDashboard.getNumber("/ramsete/waypoint_x", 1)
+            end_y = SmartDashboard.getNumber("/ramsete/waypoint_y", 0)
+            heading = SmartDashboard.getNumber("/ramsete/waypoint_heading", 0)
+            reverse = SmartDashboard.getBoolean("/ramsete/waypoint_reverse", False)
+            if reverse:
+                end_x, end_y, heading = -end_x, -end_y, -heading
+            end_pose = geo.Pose2d(geo.Translation2d(x=end_x, y=end_y), geo.Rotation2d().fromDegrees(heading))
+            try:
+                self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose], velocity=self.velocity, reverse=reverse,
+                                                                            display=True, save=True)
+            except Exception as e:  # don't send it a trajectory it can't calculate
+                print(f'Error generating trajectory: {e}')
+                self.end(interrupted=True)
+        else:
+            pass  # just let it die
 
         if self.relative:  # clean way to take a trajectory and shift it to new start location and orientation
             # more than one way to update the trajectory - reset the drive odometer to initial pose
