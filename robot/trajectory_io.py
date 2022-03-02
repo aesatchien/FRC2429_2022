@@ -59,7 +59,7 @@ def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per
     return pw_trajectory
 
 # used in ramsete command
-def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=True, save=True) -> wpimath.trajectory:
+def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_speed_meters_per_second, midpoint=False, reverse=False, display=True, save=True) -> wpimath.trajectory:
     """
     Generate a wpilib trajectory from a list of points.  Accepts regular and reversed paths.
     :param velocity: Maximum robot velocity for the generated trajectory
@@ -74,6 +74,9 @@ def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_spe
     # check to see if the 'reversed' parameter was passed to us
     if reverse:
         config.setReversed(True)
+    if midpoint:
+        midpoint_pose = geo.Pose2d(waypoints[-1].X()/2, waypoints[-1].Y()/2, geo.Rotation2d(waypoints[-1].rotation().radians()/2))
+        waypoints = [waypoints[0], midpoint_pose, waypoints[-1]]
     point_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=waypoints, config=config)
     if save:
         pass

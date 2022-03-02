@@ -13,6 +13,7 @@ from wpilib import SmartDashboard, controller
 import wpimath.kinematics
 import wpimath.geometry as geo
 
+
 from subsystems.drivetrain import Drivetrain
 import constants  # 2429's drive constants
 import trajectory_io  # helper file for generating trajectories from our list of paths
@@ -28,7 +29,7 @@ class AutonomousRamsete(commands2.CommandBase):
     velocity = constants.k_max_speed_meters_per_second
     write_telemetry = False
 
-    dash = True  # ToDo: decide if I ever want to hide this
+    dash = True  # ToDo: decide if I ever want to hide this or to make it
     if dash is True:
         SmartDashboard.putNumber("/ramsete/ramsete_kpvel", kp_vel)
         SmartDashboard.putNumber("/ramsete/ramsete_B", beta)
