@@ -87,9 +87,9 @@ def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_spe
     return point_trajectory
 
 # used in ramsete command
-def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=True) -> wpimath.trajectory:
+def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=False) -> wpimath.trajectory:
 
-    config = wpimath.trajectory.TrajectoryConfig(velocity, 3) # constants.k_max_acceleration_meters_per_second_squared)
+    config = wpimath.trajectory.TrajectoryConfig(3, 3) # constants.k_max_acceleration_meters_per_second_squared)
     config.setKinematics(constants.k_drive_kinematics)
     config.addConstraint(constants.k_autonomous_voltage_constraint)
     config.addConstraint(CentripetalAccelerationConstraint(constants.k_max_centripetal_acceleration_meters_per_second_squared))
@@ -97,7 +97,7 @@ def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_spee
     if reverse:
         config.setReversed(True)
     start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
-    end_pose = geo.Pose2d(geo.Translation2d(x=2, y=y), geo.Rotation2d.fromDegrees(heading) )
+    end_pose = geo.Pose2d(geo.Translation2d(x=x, y=y), geo.Rotation2d.fromDegrees(heading))
     quick_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=[start_pose, end_pose], config=config)
 
     if display:

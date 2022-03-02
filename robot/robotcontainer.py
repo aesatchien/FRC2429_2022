@@ -148,10 +148,10 @@ class RobotContainer:
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
-        self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
-        traj = trajectory_io.generate_quick_trajectory(x=8, reverse=True)
-        self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='trajectory', trajectory=traj))
-        self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        traj = trajectory_io.generate_quick_trajectory(x=-2, reverse=True)
+        #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='trajectory', trajectory=traj))
+        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
         """
