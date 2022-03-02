@@ -41,7 +41,7 @@ class AutonomousRamsete(commands2.CommandBase):
         SmartDashboard.putBoolean("/ramsete/waypoint_reverse", False)
 
 
-    def __init__(self, container, drive: Drivetrain, relative=True, source=None) -> None:
+    def __init__(self, container, drive: Drivetrain, relative=True, source=None, trajectory=None) -> None:
         super().__init__()
         self.setName('autonomous_ramsete')
         self.drive = drive
@@ -56,7 +56,7 @@ class AutonomousRamsete(commands2.CommandBase):
         self.counter = 0
         self.telemetry = []
         self.source = source
-        self.trajectory = None
+        self.trajectory = trajectory
 
         self.feed_forward = constants.k_feed_forward
         self.kinematics = constants.k_drive_kinematics
@@ -98,7 +98,7 @@ class AutonomousRamsete(commands2.CommandBase):
                     field_x = SmartDashboard.getNumber('/sim/field_x', self.trajectory.sample(0).pose.X())
                     field_y = SmartDashboard.getNumber('/sim/field_y', self.trajectory.sample(0).pose.Y())
                     self.start_pose = geo.Pose2d(field_x, field_y, self.container.robot_drive.get_rotation2d())
-        elif self.source == 'waypoint':  # we told it to calculate a trajectory
+        elif self.source == 'dash':  # we told it to calculate a trajectory from a point on the dashboard
             self.velocity = float(self.container.velocity_chooser.getSelected())
             start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
             end_x = SmartDashboard.getNumber("/ramsete/waypoint_x", 1)
@@ -110,10 +110,13 @@ class AutonomousRamsete(commands2.CommandBase):
             end_pose = geo.Pose2d(geo.Translation2d(x=end_x, y=end_y), geo.Rotation2d().fromDegrees(heading))
             try:
                 self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose], velocity=self.velocity, reverse=reverse,
-                                                                            display=True, save=True)
+                                                                            display=False, save=True)
             except Exception as e:  # don't send it a trajectory it can't calculate
                 print(f'Error generating trajectory: {e}')
                 self.end(interrupted=True)
+
+        elif self.source == 'trajectory':  # we sent it a trajectory when we called the function
+            pass
         else:
             pass  # just let it die
 

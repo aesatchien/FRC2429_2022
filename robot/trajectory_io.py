@@ -18,7 +18,7 @@ def get_pathweaver_paths():  # use this to fill the drop down for file selection
 
 
 # used in ramsete command
-def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per_second, display=True, save=True) -> wpimath.trajectory:
+def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per_second, display=False, save=True) -> wpimath.trajectory:
     """
     Generate a wpilib trajectory from a pathweaver path.  Accepts regular and reversed paths.
 
@@ -55,11 +55,11 @@ def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per
         pw_trajectory = None  # do something else? generate an empty trajectory?
         print(f'Trajectory: {p} not found', flush=True)
     if display:
-        print(pw_trajectory.State())
+        print(pw_trajectory.states)
     return pw_trajectory
 
 # used in ramsete command
-def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_speed_meters_per_second, midpoint=False, reverse=False, display=True, save=True) -> wpimath.trajectory:
+def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_speed_meters_per_second, midpoint=False, reverse=False, display=False, save=True) -> wpimath.trajectory:
     """
     Generate a wpilib trajectory from a list of points.  Accepts regular and reversed paths.
     :param velocity: Maximum robot velocity for the generated trajectory
@@ -82,6 +82,27 @@ def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_spe
         pass
         #wpimath.trajectory.TrajectoryUtil.toPathweaverJson(point_trajectory, 'pathweaver\\test.json')
     if display:
-        print(point_trajectory.State())
+        print(point_trajectory.states)
 
     return point_trajectory
+
+# used in ramsete command
+def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=True) -> wpimath.trajectory:
+
+    config = wpimath.trajectory.TrajectoryConfig(velocity, 3) # constants.k_max_acceleration_meters_per_second_squared)
+    config.setKinematics(constants.k_drive_kinematics)
+    config.addConstraint(constants.k_autonomous_voltage_constraint)
+    config.addConstraint(CentripetalAccelerationConstraint(constants.k_max_centripetal_acceleration_meters_per_second_squared))
+    # check to see if the 'reversed' parameter was passed to us
+    if reverse:
+        config.setReversed(True)
+    start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
+    end_pose = geo.Pose2d(geo.Translation2d(x=2, y=y), geo.Rotation2d.fromDegrees(heading) )
+    quick_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=[start_pose, end_pose], config=config)
+
+    if display:
+        print(x, y, heading, velocity, reverse, display, start_pose, end_pose, quick_trajectory.totalTime())
+        print(f'Quick trajectory with {len(quick_trajectory.states())} states:  ', end='\n')
+        _ = [print(state) for state in quick_trajectory.states()]
+
+    return quick_trajectory
