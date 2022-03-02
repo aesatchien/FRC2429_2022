@@ -22,6 +22,9 @@ from commands.toggle_shooter import ToggleShooter
 from commands.toggle_indexer import ToggleIndexer
 from commands.toggle_compressor import ToggleCompressor
 from commands.spin_climber import SpinClimber
+from commands.toggle_endgame import ToggleEndgame
+from commands.toggle_shifting import ToggleShifting
+from commands.toggle_intake import ToggleIntake
 
 import constants
 import trajectory_io
@@ -38,6 +41,8 @@ class RobotContainer:
 
         self.start_time = time.time()
 
+        self.competition_mode = True
+
         # Create an instance of the drivetrain subsystem.
         self.robot_drive = Drivetrain()
         self.robot_intake = Intake()
@@ -48,9 +53,13 @@ class RobotContainer:
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)
+        self.co_driver_controller = XboxController(constants.k_co_driver_controller_port)
         # Configure and set the button bindings for the driver's controller.
         self.initialize_joysticks()
         self.initialize_dashboard()
+        
+        #mode
+        self.is_endgame = False
 
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
@@ -98,6 +107,44 @@ class RobotContainer:
         #self.buttonLeftAxis = AxisButton(self.driver_controller, 1)
         #self.buttonRightAxis = AxisButton(self.driver_controller, 5)
 
+        if self.competition_mode:
+            self.co_buttonB = JoystickButton(self.co_driver_controller, 2)
+            self.co_buttonA = JoystickButton(self.co_driver_controller, 1)
+            self.co_buttonY = JoystickButton(self.co_driver_controller, 4)
+            self.co_buttonX = JoystickButton(self.co_driver_controller, 3)
+            self.co_buttonLB = JoystickButton(self.co_driver_controller, 5)
+            self.co_buttonRB = JoystickButton(self.co_driver_controller, 6)
+            self.co_buttonBack = JoystickButton(self.co_driver_controller, 7)
+            self.co_buttonStart = JoystickButton(self.co_driver_controller, 8)
+            self.co_buttonUp = POVButton(self.co_driver_controller, 0)
+            self.co_buttonDown = POVButton(self.co_driver_controller, 180)
+            self.co_buttonLeft = POVButton(self.co_driver_controller, 270)
+            self.co_buttonRight = POVButton(self.co_driver_controller, 90)
+
+
+        self.buttonY.whenPressed(ToggleEndgame(self))
+        #climbing
+        self.buttonRight.whenHeld(SpinClimber(self, self.robot_climber))
+
+        #shooting
+        #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
+        self.buttonB.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+
+        #pneumatics
+        self.buttonBack.whenPressed(ToggleShifting(self, self.robot_pneumatics))
+        self.buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+        self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_short())
+        self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
+
+
+        #climbing
+        # todo: reset to horizontal self.buttonRight.whenPressed(reset to horizontl)
+
+        #intake
+        self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
+        self.buttonX.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
+
+
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
@@ -107,22 +154,28 @@ class RobotContainer:
         self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
-        #self.buttonA.whenPressed(lambda: self.robot_climber.set_velocity(0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
-        #self.buttonB.whenPressed(lambda: self.robot_climber.set_velocity(-0.85)).whenReleased(lambda: self.robot_climber.stop_motor())
-        #self.buttonX.whenPressed(lambda: self.robot_climber.stop_motor())
+        """
+        if self.competition_mode:
+            #climber
+            #self.co_buttonY.whileHeld(SpinClimber(self, self.robot_climber))
 
-        #self.buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, rpm=1000))
-        #self.buttonY.whenPressed(lambda: self.robot_pneumatics.start_compressor())
-        self.buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
-        self.buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
-        self.buttonB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
-        self.buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
-        self.buttonBack.whenPressed(lambda: self.robot_pneumatics.toggle_shifting())
-        self.buttonX.whenPressed(ToggleIndexer(self, self.robot_indexer, 2))
-        self.buttonY.whileHeld(SpinClimber(self, self.robot_climber))
+            #intake
+            #self.co_buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
+            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
 
-        #self.buttonX.whenPressed(ConditionalCommand(ToggleShooter(self, self.robot_shooter, 500), ToggleIndexer(self, self.robot_indexer, 100), lambda: self.is_endgame))
-        
+
+            #indexer
+            #self.co_buttonX.whenPressed(ToggleIndexer(self, self.robot_indexer, 2))
+
+
+            #shooter
+            #self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+
+
+            #compressor
+            #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+            """
+
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         (
@@ -131,8 +184,7 @@ class RobotContainer:
             .whenReleased(lambda: self.robot_drive.set_max_output(1))
         )
 
-    def change_mode(self):
-        self.is_endgame = True
+
 
     def initialize_dashboard(self):
 

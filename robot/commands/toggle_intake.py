@@ -2,40 +2,30 @@ import commands2
 from wpilib import SmartDashboard
 
 
+class ToggleIntake(commands2.CommandBase):
 
-class SpinClimber(commands2.CommandBase):
-
-
-    def __init__(self, container, climber) -> None:
+    def __init__(self, container, pneumatics) -> None:
         super().__init__()
-        self.setName('Spin Climber')
-        self.climber = climber
+        self.setName('toggle intake')
         self.container = container
-        self.addRequirements(climber)  # commandsv2 version of requirements
-        self.addRequirements(self.container.robot_drive)  # CJH added for safety
-        self.is_on = False
-
+        self.pneumatics = pneumatics
+        self.addRequirements(pneumatics)  # commandsv2 version of requirements
 
     def initialize(self) -> None:
+
+        self.pneumatics.toggle_intake()
+        
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
 
-        
     def execute(self) -> None:
-        if self.container.is_endgame:
-            power = self.container.driver_controller.getRawAxis(5) * -10
-            self.climber.set_voltage(power)
-            print(f'right axis {self.container.driver_controller.getRawAxis(5)} power {power}')
-        else:
-            SmartDashboard.putString('endgame', 'Not in endgame')
-            
+        pass
 
     def isFinished(self) -> bool:  
-        # return not self.container.driver_controller.getYButton()
-        return False
+        return True
 
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()
