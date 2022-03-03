@@ -12,7 +12,7 @@ import commands2
 from wpilib import SmartDashboard, controller
 import wpimath.kinematics
 import wpimath.geometry as geo
-
+from networktables import NetworkTablesInstance
 
 from subsystems.drivetrain import Drivetrain
 import constants  # 2429's drive constants
@@ -31,17 +31,36 @@ class AutonomousRamsete(commands2.CommandBase):
 
     dash = True  # ToDo: decide if I ever want to hide this or to make it
     if dash is True:
-        SmartDashboard.putNumber("/ramsete/ramsete_kpvel", kp_vel)
-        SmartDashboard.putNumber("/ramsete/ramsete_B", beta)
-        SmartDashboard.putNumber("/ramsete/ramsete_Z", zeta)
-        SmartDashboard.putBoolean("/ramsete/ramsete_write", write_telemetry)
-        SmartDashboard.putNumber("/ramsete/waypoint_x", 1)
-        SmartDashboard.putNumber("/ramsete/waypoint_y", 0)
-        SmartDashboard.putNumber("/ramsete/waypoint_heading", 0)
-        SmartDashboard.putBoolean("/ramsete/waypoint_reverse", False)
+        ntinst = NetworkTablesInstance.getDefault()
+        ramsete_table = ntinst.getTable('Ramsete')
+        entry_ramsete_kpvel = ramsete_table.getEntry('ramsete_kpvel')
+        entry_ramsete_kpvel.setValue(kp_vel)
+        entry_ramsete_B = ramsete_table.getEntry('ramsete_B')
+        entry_ramsete_B.setValue(beta)
+        entry_ramsete_Z = ramsete_table.getEntry('ramsete_Z')
+        entry_ramsete_Z.setValue(zeta)
+        entry_ramsete_write = ramsete_table.getEntry('ramsete_write')
+        entry_ramsete_write.setValue(False)
+        entry_waypoint_x = ramsete_table.getEntry('waypoint_x')
+        entry_waypoint_x.setValue(1.0)
+        entry_waypoint_y = ramsete_table.getEntry('waypoint_y')
+        entry_waypoint_y.setValue(0.0)
+        entry_waypoint_heading = ramsete_table.getEntry('waypoint_heading')
+        entry_waypoint_heading.setValue(0.0)
+        entry_waypoint_reverse = ramsete_table.getEntry('waypoint_reverse')
+        entry_waypoint_reverse.setValue(False)
+
+        #SmartDashboard.putNumber("/ramsete/ramsete_kpvel", kp_vel)
+        #SmartDashboard.putNumber("/ramsete/ramsete_B", beta)
+        #SmartDashboard.putNumber("/ramsete/ramsete_Z", zeta)
+        #SmartDashboard.putBoolean("/ramsete/ramsete_write", write_telemetry)
+        #SmartDashboard.putNumber("/ramsete/waypoint_x", 1)
+        #SmartDashboard.putNumber("/ramsete/waypoint_y", 0)
+        #SmartDashboard.putNumber("/ramsete/waypoint_heading", 0)
+        #SmartDashboard.putBoolean("/ramsete/waypoint_reverse", False)
 
 
-    def __init__(self, container, drive: Drivetrain, relative=True, source=None) -> None:
+    def __init__(self, container, drive: Drivetrain, relative=True, source=None, trajectory=None) -> None:
         super().__init__()
         self.setName('autonomous_ramsete')
         self.drive = drive
@@ -56,7 +75,7 @@ class AutonomousRamsete(commands2.CommandBase):
         self.counter = 0
         self.telemetry = []
         self.source = source
-        self.trajectory = None
+        self.trajectory = trajectory
 
         self.feed_forward = constants.k_feed_forward
         self.kinematics = constants.k_drive_kinematics
@@ -72,11 +91,15 @@ class AutonomousRamsete(commands2.CommandBase):
         self.container.robot_drive.drive.feed()  # this initialization is taking some time now
         # update gains from dash if desired
         if self.dash is True:
-            self.kp_vel = SmartDashboard.getNumber("/ramsete/ramsete_kpvel", self.kp_vel)
-            self.beta = SmartDashboard.getNumber("/ramsete/ramsete_B", self.beta)
-            self.zeta = SmartDashboard.getNumber("/ramsete/ramsete_Z", self.zeta)
-            self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
-
+            # self.kp_vel = SmartDashboard.getNumber("/ramsete/ramsete_kpvel", self.kp_vel)
+            # self.beta = SmartDashboard.getNumber("/ramsete/ramsete_B", self.beta)
+            # self.zeta = SmartDashboard.getNumber("/ramsete/ramsete_Z", self.zeta)
+            # self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
+            self.kp_vel = self.entry_ramsete_kpvel.getDouble(self.kp_vel)
+            self.beta = self.entry_ramsete_B.getDouble(self.beta)
+            self.zeta = self.entry_ramsete_Z.getDouble(self.zeta)
+            self.write_telemetry = self.entry_ramsete_write.getBoolean(self.write_telemetry)
+            print(self.kp_vel, self.beta, self.zeta, self.write_telemetry)
         # create controllers
         self.follower = controller.RamseteController(self.beta, self.zeta)
         self.left_controller = controller.PIDController(self.kp_vel, 0, self.kd_vel)
@@ -98,22 +121,30 @@ class AutonomousRamsete(commands2.CommandBase):
                     field_x = SmartDashboard.getNumber('/sim/field_x', self.trajectory.sample(0).pose.X())
                     field_y = SmartDashboard.getNumber('/sim/field_y', self.trajectory.sample(0).pose.Y())
                     self.start_pose = geo.Pose2d(field_x, field_y, self.container.robot_drive.get_rotation2d())
-        elif self.source == 'waypoint':  # we told it to calculate a trajectory
+        elif self.source == 'dash':  # we told it to calculate a trajectory from a point on the dashboard
             self.velocity = float(self.container.velocity_chooser.getSelected())
             start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
-            end_x = SmartDashboard.getNumber("/ramsete/waypoint_x", 1)
-            end_y = SmartDashboard.getNumber("/ramsete/waypoint_y", 0)
-            heading = SmartDashboard.getNumber("/ramsete/waypoint_heading", 0)
-            reverse = SmartDashboard.getBoolean("/ramsete/waypoint_reverse", False)
+            #end_x = SmartDashboard.getNumber("/ramsete/waypoint_x", 1)
+            #end_y = SmartDashboard.getNumber("/ramsete/waypoint_y", 0)
+            #heading = SmartDashboard.getNumber("/ramsete/waypoint_heading", 0)
+            #reverse = SmartDashboard.getBoolean("/ramsete/waypoint_reverse", False)
+            end_x = self.entry_waypoint_x.getDouble(0)
+            end_y = self.entry_waypoint_y.getDouble(0)
+            heading = self.entry_waypoint_heading.getDouble(0)
+            reverse = self.entry_waypoint_reverse.getBoolean(False)
+            print(end_x, end_y, heading, reverse)
             if reverse:
                 end_x, end_y, heading = -end_x, -end_y, -heading
             end_pose = geo.Pose2d(geo.Translation2d(x=end_x, y=end_y), geo.Rotation2d().fromDegrees(heading))
             try:
                 self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose], velocity=self.velocity, reverse=reverse,
-                                                                            display=True, save=True)
+                                                                            display=False, save=True)
             except Exception as e:  # don't send it a trajectory it can't calculate
                 print(f'Error generating trajectory: {e}')
                 self.end(interrupted=True)
+
+        elif self.source == 'trajectory':  # we sent it a trajectory when we called the function
+            pass
         else:
             pass  # just let it die
 

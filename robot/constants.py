@@ -92,7 +92,7 @@ k_autonomous_voltage_constraint = DifferentialDriveVoltageConstraint(k_feed_forw
 k_ramsete_b = 2
 k_ramsete_zeta = 0.9
 # The P gain for our turn controllers.
-k_kp_drive_vel = 0 # 0.2  # used in Ramsete command
+k_kp_drive_vel = 0.2 # 0.2  # used in Ramsete command
 
 # The number of motors on the robot.
 k_drivetrain_motor_count = 4

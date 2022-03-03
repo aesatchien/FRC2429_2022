@@ -2,7 +2,6 @@ import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
 from commands2.button import JoystickButton, Button, POVButton
 
-
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 from wpilib.controller import RamseteController, PIDController
 from wpimath.controller import SimpleMotorFeedforwardMeters
@@ -149,8 +148,11 @@ class RobotContainer:
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
-        # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
+        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        traj = trajectory_io.generate_quick_trajectory(x=-2, reverse=True)
+        #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='trajectory', trajectory=traj))
+        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
         """
         if self.competition_mode:
