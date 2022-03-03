@@ -19,18 +19,18 @@ class Shooter(SubsystemBase):
         motor_type = rev.MotorType.kBrushless
         self.flywheel_left = rev.CANSparkMax(constants.k_flywheel_left_neo_port, motor_type)
         self.flywheel_right = rev.CANSparkMax(constants.k_flywheel_right_neo_port, motor_type)
-        self.flywheel_first_stage = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, motor_type)
+        #self.flywheel_first_stage = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, motor_type)
 
         self.flywheel_right.follow(self.flywheel_left, invert=True)
         #invert on of the first tage motor
 
         # encoders
         self.flywheel_left_encoder = self.flywheel_left.getEncoder()
-        self.flywheel_first_stage_encoder = self.flywheel_first_stage.getEncoder()
+        #self.flywheel_first_stage_encoder = self.flywheel_first_stage.getEncoder()
 
         # controller
         self.flywheel_left_controller = self.flywheel_left.getPIDController()
-        self.flywheel_first_stage_controller = self.flywheel_first_stage.getPIDController()
+        #self.flywheel_first_stage_controller = self.flywheel_first_stage.getPIDController()
         self.flywheel_left_controller.setP(0)
 
 
@@ -38,12 +38,12 @@ class Shooter(SubsystemBase):
     def set_flywheel(self, rpm):
         self.flywheel_left_controller.setReference(rpm, rev.ControlType.kSmartVelocity, 0)
 
-    def set_first_stage(self, rpm):
-        self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kVoltage, 0)
+    #def set_first_stage(self, rpm):
+        #self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kVoltage, 0)
     
     def stop_shooter(self):
         self.flywheel_left_controller.setReference(0, rev.ControlType.kVoltage)
-        self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
+        #self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
 
     def get_flywheel(self):
         return self.flywheel_left_encoder.getVelocity()
