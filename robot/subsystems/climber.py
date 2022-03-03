@@ -1,6 +1,6 @@
 from commands2 import SubsystemBase
 from wpilib import SmartDashboard
-from wpimath import MedianFilter
+from wpimath.filter import MedianFilter
 import rev
 
 from networktables import NetworkTablesInstance, NetworkTables
@@ -16,8 +16,9 @@ class Climber(SubsystemBase):
 
         self.current_filter = MedianFilter(5)
 
-        self.climber_left_neo = rev.CANSparkMax(constants.k_climber_left_port, rev.MotorType.kBrushless)
-        self.climber_right_neo = rev.CANSparkMax(constants.k_climber_right_port, rev.MotorType.kBrushless)
+        motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
+        self.climber_left_neo = rev.CANSparkMax(constants.k_climber_left_port, motor_type)
+        self.climber_right_neo = rev.CANSparkMax(constants.k_climber_right_port, motor_type)
 
         self.climber_left_encoder = self.climber_left_neo.getEncoder()
         self.climber_right_encoder = self.climber_right_neo.getEncoder()

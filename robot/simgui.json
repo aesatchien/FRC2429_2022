@@ -1,0 +1,59 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/Climber": "Subsystem",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Indexer": "Subsystem",
+      "/LiveWindow/Ungrouped/Intake": "Subsystem",
+      "/LiveWindow/Ungrouped/PWMSparkMax[1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/PWMSparkMax[3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Pneumatics": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Shooter": "Subsystem",
+      "/LiveWindow/Ungrouped/Spark[5]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Vision": "Subsystem",
+      "/LiveWindow/Ungrouped/class frc2::SubsystemBase": "Subsystem",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/Tune Sparkmax": "Command",
+      "/SmartDashboard/autonomous_ramsete": "Command",
+      "/SmartDashboard/path velocity": "String Chooser",
+      "/SmartDashboard/ramsete path": "String Chooser"
+    },
+    "windows": {
+      "/SmartDashboard/Field": {
+        "bottom": 900,
+        "height": 8.229599952697754,
+        "image": "C:\\Cory\\CJH Shared\\Python\\FRC\\2022\\sim\\2022-field.png",
+        "left": 74,
+        "right": 1774,
+        "top": 50,
+        "width": 16.459199905395508,
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Tune Sparkmax": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/autonomous_ramsete": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/path velocity": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "Ramsete": {
+      "open": true
+    }
+  }
+}

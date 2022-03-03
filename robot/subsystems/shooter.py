@@ -16,7 +16,7 @@ class Shooter(SubsystemBase):
 
         # initialize motors
         # looking from back to front
-        motor_type = rev.MotorType.kBrushless
+        motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
         self.flywheel_left = rev.CANSparkMax(constants.k_flywheel_left_neo_port, motor_type)
         self.flywheel_right = rev.CANSparkMax(constants.k_flywheel_right_neo_port, motor_type)
         #self.flywheel_first_stage = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, motor_type)
@@ -36,13 +36,13 @@ class Shooter(SubsystemBase):
 
 
     def set_flywheel(self, rpm):
-        self.flywheel_left_controller.setReference(rpm, rev.ControlType.kSmartVelocity, 0)
+        self.flywheel_left_controller.setReference(rpm, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 0)
 
     #def set_first_stage(self, rpm):
         #self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kVoltage, 0)
     
     def stop_shooter(self):
-        self.flywheel_left_controller.setReference(0, rev.ControlType.kVoltage)
+        self.flywheel_left_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         #self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
 
     def get_flywheel(self):
