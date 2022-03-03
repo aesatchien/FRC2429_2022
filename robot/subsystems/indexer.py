@@ -22,7 +22,7 @@ class Indexer(SubsystemBase):
         self.flywheel_first_stage_controller = self.flywheel_first_stage.getPIDController()
 
 
-        self.indexer_neo.setInverted(True)
+        self.indexer_neo.setInverted(False)
 
 
     def set_voltage(self, voltage):

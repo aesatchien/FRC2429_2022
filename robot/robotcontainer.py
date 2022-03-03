@@ -143,8 +143,8 @@ class RobotContainer:
         # todo: reset to horizontal self.buttonRight.whenPressed(reset to horizontl)
 
         #intake
-        #self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
-        self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
+        self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
+        #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
         
         #vision
         self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
@@ -162,11 +162,11 @@ class RobotContainer:
 
             #intake
             self.co_buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
-            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
+            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.65))
 
 
             #indexer
-            self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
+            self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
             
 
 
