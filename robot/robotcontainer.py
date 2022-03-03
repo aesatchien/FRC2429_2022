@@ -1,13 +1,7 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
 from commands2.button import JoystickButton, Button, POVButton
-
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
-from wpilib.controller import RamseteController, PIDController
-from wpimath.controller import SimpleMotorFeedforwardMeters
-from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
-from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator, Trajectory
-from wpimath.geometry import Pose2d, Rotation2d, Translation2d
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.intake import Intake
@@ -28,6 +22,7 @@ from commands.toggle_shifting import ToggleShifting
 from commands.toggle_intake import ToggleIntake
 from commands.timed_feed import TimedFeed
 from commands.auto_fetch_ball import AutoFetchBall
+from commands.tune_sparkmax_drive import TuneSparkmax
 
 import constants
 import trajectory_io
@@ -44,7 +39,7 @@ class RobotContainer:
 
         self.start_time = time.time()
 
-        self.competition_mode = True
+        self.competition_mode = False  # set up second controller
 
         # Create an instance of the drivetrain subsystem.
         self.robot_drive = Drivetrain()
@@ -55,9 +50,9 @@ class RobotContainer:
         self.robot_indexer = Indexer()
         self.robot_vision = Vision()
 
-        # Create the driver's controller.
-        self.driver_controller = XboxController(constants.k_driver_controller_port)
-        self.co_driver_controller = XboxController(constants.k_co_driver_controller_port)
+        # Create the driver's controller
+        self.driver_controller = None
+        self.co_driver_controller = None
         # Configure and set the button bindings for the driver's controller.
         self.initialize_joysticks()
         self.initialize_dashboard()
@@ -96,6 +91,8 @@ class RobotContainer:
     def initialize_joysticks(self):
         """Configure the buttons for the driver's controller"""
 
+        # Create the driver's controller.
+        self.driver_controller = XboxController(constants.k_driver_controller_port)
         self.buttonA = JoystickButton(self.driver_controller, 1)
         self.buttonB = JoystickButton(self.driver_controller, 2)
         self.buttonX = JoystickButton(self.driver_controller, 3)
@@ -112,6 +109,7 @@ class RobotContainer:
         #self.buttonRightAxis = AxisButton(self.driver_controller, 5)
 
         if self.competition_mode:
+            self.co_driver_controller = XboxController(constants.k_co_driver_controller_port)
             self.co_buttonB = JoystickButton(self.co_driver_controller, 2)
             self.co_buttonA = JoystickButton(self.co_driver_controller, 1)
             self.co_buttonY = JoystickButton(self.co_driver_controller, 4)
@@ -153,8 +151,9 @@ class RobotContainer:
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
         # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
-
+        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         
         if self.competition_mode:
             #climber
@@ -164,20 +163,14 @@ class RobotContainer:
             self.co_buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
             self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
 
-
             #indexer
             self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
-            
-
 
             #shooter
             self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
 
-
             #compressor
             self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
-            
-
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         (
@@ -185,7 +178,6 @@ class RobotContainer:
             .whenPressed(lambda: self.robot_drive.set_max_output(0.25))
             .whenReleased(lambda: self.robot_drive.set_max_output(1))
         )
-
 
 
     def initialize_dashboard(self):

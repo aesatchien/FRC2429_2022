@@ -245,7 +245,7 @@ class AutonomousRamsete(commands2.CommandBase):
         print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
         SmartDashboard.putString(f"alert", f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
 
-        # self.container.robot_drive.tank_drive_volts(0, 0)
+        self.container.robot_drive.tank_drive_volts(0, 0)  # why was this commented out?
 
         self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
         if self.write_telemetry:

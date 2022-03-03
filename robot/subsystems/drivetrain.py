@@ -1,6 +1,7 @@
 # drivetrain to use both in sim and robot mode - sim handles the Sparkmax now
 # started 2022 0102 to update to commands2
 
+import time
 from commands2 import SubsystemBase
 from wpilib import SpeedControllerGroup, PWMSparkMax, SmartDashboard
 from wpilib.drive import DifferentialDrive
@@ -18,7 +19,22 @@ class Drivetrain(SubsystemBase):
 
         self.counter = 0  # used for updating the log
         self.x, self.y = 0, 0
+
+        # if we need to configure the sparkmaxes for smartvelocity and smartmotion
         self.error_dict = {}  # used for tracking errors from the SparkMAX controllers
+        self.PID_dict_pos = constants.PID_dict_pos
+        self.PID_dict_vel = constants.PID_dict_vel
+        self.smartmotion_maxvel = constants.smartmotion_maxvel
+        self.smartmotion_maxacc = constants.smartmotion_maxacc
+        self.current_limit = constants.current_limit
+        self.ramp_rate = constants.ramp_rate
+
+        """ self.PID_dict_pos = {'kP': 0.010, 'kI': 5.0e-7, 'kD': 0.40, 'kIz': 0, 'kFF': 0.002, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+        self.PID_dict_vel = {'kP': 2*0.00015, 'kI': 1.5*8.0e-7, 'kD': 0.00, 'kIz': 0, 'kFF': 0.00022, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+        self.smartmotion_maxvel = 1000  # rpm
+        self.smartmotion_maxacc = 500
+        self.current_limit = 100
+        self.ramp_rate = 0.0"""
 
         # initialize sensors - use the navx for headings
         self.navx = navx.AHRS.create_spi()
@@ -31,6 +47,14 @@ class Drivetrain(SubsystemBase):
         self.spark_neo_right_rear = rev.CANSparkMax(constants.k_right_motor2_port, motor_type)
         self.controllers = [self.spark_neo_left_front, self.spark_neo_left_rear,
                             self.spark_neo_right_front, self.spark_neo_right_rear]
+
+        # get PID controllers
+        self.spark_PID_controller_right_front = self.spark_neo_right_front.getPIDController()
+        self.spark_PID_controller_right_rear = self.spark_neo_right_rear.getPIDController()
+        self.spark_PID_controller_left_front = self.spark_neo_left_front.getPIDController()
+        self.spark_PID_controller_left_rear = self.spark_neo_left_rear.getPIDController()
+        self.pid_controllers = [self.spark_PID_controller_left_front, self.spark_PID_controller_left_rear,
+                                self.spark_PID_controller_right_front, self.spark_PID_controller_right_rear]
 
         # 2022 bot w/ 2021 robotpy: shifter gearboxes are CCW when motors are CW.  So we invert all four.
         # However, on 2022 wpilib, the right side of differential drive will no longer be inverted by default
@@ -200,3 +224,61 @@ class Drivetrain(SubsystemBase):
         # do this in the functions that set the motors themselves?
         #self.dummy_motor_left.set(self.spark_neo_left_front.get())
         #self.dummy_motor_right.set(self.spark_neo_right_front.get())
+
+
+    def smart_motion(self, distance=0, spin=False):
+        """
+        Thinking of an easy way to send the motion command to the
+        Can't do this when the default command is running, so have to do in a command that owns drive
+        """
+        multipliers = [1.0, 1.0, -1.0, -1.0] if spin else [1.0, 1.0, 1.0, 1.0]
+        for controller, multiplier in zip(self.pid_controllers, multipliers):
+            controller.setReference(distance*multiplier, rev.ControlType.kSmartMotion)
+
+    def configure_controllers(self, pid_only=False):
+        """Set the PIDs, etc for the controllers, slot 0 is position and slot 1 is velocity"""
+
+        for i, controller in enumerate(self.pid_controllers):
+            self.error_dict.update({'kP0_'+str(i):controller.setP(self.PID_dict_pos['kP'], 0)})
+            self.error_dict.update({'kP1_'+str(i):controller.setP(self.PID_dict_vel['kP'], 1)})
+            self.error_dict.update({'kI0_'+str(i):controller.setI(self.PID_dict_pos['kI'], 0)})
+            self.error_dict.update({'kI1_'+str(i):controller.setI(self.PID_dict_vel['kI'], 1)})
+            self.error_dict.update({'kD0_'+str(i):controller.setD(self.PID_dict_pos['kD'], 0)})
+            self.error_dict.update({'kD_1'+str(i):controller.setD(self.PID_dict_vel['kD'], 1)})
+            self.error_dict.update({'kFF_0'+str(i):controller.setFF(self.PID_dict_pos['kFF'], 0)})
+            self.error_dict.update({'kFF_1'+str(i):controller.setFF(self.PID_dict_vel['kFF'], 1)})
+            self.error_dict.update({'kIZ_0'+str(i):controller.setIZone(self.PID_dict_pos['kIz'], 0)})
+            self.error_dict.update({'kIZ_1'+str(i):controller.setIZone(self.PID_dict_vel['kIz'], 1)})
+            self.error_dict.update({'MinMax0_'+str(i):controller.setOutputRange(self.PID_dict_pos['kMinOutput'], self.PID_dict_pos['kMaxOutput'], 0)})
+            self.error_dict.update({'MinMax0_'+str(i):controller.setOutputRange(self.PID_dict_vel['kMinOutput'], self.PID_dict_vel['kMaxOutput'], 1)})
+            self.error_dict.update({'Accel0_'+str(i):controller.setSmartMotionMaxVelocity(self.smartmotion_maxvel, 0)}) #
+            self.error_dict.update({'Accel1_'+str(i):controller.setSmartMotionMaxVelocity(self.smartmotion_maxvel, 1)}) #
+            self.error_dict.update({'Vel0_'+str(i):controller.setSmartMotionMaxAccel(self.smartmotion_maxacc, 0)}) #
+            self.error_dict.update({'Vel1_'+str(i):controller.setSmartMotionMaxAccel(self.smartmotion_maxacc, 1)}) #
+
+        if not pid_only:
+            for i, controller in enumerate(self.controllers):
+                # error_dict.append(controller.restoreFactoryDefaults())
+                self.error_dict.update({'OpenRamp_' + str(i): controller.setOpenLoopRampRate(self.ramp_rate)})
+                self.error_dict.update({'ClosedRamp_' + str(i): controller.setClosedLoopRampRate(self.ramp_rate)})
+                self.error_dict.update({'Idle_' + str(i): controller.setIdleMode(rev.IdleMode.kBrake)})
+                self.error_dict.update({'CurLimit_'+str(i):controller.setSmartCurrentLimit(self.current_limit)})
+                self.error_dict.update({'VoltComp_'+str(i):controller.enableVoltageCompensation(12)})
+                # defaults are 10, 20, 20 on the frame rates - trying to cut down a bit on CAN bandwidth
+                #self.error_dict.update({'PeriodicStatus0_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus0, 20)})
+                #self.error_dict.update({'PeriodicStatus1_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus1, 40)})
+                #self.error_dict.update({'PeriodicStatus2_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus2, 20)})
+
+        if len(set(self.error_dict)) > 1:
+            print('\n*Sparkmax setting*     *Response*')
+            for key in sorted(self.error_dict.keys()):
+                print(f'     {key:15} \t {self.error_dict[key]}')
+        else:
+            print(f'\n *All SparkMax report {list(set(self.error_dict))[0]}')
+
+        burn_flash = False
+        if burn_flash:
+            start_time = time.time()
+            for i, controller in enumerate(self.controllers):
+                can_error = controller.burnFlash()
+                print(f'Burn flash on controller {i}: {can_error} {int(1000*(time.time()-start_time)):2d}ms after starting')

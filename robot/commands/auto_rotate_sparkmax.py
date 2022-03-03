@@ -16,7 +16,7 @@ class AutoRotateSparkmax(commands2.CommandBase):
 
         self.degrees = degrees
 
-        self.distance_per_degree = 2.6 / 360  # calibration is 2.??m for a 360 degree spin
+        self.distance_per_degree = 2.8 / 360  # calibration is 2.8?m for a 360 degree spin
 
 
     def initialize(self) -> None:

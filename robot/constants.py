@@ -27,6 +27,14 @@ k_right_motor1_port = 3
 k_right_motor2_port = 4
 k_shifter_pneumatics_port = 3 # PCM
 
+PID_dict_pos = {'kP': 0.010, 'kI': 5.0e-7, 'kD': 0.40, 'kIz': 0, 'kFF': 0.002, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+PID_dict_vel = {'kP': 2 * 0.00015, 'kI': 1.5 * 8.0e-7, 'kD': 0.00, 'kIz': 0, 'kFF': 0.00022, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+smartmotion_maxvel = 1000  # rpm
+smartmotion_maxacc = 500
+current_limit = 100
+ramp_rate = 0.0
+
+
 # --------------  INTAKE  ---------------
 k_intake_motor_port = 5 # PWM
 k_intake_pneumatic_port = 2 # PCM

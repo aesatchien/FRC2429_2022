@@ -55,7 +55,6 @@ class Climber(SubsystemBase):
 
             self.climber_voltage.setValue(self.climber_left_neo.getAppliedOutput())  # does not like setNumber for some reason
             self.climber_current.setValue(self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
-            pass
 
 
 
