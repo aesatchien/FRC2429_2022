@@ -7,7 +7,7 @@ from pathlib import Path
 from wpimath.kinematics import DifferentialDriveKinematics
 from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
 import math
-import wpilib.controller
+import wpimath.controller
 
 # --------------  OI  ---------------
 # ID for the driver's joystick (template)
@@ -92,7 +92,7 @@ k_max_acceleration_meters_per_second_squared = 4  # was 2.75 for 2021 paths
 k_max_centripetal_acceleration_meters_per_second_squared = 2.75
 k_max_voltage = 6
 
-k_feed_forward = wpilib.controller.SimpleMotorFeedforwardMeters(ks_volts, kv_volt_seconds_per_meter, ka_volt_seconds_squared_per_meter)
+k_feed_forward = wpimath.controller.SimpleMotorFeedforwardMeters(ks_volts, kv_volt_seconds_per_meter, ka_volt_seconds_squared_per_meter)
 k_autonomous_voltage_constraint = DifferentialDriveVoltageConstraint(k_feed_forward, k_drive_kinematics, k_max_voltage)
 
 # Baseline values for a RAMSETE follower in units of meters

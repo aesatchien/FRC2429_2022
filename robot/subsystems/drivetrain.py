@@ -40,7 +40,7 @@ class Drivetrain(SubsystemBase):
         self.navx = navx.AHRS.create_spi()
 
         # initialize motors
-        motor_type = rev.MotorType.kBrushless
+        motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
         self.spark_neo_left_front = rev.CANSparkMax(constants.k_left_motor1_port, motor_type)
         self.spark_neo_left_rear = rev.CANSparkMax(constants.k_left_motor2_port, motor_type)
         self.spark_neo_right_front = rev.CANSparkMax(constants.k_right_motor1_port, motor_type)
@@ -266,9 +266,10 @@ class Drivetrain(SubsystemBase):
                 # error_dict.append(controller.restoreFactoryDefaults())
                 self.error_dict.update({'OpenRamp_' + str(i): controller.setOpenLoopRampRate(self.ramp_rate)})
                 self.error_dict.update({'ClosedRamp_' + str(i): controller.setClosedLoopRampRate(self.ramp_rate)})
-                self.error_dict.update({'Idle_' + str(i): controller.setIdleMode(rev.IdleMode.kBrake)})
                 self.error_dict.update({'CurLimit_'+str(i):controller.setSmartCurrentLimit(self.current_limit)})
                 self.error_dict.update({'VoltComp_'+str(i):controller.enableVoltageCompensation(12)})
+                # some of these got moved to the controller, not the PID controller
+                # self.error_dict.update({'Idle_' + str(i): controller.setIdleMode(rev.IdleMode.kBrake)})
                 # defaults are 10, 20, 20 on the frame rates - trying to cut down a bit on CAN bandwidth
                 #self.error_dict.update({'PeriodicStatus0_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus0, 20)})
                 #self.error_dict.update({'PeriodicStatus1_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus1, 40)})

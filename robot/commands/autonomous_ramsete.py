@@ -9,7 +9,8 @@ import pickle
 from pathlib import Path
 
 import commands2
-from wpilib import SmartDashboard, controller
+from wpilib import SmartDashboard
+from wpimath import controller
 import wpimath.kinematics
 import wpimath.geometry as geo
 from networktables import NetworkTablesInstance

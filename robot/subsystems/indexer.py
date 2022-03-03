@@ -11,8 +11,9 @@ class Indexer(SubsystemBase):
         super().__init__()
         self.setName('Indexer')
 
-        self.indexer_neo = rev.CANSparkMax(constants.k_indexer_neo_port, rev.MotorType.kBrushless)
-        self.flywheel_first_stage = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, rev.MotorType.kBrushless)
+        motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
+        self.indexer_neo = rev.CANSparkMax(constants.k_indexer_neo_port, motor_type)
+        self.flywheel_first_stage = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, motor_type)
 
 
         self.indxer_encoder = self.indexer_neo.getEncoder()
