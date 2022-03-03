@@ -3,6 +3,7 @@
 /robot/guis
 /robot/sim/data/*.pkl
 /robot/imgui.ini
+/robot/simg*
 
 # too many ini files for the gui
 *.ini
