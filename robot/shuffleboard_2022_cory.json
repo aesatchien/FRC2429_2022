@@ -9,63 +9,9 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
+        "titleType": 1,
         "tiles": {
-          "6,0": {
-            "size": [
-              6,
-              2
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Autonomous Scoring Route",
-              "_title": "SmartDashboard/Autonomous Scoring Route"
-            }
-          },
-          "6,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Velocity Enc3",
-              "_title": "SmartDashboard/Velocity Enc3"
-            }
-          },
-          "9,3": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Simple Dial",
-              "_source0": "network_table:///SmartDashboard/Velocity Enc3",
-              "_title": "Speedometer",
-              "Range/Min": -100.0,
-              "Range/Max": 100.0,
-              "Visuals/Show value": true
-            }
-          },
-          "14,3": {
-            "size": [
-              4,
-              4
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/Velocity Enc3",
-              "_title": "SmartDashboard/Velocity Enc3",
-              "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/Velocity Enc3": true
-            }
-          },
-          "13,0": {
+          "15,4": {
             "size": [
               2,
               2
@@ -73,7 +19,205 @@
             "content": {
               "_type": "Toggle Button",
               "_source0": "network_table:///FMSInfo/IsRedAlliance",
-              "_title": "FMSInfo/IsRedAlliance"
+              "_title": "IsRedAlliance"
+            }
+          },
+          "13,0": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Ramsete Grid",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 4,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Ramsete/ramsete_B",
+                  "_title": "ramsete_B"
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Ramsete/ramsete_Z",
+                  "_title": "ramsete_Z"
+                },
+                "2,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Ramsete/ramsete_kpvel",
+                  "_title": "ramsete_kpvel"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Ramsete/waypoint_heading",
+                  "_title": "waypoint_heading"
+                },
+                "2,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Ramsete/waypoint_y",
+                  "_title": "waypoint_y"
+                },
+                "1,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Ramsete/waypoint_x",
+                  "_title": "waypoint_x"
+                },
+                "1,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Ramsete/ramsete_write",
+                  "_title": "Ramsete/ramsete_write"
+                },
+                "0,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Ramsete/waypoint_reverse",
+                  "_title": "Ramsete/waypoint_reverse"
+                },
+                "2,2": {
+                  "_type": "ComboBox Chooser",
+                  "_source0": "network_table:///SmartDashboard/path velocity",
+                  "_title": "SmartDashboard/path velocity"
+                }
+              }
+            }
+          },
+          "9,0": {
+            "size": [
+              2,
+              5
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Drive kPos List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kP_pos",
+                  "_title": "Sparkmax/kP_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kFF_pos",
+                  "_title": "Sparkmax/kFF_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kI_pos",
+                  "_title": "Sparkmax/kI_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kIz_pos",
+                  "_title": "Sparkmax/kIz_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kD_pos",
+                  "_title": "Sparkmax/kD_pos"
+                }
+              ]
+            }
+          },
+          "11,0": {
+            "size": [
+              2,
+              5
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Drive kVel List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kP_vel",
+                  "_title": "Sparkmax/kP_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kFF_vel",
+                  "_title": "Sparkmax/kFF_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kI_vel",
+                  "_title": "Sparkmax/kI_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kIz_vel",
+                  "_title": "Sparkmax/kIz_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/kD_vel",
+                  "_title": "Sparkmax/kD_vel"
+                }
+              ]
+            }
+          },
+          "17,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
+              "_title": "autonomous_ramsete"
+            }
+          },
+          "5,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/drive_lvel",
+              "_source1": "network_table:///SmartDashboard/drive_rvel",
+              "_title": "Drivetrain Velocity",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "m/s",
+              "Visible data/SmartDashboard/drive_lvel": true,
+              "Visible data/SmartDashboard/drive_rvel": true
+            }
+          },
+          "5,4": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/drive_lpos",
+              "_source1": "network_table:///SmartDashboard/drive_rpos",
+              "_title": "Drivetrain Position",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "meters",
+              "Visible data/SmartDashboard/drive_lpos": true,
+              "Visible data/SmartDashboard/drive_rpos": true
+            }
+          },
+          "10,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Tune Sparkmax",
+              "_title": "SmartDashboard/Tune Sparkmax"
             }
           }
         }
@@ -179,6 +323,116 @@
                   "_title": "DigitalInput[9]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Pneumatics",
+                  "_title": "Pneumatics"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Vision",
+                  "_title": "Vision"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
+                  "_title": "Spark[5]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Climber",
+                  "_title": "Climber"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Shooter",
+                  "_title": "Shooter"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/class frc2::SubsystemBase",
+                  "_title": "class frc2::SubsystemBase"
+                },
+                {
+                  "_type": "Differential Drivebase",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DifferentialDrive[1]",
+                  "_title": "DifferentialDrive[1]",
+                  "Wheels/Number of wheels": 4,
+                  "Wheels/Wheel diameter": 80.0,
+                  "Visuals/Show velocity vectors": true
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Indexer",
+                  "_title": "Indexer"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,3]/Value",
+                  "_title": "Solenoid[0,3]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Intake",
+                  "_title": "Intake"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
+                  "_title": "PWMSparkMax[3]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,2]/Value",
+                  "_title": "Solenoid[0,2]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,1]/Value",
+                  "_title": "Solenoid[0,1]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Speed Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
+                  "_title": "PWMSparkMax[1]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,0]/Value",
+                  "_title": "Solenoid[0,0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "_title": "Compressor[0]/Pressure switch",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Closed Loop Control",
+                  "_title": "Compressor[0]/Closed Loop Control",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Enabled",
+                  "_title": "Compressor[0]/Enabled",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -227,9 +481,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
-    "y": 0.0,
-    "width": 1536.0,
-    "height": 824.0
+    "x": 1834.0,
+    "y": 241.0,
+    "width": 1572.0,
+    "height": 932.0
   }
 }
