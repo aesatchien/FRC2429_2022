@@ -168,6 +168,9 @@ class Drivetrain(SubsystemBase):
     def reset(self):
         self.zero_heading()
         self.reset_encoders()
+    
+    def feed(self):
+        self.drive.feed()
 
     # ----------------- PERIODIC UPDATES -----------------------
     def periodic(self):

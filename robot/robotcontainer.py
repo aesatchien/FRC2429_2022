@@ -15,16 +15,19 @@ from subsystems.shooter import Shooter
 from subsystems.climber import Climber
 from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
+from subsystems.vision import Vision
+
 from commands.autonomous_ramsete import AutonomousRamsete
 from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.toggle_shooter import ToggleShooter
-from commands.toggle_indexer import ToggleIndexer
+from commands.toggle_feed import ToggleFeed
 from commands.toggle_compressor import ToggleCompressor
 from commands.spin_climber import SpinClimber
-from commands.toggle_endgame import ToggleEndgame
 from commands.toggle_shifting import ToggleShifting
 from commands.toggle_intake import ToggleIntake
+from commands.timed_feed import TimedFeed
+from commands.auto_fetch_ball import AutoFetchBall
 
 import constants
 import trajectory_io
@@ -50,6 +53,7 @@ class RobotContainer:
         self.robot_pneumatics = Pneumatics()
         self.robot_climber = Climber()
         self.robot_indexer = Indexer()
+        self.robot_vision = Vision()
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)
@@ -122,7 +126,6 @@ class RobotContainer:
             self.co_buttonRight = POVButton(self.co_driver_controller, 90)
 
 
-        self.buttonY.whenPressed(ToggleEndgame(self))
         #climbing
         self.buttonRight.whenHeld(SpinClimber(self, self.robot_climber))
 
@@ -136,45 +139,44 @@ class RobotContainer:
         self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_short())
         self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
 
-
         #climbing
         # todo: reset to horizontal self.buttonRight.whenPressed(reset to horizontl)
 
         #intake
-        self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
-        self.buttonX.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
-
+        #self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
+        self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
+        
+        #vision
+        self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
-        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
-        traj = trajectory_io.generate_quick_trajectory(x=-2, reverse=True)
-        #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='trajectory', trajectory=traj))
-        #self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
+        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
 
-        """
+        
         if self.competition_mode:
             #climber
             #self.co_buttonY.whileHeld(SpinClimber(self, self.robot_climber))
 
             #intake
-            #self.co_buttonDown.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
+            self.co_buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
             self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.55))
 
 
             #indexer
-            #self.co_buttonX.whenPressed(ToggleIndexer(self, self.robot_indexer, 2))
+            self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
+            
 
 
             #shooter
-            #self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+            self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
 
 
             #compressor
-            #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
-            """
+            self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+            
 
 
         # We won't do anything with this button itself, so we don't need to define a variable.
