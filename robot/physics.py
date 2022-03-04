@@ -88,10 +88,10 @@ class PhysicsEngine:
 
         # initial position
         self.x, self.y = constants.k_start_x, constants.k_start_y
-        initial_pose = geo.Pose2d(0, 0, geo.Rotation2d(0))
-        self.pose = geo.Pose2d(self.x, self.y, geo.Rotation2d(0))
+        initial_pose = geo.Pose2d(0, 0, geo.Rotation2d())
+        self.pose = geo.Pose2d(self.x, self.y, geo.Rotation2d().fromDegrees(constants.k_start_heading))
         initial_position_transform = geo.Transform2d(initial_pose, self.pose)
-        self.drivesim.setState([self.x, self.y, 0, 0, 0, 0, 0])
+        self.drivesim.setState([self.x, self.y, self.pose.rotation().radians(), 0, 0, 0, 0])
         self.physics_controller.move_robot(initial_position_transform)
         self.previous_pose = self.drivesim.getPose()
 

@@ -25,6 +25,7 @@ from commands.auto_fetch_ball import AutoFetchBall
 from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
+from commands.autonomous_lower_group import AutonomousLowerGroup
 
 import constants
 import trajectory_io
@@ -159,6 +160,9 @@ class RobotContainer:
         self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
         # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
         
+        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        SmartDashboard.putData(AutonomousLowerGroup(container=self))
+
         if self.competition_mode:
             #climber
             #self.co_buttonY.whileHeld(SpinClimber(self, self.robot_climber))

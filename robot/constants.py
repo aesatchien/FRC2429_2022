@@ -78,8 +78,9 @@ k_sparkmax_conversion_factor_meters = k_wheel_diameter_m * math.pi / k_gear_rati
 
 # --------------  SIMULATION  ---------------
 
-k_start_x = 2
-k_start_y = 3
+k_start_x = 7.7
+k_start_y = 2.1
+k_start_heading = 90
 
 robot_characterization = {'ks':0.446, 'kv':1.55, 'ka':0.40, 'track_width':0.73}
 ks_volts = robot_characterization['ks']  # so far this is only used in the Ramsete command, but in 2021 we used it in tank model as well
