@@ -58,7 +58,7 @@ class Drivetrain(SubsystemBase):
         
         # 2022 bot w/ 2021 robotpy: shifter gearboxes are CCW when motors are CW.  So we invert all four.
         # However, on 2022 wpilib, the right side of differential drive will no longer be inverted by default
-        [controller.setInverted(True) for controller in self.controllers]
+        [controller.setInverted(True) for controller in self.controllers]  # approach for shifter GB
 
         # add two dummy PWMs so we can track the SparkMax in the sim (should be updated in sim periodic)
         self.dummy_motor_left = PWMSparkMax(1)
@@ -67,6 +67,7 @@ class Drivetrain(SubsystemBase):
         # Create the motor controllers and their respective speed controllers
         self.left_motors = SpeedControllerGroup(self.spark_neo_left_front, self.spark_neo_left_rear)
         self.right_motors = SpeedControllerGroup(self.spark_neo_right_front, self.spark_neo_right_rear)
+        self.right_motors.setInverted(True)  # 2022 change - drivetrain used to invert this by default before 2022
 
         # Create the differential drivetrain object, allowing for easy motor control
         self.drive = DifferentialDrive(self.left_motors, self.right_motors)
@@ -118,7 +119,7 @@ class Drivetrain(SubsystemBase):
 
     def arcade_drive(self, fwd, rot):
         """Drive the robot with standard arcade controls."""
-        self.drive.arcadeDrive(rot, fwd)
+        self.drive.arcadeDrive(fwd, rot)
 
         # need to update the simulated PWMs here
         self.dummy_motor_left.set(self.spark_neo_left_front.get())

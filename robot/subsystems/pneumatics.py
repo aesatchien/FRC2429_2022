@@ -27,13 +27,14 @@ class Pneumatics(SubsystemBase):
         return self.intake_piston.get()
 
     def stop_compressor(self):
-        self.compressor.stop()
+        # self.compressor.stop()  # deprecated in 2022
+        self.compressor.disable()   # should now be disable, as of 2022
 
     def start_compressor(self):
         # self.compressor.setClosedLoopControl(True)
-        self.compressor.start()  # setClosedLoopControl(True) is no longer a call in 2022
+        self.compressor.enableDigital()  # setClosedLoopControl(True) is no longer a call in 2022
     
-    def get_compressor(self):  # ToDo - fix this - seee what Haochen meant
+    def get_compressor(self):  # ToDo - fix this - see what Haochen meant, I think he meant 'is it on?'
         # return self.compressor.getClosedLoopControl()
         return self.compressor.enabled()  # getClosedLoopControl is no longer a call in 2022
     
