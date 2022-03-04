@@ -55,7 +55,7 @@ class Drivetrain(SubsystemBase):
         self.spark_PID_controller_left_rear = self.spark_neo_left_rear.getPIDController()
         self.pid_controllers = [self.spark_PID_controller_left_front, self.spark_PID_controller_left_rear,
                                 self.spark_PID_controller_right_front, self.spark_PID_controller_right_rear]
-
+        
         # 2022 bot w/ 2021 robotpy: shifter gearboxes are CCW when motors are CW.  So we invert all four.
         # However, on 2022 wpilib, the right side of differential drive will no longer be inverted by default
         [controller.setInverted(True) for controller in self.controllers]
@@ -118,7 +118,7 @@ class Drivetrain(SubsystemBase):
 
     def arcade_drive(self, fwd, rot):
         """Drive the robot with standard arcade controls."""
-        self.drive.arcadeDrive(fwd, rot)
+        self.drive.arcadeDrive(rot, fwd)
 
         # need to update the simulated PWMs here
         self.dummy_motor_left.set(self.spark_neo_left_front.get())
@@ -237,8 +237,10 @@ class Drivetrain(SubsystemBase):
         Can't do this when the default command is running, so have to do in a command that owns drive
         """
         multipliers = [1.0, 1.0, -1.0, -1.0] if spin else [1.0, 1.0, 1.0, 1.0]
-        for controller, multiplier in zip(self.pid_controllers, multipliers):
-            controller.setReference(distance*multiplier, rev.ControlType.kSmartMotion)
+        for controller, encoder, multiplier in zip(self.pid_controllers, self.encoders, multipliers):
+            controller.setReference(encoder.getPosition() + distance*multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartMotion)
+
+        
 
     def configure_controllers(self, pid_only=False):
         """Set the PIDs, etc for the controllers, slot 0 is position and slot 1 is velocity"""

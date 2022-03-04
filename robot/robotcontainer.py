@@ -23,6 +23,8 @@ from commands.toggle_intake import ToggleIntake
 from commands.timed_feed import TimedFeed
 from commands.auto_fetch_ball import AutoFetchBall
 from commands.tune_sparkmax_drive import TuneSparkmax
+from commands.auto_rotate_sparkmax import AutoRotateSparkmax
+from commands.auto_rotate_imu import AutoRotateImu
 
 import constants
 import trajectory_io
@@ -92,7 +94,7 @@ class RobotContainer:
         """Configure the buttons for the driver's controller"""
 
         # Create the driver's controller.
-        self.driver_controller = XboxController(constants.k_driver_controller_port)
+        self.driver_controller = Joystick(constants.k_driver_controller_port)
         self.buttonA = JoystickButton(self.driver_controller, 1)
         self.buttonB = JoystickButton(self.driver_controller, 2)
         self.buttonX = JoystickButton(self.driver_controller, 3)
@@ -151,9 +153,11 @@ class RobotContainer:
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
         # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        #SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
-        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
+        # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
         
         if self.competition_mode:
             #climber

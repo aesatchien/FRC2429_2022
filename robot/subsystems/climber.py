@@ -35,10 +35,10 @@ class Climber(SubsystemBase):
         self.climber_current = self.climber_table.getEntry('current')
 
     def set_voltage(self, voltage):
-        self.climber_left_controller.setReference(voltage, rev.ControlType.kVoltage)
+        self.climber_left_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
 
     def stop_motor(self):
-        self.climber_left_controller.setReference(0, rev.ControlType.kVoltage)
+        self.climber_left_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
 
 
     def periodic(self) -> None:

@@ -1,6 +1,8 @@
 import commands2
 from wpilib import SmartDashboard
 from subsystems.drivetrain import Drivetrain
+import constants
+import rev
 
 class AutoRotateSparkmax(commands2.CommandBase):
     """
@@ -20,19 +22,23 @@ class AutoRotateSparkmax(commands2.CommandBase):
 
 
     def initialize(self) -> None:
+        self.drive.drive.feed()
+
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
+        self.encoder_start_position = self.drive.left_encoder.getPosition()
 
-        self.pid_controllers = [controller.getPIDController() for controller in self.drive.controllers]
-
+        self.drive.smart_motion(self.degrees * self.distance_per_degree, spin=True)
 
     def execute(self) -> None:
-        pass
+        self.drive.drive.feed()
 
     def isFinished(self) -> bool:
-        return True
+        error = self.degrees * self.distance_per_degree - abs(self.drive.left_encoder.getPosition() - self.encoder_start_position)
+
+        return abs(error) < 0.1
 
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()
@@ -40,5 +46,3 @@ class AutoRotateSparkmax(commands2.CommandBase):
         print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
         SmartDashboard.putString(f"alert",
                                  f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
-
-
