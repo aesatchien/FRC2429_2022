@@ -16,7 +16,7 @@ k_co_driver_controller_port = 1
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
 # controller axis scales
-k_thrust_scale = 0.7 #halfed
+k_thrust_scale = 0.4 #halfed
 k_twist_scale = 0.45
 
 # --------------  DRIVETRAIN  ---------------
