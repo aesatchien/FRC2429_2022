@@ -23,6 +23,7 @@ from commands.toggle_intake import ToggleIntake
 from commands.timed_feed import TimedFeed
 from commands.auto_fetch_ball import AutoFetchBall
 from commands.tune_sparkmax_drive import TuneSparkmax
+from commands.autonomous_lower_group import AutonomousLowerGroup
 
 import constants
 import trajectory_io
@@ -154,7 +155,8 @@ class RobotContainer:
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-        
+        SmartDashboard.putData(AutonomousLowerGroup(container=self))
+
         if self.competition_mode:
             #climber
             #self.co_buttonY.whileHeld(SpinClimber(self, self.robot_climber))
