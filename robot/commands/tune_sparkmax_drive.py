@@ -63,7 +63,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
             return False  # run until cancelled
         elif self.control_type == 'position':
             error = self.setpoint - self.drive.left_encoder.getPosition()
-            return abs(self.error) < self.tolerance
+            return abs(error) < self.tolerance
         else:
             return True
 

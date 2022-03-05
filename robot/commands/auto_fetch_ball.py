@@ -1,6 +1,7 @@
 from math import copysign
 import commands2
 from wpilib import SmartDashboard
+from wpimath.controller import PIDController
 
 class AutoFetchBall(commands2.CommandBase):  # change the name for your command
 
@@ -10,6 +11,9 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
         self.container = container
         self.drive = drive
         self.vision = vision
+
+        self.controller = PIDController(0.01, 0, 0.0001)
+        self.feed_forward = 0.05
 
         self.addRequirements(drive)  # commandsv2 version of requirements
 
@@ -34,14 +38,13 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
             SmartDashboard.putNumber('/AutoFetchBall/rotation_offset', rotation_offset)
             SmartDashboard.putNumber('/AutoFetchBall/distance', distance)
 
-            kp = 0.003
-            min_speed = 0.2
-            twist_output = min_speed + kp * error
-            twist_output *= copysign(1, rotation_offset)
+            orientation = self.drive.navx.getAngle()
+            twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
+            twist_output += copysign(1, rotation_offset) * self.feed_forward
 
-            thrust_output = 0.2
+            thrust_output = 0
 
-            self.drivetrain.arcade_drive(thrust_output, twist_output)
+            self.drive.arcade_drive(thrust_output, twist_output)
 
     def isFinished(self) -> bool:
         return False

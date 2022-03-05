@@ -155,11 +155,24 @@ class RobotContainer:
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
         # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
 
+        #SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        # self.buttonX.whenPressed(AutoRotateImu(self, self.robot_drive, 30))
+        self.buttonX.whenPressed(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+
+        SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
+        SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
+        SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
+
+        self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
+
+
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
         # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
 

@@ -1,0 +1,1519 @@
+[Window][Debug##Default]
+Pos=60,60
+Size=400,400
+Collapsed=0
+
+[Window][Robot State]
+Pos=5,20
+Size=92,99
+Collapsed=0
+
+[Window][###Other Devices]
+Pos=1664,20
+Size=250,695
+Collapsed=0
+
+[Window][###Timing]
+Pos=5,150
+Size=135,150
+Collapsed=0
+
+[Window][###FMS]
+Pos=0,547
+Size=235,169
+Collapsed=0
+
+[Window][###Joysticks]
+Pos=11,782
+Size=796,189
+Collapsed=0
+
+[Window][###System Joysticks]
+Pos=12,314
+Size=192,218
+Collapsed=0
+
+[Window][###NetworkTables]
+Pos=1214,23
+Size=697,624
+Collapsed=0
+
+[Window][###/FMSInfo]
+Pos=60,60
+Size=169,167
+Collapsed=0
+
+[Window][###/SmartDashboard/path velocity]
+Pos=397,628
+Size=254,54
+Collapsed=0
+
+[Window][###/SmartDashboard/autonomous_ramsete]
+Pos=673,630
+Size=129,71
+Collapsed=0
+
+[Window][###/SmartDashboard/Field]
+Pos=232,21
+Size=964,593
+Collapsed=0
+
+[Window][###Keyboard 0 Settings]
+Pos=1206,417
+Size=300,560
+Collapsed=0
+
+[MainWindow][GLOBAL]
+width=984
+height=720
+maximized=1
+xpos=0
+ypos=23
+userScale=2
+style=0
+
+[GlassStorage][/SmartDashboard/Field]
+image=C:\FRC\2022\sim\2022-field.png
+top=50
+left=74
+bottom=900
+right=1774
+width=16.459200
+height=8.229600
+units=0
+
+[GlassStorage][/SmartDashboard/Field###Robot]
+image=
+width=0.685800
+length=0.820400
+style=0
+weight=4.000000
+color=-16776961
+arrows=1
+arrowSize=50
+arrowWeight=4.000000
+arrowColor=-16711936
+selectable=1
+
+[GlassStorage][NetworkTables]
+tree=1
+connections=0
+flags=0
+timestamp=0
+createNonCanonical=0
+
+[GlassStorage][NetworkTables###BallCam]
+open=1
+
+[GlassStorage][NetworkTables###BallCam###blue]
+open=1
+
+[GlassStorage][NetworkTables###BallCam###red]
+open=1
+
+[GlassStorage][NetworkTables###CameraPublisher]
+open=0
+
+[GlassStorage][NetworkTables###FMSInfo]
+open=0
+
+[GlassStorage][NetworkTables###LiveWindow]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard]
+open=1
+
+[GlassStorage][NetworkTables###SmartDashboard###Field]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###autonomous_ramsete]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###climber]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###drive]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###path velocity]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###ramsete]
+open=1
+
+[GlassStorage][NetworkTables###SmartDashboard###ramsete path]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###shooter]
+open=0
+
+[GlassStorage][NetworkTables###SmartDashboard###sim]
+open=0
+
+[GlassStorage][Other Devices###Compressor[0]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [10]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [11]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [1]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [2]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [3]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [4]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [5]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [6]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [7]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###SPARK MAX [8]]
+name=
+name###open=0
+
+[GlassStorage][Other Devices###navX-Sensor[4]]
+name=
+name###open=0
+
+[Data Sources][SPARK MAX [11]-Velocity]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Pneumatics/.hasDefault]
+name=
+
+[Data Sources][SPARK MAX [4]-FW Version]
+name=
+
+[Data Sources][SPARK MAX [2]-Control Mode]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/pan_absolute/min]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/pan_absolute/default]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/tilt_absolute/default]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/tilt_absolute/max]
+name=
+
+[Data Sources][Joystick[0] Button[7]]
+name=
+
+[Data Sources][NT:/BallCam//red/strafe]
+name=
+
+[Data Sources][SPARK MAX [8]-Analog Velocity]
+name=
+
+[Data Sources][SPARK MAX [8]-FW Version]
+name=
+
+[Data Sources][SPARK MAX [10]-FW Version]
+name=
+
+[Data Sources][NT:/LiveWindow/.status/LW Enabled]
+name=
+
+[Data Sources][NT_FMS:DSAttached:/FMSInfo]
+name=
+
+[Data Sources][SPARK MAX [3]-Motor Current]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/saturation/default]
+name=
+
+[Data Sources][SPARK MAX [3]-Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_exposure_absolute/min]
+name=
+
+[Data Sources][SPARK MAX [6]-Alt Encoder Position]
+name=
+
+[Data Sources][Y Accel[0]]
+name=
+
+[Data Sources][SPARK MAX [5]-Bus Voltage]
+name=
+
+[Data Sources][SPARK MAX [4]-Motor Temperature]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/brightness]
+name=
+
+[Data Sources][SPARK MAX [10]-Position]
+name=
+
+[Data Sources][Joystick[0] Button[8]]
+name=
+
+[Data Sources][NT:/SmartDashboard/climber current]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/Right Motor Speed]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/saturation/step]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/zoom_absolute/min]
+name=
+
+[Data Sources][SPARK MAX [1]-Velocity]
+name=
+
+[Data Sources][navX-Sensor[4]-Yaw]
+name=
+
+[Data Sources][SPARK MAX [10]-Bus Voltage]
+name=
+
+[Data Sources][SPARK MAX [2]-Motor Current]
+name=
+
+[Data Sources][SPARK MAX [8]-Alt Encoder Velocity]
+name=
+
+[Data Sources][NT:/BallCam//blue/distance]
+name=
+
+[Data Sources][NT_FMS:AutonomousMode:/FMSInfo]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_auto/default]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_auto/max]
+name=
+
+[Data Sources][SPARK MAX [11]-Alt Encoder Velocity]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/sharpness]
+name=
+
+[Data Sources][NT:/CameraPublisher/CV Image Source/connected]
+name=
+
+[Data Sources][NT:/FMSInfo/MatchNumber]
+name=
+
+[Data Sources][SPARK MAX [1]-Control Mode]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/brightness/max]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_absolute/max]
+name=
+
+[Data Sources][FMS:AllianceStationID]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_brightness/step]
+name=
+
+[Data Sources][NT_FMS:RobotEnabled:/FMSInfo]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[1]/.actuator]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/waypoint_reverse]
+name=
+
+[Data Sources][SPARK MAX [1]-Motor Current]
+name=
+
+[Data Sources][SPARK MAX [1]-Alt Encoder Position]
+name=
+
+[Data Sources][SPARK MAX [8]-Position]
+name=
+
+[Data Sources][SPARK MAX [10]-Faults]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/tilt_absolute]
+name=
+
+[Data Sources][FMS:TestMode]
+name=
+
+[Data Sources][NT:/SmartDashboard/ramsete path/.controllable]
+name=
+
+[Data Sources][SPARK MAX [8]-Sticky Faults]
+name=
+
+[Data Sources][NT:/SmartDashboard/Field/.controllable]
+name=
+
+[Data Sources][SPARK MAX [3]-Alt Encoder Velocity]
+name=
+
+[Data Sources][SPARK MAX [6]-Velocity]
+name=
+
+[Data Sources][Compressor On[0]]
+name=
+
+[Data Sources][Pressure Switch[0]]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_brightness/max]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/contrast/min]
+name=
+
+[Data Sources][NT:/FMSInfo/IsRedAlliance]
+name=
+
+[Data Sources][SPARK MAX [4]-Bus Voltage]
+name=
+
+[Data Sources][Closed Loop[0]]
+name=
+
+[Data Sources][SPARK MAX [5]-Motor Temperature]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Climber/.hasCommand]
+name=
+
+[Data Sources][SPARK MAX [3]-FW Version]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/backlight_compensation/max]
+name=
+
+[Data Sources][SPARK MAX [1]-Analog Position]
+name=
+
+[Data Sources][SPARK MAX [7]-FW Version]
+name=
+
+[Data Sources][NT:/CameraPublisher/BallCam Processed/connected]
+name=
+
+[Data Sources][SPARK MAX [7]-Sticky Faults]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/ramsete_kpvel]
+name=
+
+[Data Sources][SPARK MAX [8]-Control Mode]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,2]/.actuator]
+name=
+
+[Data Sources][navX-Sensor[4]-Connected]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/saturation/max]
+name=
+
+[Data Sources][navX-Sensor[4]-Pitch]
+name=
+
+[Data Sources][SPARK MAX [4]-Alt Encoder Position]
+name=
+
+[Data Sources][NT:/FMSInfo/StationNumber]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,2]/Value]
+name=
+
+[Data Sources][Comp Current[0]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/.actuator]
+name=
+
+[Data Sources][FMS:MatchTime]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/exposure_auto]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/white_balance_temperature_auto]
+name=
+
+[Data Sources][SPARK MAX [5]-Position]
+name=
+
+[Data Sources][SPARK MAX [11]-Control Mode]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Intake/.hasDefault]
+name=
+
+[Data Sources][SPARK MAX [2]-Analog Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/connect_verbose]
+name=
+
+[Data Sources][SPARK MAX [6]-Sticky Faults]
+name=
+
+[Data Sources][NT:/SmartDashboard//drive/right_volts]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Shooter/.hasDefault]
+name=
+
+[Data Sources][SPARK MAX [3]-Velocity]
+name=
+
+[Data Sources][NT:/BallCam//red/rotation]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/power_line_frequency]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_sharpness/min]
+name=
+
+[Data Sources][SPARK MAX [6]-Alt Encoder Velocity]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Pneumatics/.hasCommand]
+name=
+
+[Data Sources][SPARK MAX [10]-Velocity]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_saturation/step]
+name=
+
+[Data Sources][SPARK MAX [11]-Motor Current]
+name=
+
+[Data Sources][FMS:FMSAttached]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/power_line_frequency/step]
+name=
+
+[Data Sources][SPARK MAX [3]-Analog Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_saturation/max]
+name=
+
+[Data Sources][NT_FMS:EStop:/FMSInfo]
+name=
+
+[Data Sources][SPARK MAX [7]-Control Mode]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawProperty/raw_contrast]
+name=
+
+[Data Sources][SPARK MAX [2]-Faults]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/power_line_frequency/min]
+name=
+
+[Data Sources][SPARK MAX [4]-Faults]
+name=
+
+[Data Sources][navX-Sensor[4]-LinearWorldAccelX]
+name=
+
+[Data Sources][navX-Sensor[4]-LinearWorldAccelY]
+name=
+
+[Data Sources][navX-Sensor[4]-LinearWorldAccelZ]
+name=
+
+[Data Sources][SPARK MAX [2]-Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/power_line_frequency/default]
+name=
+
+[Data Sources][FMS:DSAttached]
+name=
+
+[Data Sources][SPARK MAX [8]-Faults]
+name=
+
+[Data Sources][SPARK MAX [6]-Faults]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,0]/Value]
+name=
+
+[Data Sources][SPARK MAX [7]-Alt Encoder Position]
+name=
+
+[Data Sources][SPARK MAX [3]-Bus Voltage]
+name=
+
+[Data Sources][SPARK MAX [5]-Sticky Faults]
+name=
+
+[Data Sources][SPARK MAX [10]-Control Mode]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/sharpness/min]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/backlight_compensation]
+name=
+
+[Data Sources][NT:/FMSInfo/ReplayNumber]
+name=
+
+[Data Sources][NT:/SmartDashboard/path velocity/.controllable]
+name=
+
+[Data Sources][SPARK MAX [6]-Motor Temperature]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/waypoint_heading]
+name=
+
+[Data Sources][SPARK MAX [4]-Sticky Faults]
+name=
+
+[Data Sources][SPARK MAX [4]-Analog Position]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/class frc2::SubsystemBase/.hasDefault]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_contrast/max]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_exposure_absolute/step]
+name=
+
+[Data Sources][SPARK MAX [1]-Alt Encoder Velocity]
+name=
+
+[Data Sources][SPARK MAX [10]-Motor Current]
+name=
+
+[Data Sources][SPARK MAX [10]-Alt Encoder Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_auto/step]
+name=
+
+[Data Sources][SPARK MAX [8]-Velocity]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_brightness/default]
+name=
+
+[Data Sources][Joystick[0] Axis[0]]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/contrast/default]
+name=
+
+[Data Sources][X Accel[0]]
+name=
+
+[Data Sources][SPARK MAX [1]-Motor Temperature]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/white_balance_temperature/max]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/pan_absolute/step]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/white_balance_temperature/default]
+name=
+
+[Data Sources][NT_FMS:FMSAttached:/FMSInfo]
+name=
+
+[Data Sources][SPARK MAX [2]-FW Version]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/backlight_compensation/default]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/tilt_absolute/min]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Compressor[0]/Closed Loop Control]
+name=
+
+[Data Sources][SPARK MAX [3]-Sticky Faults]
+name=
+
+[Data Sources][NT:/BallCam//blue/targets]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/pan_absolute/max]
+name=
+
+[Data Sources][SPARK MAX [6]-FW Version]
+name=
+
+[Data Sources][SPARK MAX [6]-Control Mode]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/ramsete_B]
+name=
+
+[Data Sources][SPARK MAX [5]-Analog Position]
+name=
+
+[Data Sources][NT:/FMSInfo/FMSControlData]
+name=
+
+[Data Sources][SPARK MAX [8]-Bus Voltage]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[3]/.actuator]
+name=
+
+[Data Sources][SPARK MAX [2]-Alt Encoder Position]
+name=
+
+[Data Sources][SPARK MAX [10]-Analog Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_exposure_absolute/max]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/sharpness/step]
+name=
+
+[Data Sources][SPARK MAX [7]-Position]
+name=
+
+[Data Sources][Joystick[0] Axis[1]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Indexer/.hasDefault]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/exposure_auto_priority]
+name=
+
+[Data Sources][SPARK MAX [1]-Analog Velocity]
+name=
+
+[Data Sources][Solenoid[0,0]]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/ramsete_Z]
+name=
+
+[Data Sources][navX-Sensor[4]-CompassHeading]
+name=
+
+[Data Sources][SPARK MAX [2]-Sticky Faults]
+name=
+
+[Data Sources][NT:/SmartDashboard//drive/left_volts]
+name=
+
+[Data Sources][SPARK MAX [6]-Analog Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/zoom_absolute/default]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/zoom_absolute/max]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,1]/.actuator]
+name=
+
+[Data Sources][SPARK MAX [4]-Alt Encoder Velocity]
+name=
+
+[Data Sources][SPARK MAX [5]-Velocity]
+name=
+
+[Data Sources][NT:/SmartDashboard/autonomous_ramsete/.controllable]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_sharpness/default]
+name=
+
+[Data Sources][SPARK MAX [11]-Analog Position]
+name=
+
+[Data Sources][NT:/SmartDashboard//climber/climber voltage]
+name=
+
+[Data Sources][NT:/SmartDashboard/path velocity/.instance]
+name=
+
+[Data Sources][Joystick[0] Axis[2]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Compressor[0]/Enabled]
+name=
+
+[Data Sources][Z Accel[0]]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_auto/min]
+name=
+
+[Data Sources][SPARK MAX [2]-Bus Voltage]
+name=
+
+[Data Sources][Joystick[0] Button[1]]
+name=
+
+[Data Sources][FMS:AutonomousMode]
+name=
+
+[Data Sources][SPARK MAX [2]-Analog Velocity]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/brightness/min]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_absolute/min]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/brightness/default]
+name=
+
+[Data Sources][NT:/BallCam/frames]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_absolute/default]
+name=
+
+[Data Sources][SPARK MAX [1]-Sticky Faults]
+name=
+
+[Data Sources][SPARK MAX [5]-Control Mode]
+name=
+
+[Data Sources][SPARK MAX [7]-Motor Temperature]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_sharpness/step]
+name=
+
+[Data Sources][NT:/BallCam//red/distance]
+name=
+
+[Data Sources][Solenoid[0,1]]
+name=
+
+[Data Sources][SPARK MAX [7]-Analog Position]
+name=
+
+[Data Sources][FMS:RobotEnabled]
+name=
+
+[Data Sources][SPARK MAX [4]-Position]
+name=
+
+[Data Sources][SPARK MAX [5]-Alt Encoder Position]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Spark[5]/.actuator]
+name=
+
+[Data Sources][Joystick[0] Axis[3]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/navX-Sensor/Value]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/white_balance_temperature]
+name=
+
+[Data Sources][SPARK MAX [2]-Motor Temperature]
+name=
+
+[Data Sources][SPARK MAX [11]-Faults]
+name=
+
+[Data Sources][SPARK MAX [7]-Bus Voltage]
+name=
+
+[Data Sources][SPARK MAX [3]-Analog Velocity]
+name=
+
+[Data Sources][SPARK MAX [1]-Analog Voltage]
+name=
+
+[Data Sources][SPARK MAX [2]-Analog Voltage]
+name=
+
+[Data Sources][SPARK MAX [3]-Analog Voltage]
+name=
+
+[Data Sources][navX-Sensor[4]-FusedHeading]
+name=
+
+[Data Sources][SPARK MAX [4]-Analog Voltage]
+name=
+
+[Data Sources][Solenoid[0,2]]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_contrast/step]
+name=
+
+[Data Sources][NT:/SmartDashboard//sim/field_rot]
+name=
+
+[Data Sources][SPARK MAX [8]-Analog Voltage]
+name=
+
+[Data Sources][SPARK MAX [7]-Analog Voltage]
+name=
+
+[Data Sources][FMS:EStop]
+name=
+
+[Data Sources][NT:/SmartDashboard//sim/field_x]
+name=
+
+[Data Sources][SPARK MAX [1]-Applied Output]
+name=
+
+[Data Sources][SPARK MAX [2]-Applied Output]
+name=
+
+[Data Sources][SPARK MAX [3]-Applied Output]
+name=
+
+[Data Sources][SPARK MAX [4]-Applied Output]
+name=
+
+[Data Sources][SPARK MAX [8]-Analog Position]
+name=
+
+[Data Sources][NT:/SmartDashboard//sim/field_y]
+name=
+
+[Data Sources][SPARK MAX [2]-Velocity]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_brightness/min]
+name=
+
+[Data Sources][SPARK MAX [8]-Applied Output]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/DifferentialDrive[1]/Left Motor Speed]
+name=
+
+[Data Sources][SPARK MAX [5]-Applied Output]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/contrast/max]
+name=
+
+[Data Sources][SPARK MAX [8]-Motor Current]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,3]/Value]
+name=
+
+[Data Sources][SPARK MAX [6]-Analog Voltage]
+name=
+
+[Data Sources][SPARK MAX [6]-Applied Output]
+name=
+
+[Data Sources][NT_FMS:TestMode:/FMSInfo]
+name=
+
+[Data Sources][SPARK MAX [10]-Alt Encoder Velocity]
+name=
+
+[Data Sources][SPARK MAX [11]-Position]
+name=
+
+[Data Sources][SPARK MAX [1]-FW Version]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/backlight_compensation/min]
+name=
+
+[Data Sources][SPARK MAX [4]-Analog Velocity]
+name=
+
+[Data Sources][NTCmd:/SmartDashboard/autonomous_ramsete]
+name=
+
+[Data Sources][Solenoid[0,3]]
+name=
+
+[Data Sources][SPARK MAX [5]-FW Version]
+name=
+
+[Data Sources][SPARK MAX [4]-Control Mode]
+name=
+
+[Data Sources][SPARK MAX [7]-Applied Output]
+name=
+
+[Data Sources][SPARK MAX [5]-Analog Voltage]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Shooter/.hasCommand]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Intake/.hasCommand]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/zoom_absolute]
+name=
+
+[Data Sources][SPARK MAX [10]-Motor Temperature]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/contrast/step]
+name=
+
+[Data Sources][SPARK MAX [7]-Alt Encoder Velocity]
+name=
+
+[Data Sources][SPARK MAX [11]-FW Version]
+name=
+
+[Data Sources][SPARK MAX [1]-Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/saturation/min]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawProperty/raw_sharpness]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_exposure_absolute/default]
+name=
+
+[Data Sources][SPARK MAX [7]-Motor Current]
+name=
+
+[Data Sources][SPARK MAX [1]-Bus Voltage]
+name=
+
+[Data Sources][SPARK MAX [8]-Alt Encoder Position]
+name=
+
+[Data Sources][Joystick[0] Button[3]]
+name=
+
+[Data Sources][NT:/BallCam//blue/rotation]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[3]/Value]
+name=
+
+[Data Sources][Joystick[0] Button[2]]
+name=
+
+[Data Sources][Joystick[0] Button[4]]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/exposure_absolute]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/class frc2::SubsystemBase/.hasCommand]
+name=
+
+[Data Sources][SPARK MAX [8]-Motor Temperature]
+name=
+
+[Data Sources][SPARK MAX [11]-Alt Encoder Position]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawProperty/raw_saturation]
+name=
+
+[Data Sources][SPARK MAX [5]-Analog Velocity]
+name=
+
+[Data Sources][SPARK MAX [2]-Alt Encoder Velocity]
+name=
+
+[Data Sources][SPARK MAX [10]-Analog Velocity]
+name=
+
+[Data Sources][Joystick[0] Axis[4]]
+name=
+
+[Data Sources][NT:/BallCam//blue/strafe]
+name=
+
+[Data Sources][SPARK MAX [7]-Velocity]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/white_balance_temperature/step]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_sharpness/max]
+name=
+
+[Data Sources][SPARK MAX [11]-Sticky Faults]
+name=
+
+[Data Sources][SPARK MAX [6]-Motor Current]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,1]/Value]
+name=
+
+[Data Sources][NT:/SmartDashboard/ramsete path/.instance]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/brightness/step]
+name=
+
+[Data Sources][NT:/FMSInfo/MatchType]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/exposure_absolute/step]
+name=
+
+[Data Sources][SPARK MAX [3]-Motor Temperature]
+name=
+
+[Data Sources][NT:/BallCam//red/targets]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/tilt_absolute/step]
+name=
+
+[Data Sources][Joystick[0] Button[5]]
+name=
+
+[Data Sources][SPARK MAX [6]-Analog Velocity]
+name=
+
+[Data Sources][NT_FMS:AllianceStationID:/FMSInfo]
+name=
+
+[Data Sources][SPARK MAX [3]-Control Mode]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_saturation/default]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Climber/.hasDefault]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/connected]
+name=
+
+[Data Sources][SPARK MAX [11]-Bus Voltage]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_saturation/min]
+name=
+
+[Data Sources][SPARK MAX [1]-Faults]
+name=
+
+[Data Sources][SPARK MAX [6]-Bus Voltage]
+name=
+
+[Data Sources][SPARK MAX [3]-Faults]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/power_line_frequency/max]
+name=
+
+[Data Sources][SPARK MAX [11]-Analog Velocity]
+name=
+
+[Data Sources][SPARK MAX [5]-Faults]
+name=
+
+[Data Sources][SPARK MAX [7]-Faults]
+name=
+
+[Data Sources][SPARK MAX [10]-Sticky Faults]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Indexer/.hasCommand]
+name=
+
+[Data Sources][SPARK MAX [3]-Alt Encoder Position]
+name=
+
+[Data Sources][navX-Sensor[4]-Roll]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/contrast]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/backlight_compensation/step]
+name=
+
+[Data Sources][Joystick[0] POV[0]]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/PWMSparkMax[1]/Value]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawProperty/raw_brightness]
+name=
+
+[Data Sources][SPARK MAX [6]-Position]
+name=
+
+[Data Sources][NT:/SmartDashboard//shooter/shooter rpm]
+name=
+
+[Data Sources][SPARK MAX [5]-Motor Current]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/sharpness/default]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/sharpness/max]
+name=
+
+[Data Sources][Joystick[0] Button[6]]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/zoom_absolute/step]
+name=
+
+[Data Sources][SPARK MAX [7]-Analog Velocity]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Spark[5]/Value]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/pan_absolute]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,0]/.actuator]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_contrast/min]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawPropertyInfo/raw_contrast/default]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/waypoint_y]
+name=
+
+[Data Sources][SPARK MAX [11]-Motor Temperature]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Solenoid[0,3]/.actuator]
+name=
+
+[Data Sources][SPARK MAX [4]-Velocity]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/waypoint_x]
+name=
+
+[Data Sources][SPARK MAX [10]-Analog Voltage]
+name=
+
+[Data Sources][SPARK MAX [11]-Analog Voltage]
+name=
+
+[Data Sources][NT:/SmartDashboard//ramsete/ramsete_write]
+name=
+
+[Data Sources][SPARK MAX [4]-Motor Current]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/RawProperty/raw_exposure_absolute]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/Property/saturation]
+name=
+
+[Data Sources][SPARK MAX [5]-Alt Encoder Velocity]
+name=
+
+[Data Sources][NT:/SmartDashboard/autonomous_ramsete/running]
+name=
+
+[Data Sources][NT:/LiveWindow/Ungrouped/Compressor[0]/Pressure switch]
+name=
+
+[Data Sources][NT:/CameraPublisher/rPi Camera 0 MSLifeCam/PropertyInfo/white_balance_temperature/min]
+name=
+
+[Data Sources][SPARK MAX [10]-Applied Output]
+name=
+
+[Data Sources][SPARK MAX [11]-Applied Output]
+name=
+
+[SimWindow][Mechanism 2D]
+name=
+visible=0
+enabled=1
+
+[HALProvider][Other Devices]
+name=
+visible=0
+enabled=1
+
+[HALProvider][Timing]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][/FMSInfo]
+name=
+visible=0
+enabled=1
+
+[NTProviderWindow][/SmartDashboard/Field]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][/SmartDashboard/autonomous_ramsete]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][/SmartDashboard/path velocity]
+name=
+visible=1
+enabled=1
+
+[NTProviderWindow][NetworkTables]
+name=
+visible=1
+enabled=1
+
+[NTProvider][/FMSInfo]
+name=FMSInfo
+
+[NTProvider][/LiveWindow/Ungrouped/Pneumatics]
+name=Subsystem
+
+[NTProvider][/SmartDashboard/path velocity]
+name=String Chooser
+
+[NTProvider][/LiveWindow/Ungrouped/Intake]
+name=Subsystem
+
+[NTProvider][/SmartDashboard/ramsete path]
+name=String Chooser
+
+[NTProvider][/LiveWindow/Ungrouped/Climber]
+name=Subsystem
+
+[NTProvider][/LiveWindow/Ungrouped/Scheduler]
+name=Scheduler
+
+[NTProvider][/LiveWindow/Ungrouped/class frc2::SubsystemBase]
+name=Subsystem
+
+[NTProvider][/SmartDashboard/Field]
+name=Field2d
+
+[NTProvider][/LiveWindow/Ungrouped/navX-Sensor]
+name=Gyro
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[1]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/PWMSparkMax[3]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/Shooter]
+name=Subsystem
+
+[NTProvider][/SmartDashboard/autonomous_ramsete]
+name=Command
+
+[NTProvider][/LiveWindow/Ungrouped/Spark[5]]
+name=Speed Controller
+
+[NTProvider][/LiveWindow/Ungrouped/Indexer]
+name=Subsystem
+
+[NTProvider][/LiveWindow/Ungrouped/DifferentialDrive[1]]
+name=DifferentialDrive
+
+[DSManager][FMS]
+name=
+visible=1
+enabled=1
+
+[DSManager][Joysticks]
+name=
+visible=1
+enabled=1
+
+[DSManager][Keyboard 0 Settings]
+name=
+visible=1
+enabled=1
+
+[DSManager][Keyboard 1 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 2 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][Keyboard 3 Settings]
+name=
+visible=0
+enabled=1
+
+[DSManager][System Joysticks]
+name=
+visible=1
+enabled=1
+
+[Joystick][0]
+useGamepad=0
+guid=Keyboard0
+
+[KeyboardJoystick][0]
+axisCount=5
+buttonCount=8
+povCount=1
+axis0incKey=-1
+axis0decKey=-1
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=264
+axis1decKey=265
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+axis2incKey=82
+axis2decKey=69
+axis2keyRate=0.010000
+axis2decayRate=0.000000
+axis2maxAbsValue=1.000000
+axis3incKey=-1
+axis3decKey=-1
+axis3keyRate=0.050000
+axis3decayRate=0.050000
+axis3maxAbsValue=1.000000
+axis4incKey=262
+axis4decKey=263
+axis4keyRate=0.050000
+axis4decayRate=0.050000
+axis4maxAbsValue=1.000000
+button0=49
+button1=50
+button2=51
+button3=52
+button4=53
+button5=54
+button6=55
+button7=56
+pov0key0=-1
+pov0key45=-1
+pov0key90=-1
+pov0key135=-1
+pov0key180=-1
+pov0key225=-1
+pov0key270=96
+pov0key315=-1
+
+[KeyboardJoystick][1]
+axisCount=2
+buttonCount=4
+povCount=0
+axis0incKey=76
+axis0decKey=74
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=75
+axis1decKey=73
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+button0=77
+button1=44
+button2=46
+button3=47
+
+[KeyboardJoystick][2]
+axisCount=2
+buttonCount=6
+povCount=0
+axis0incKey=-1
+axis0decKey=-1
+axis0keyRate=0.050000
+axis0decayRate=0.050000
+axis0maxAbsValue=1.000000
+axis1incKey=-1
+axis1decKey=-1
+axis1keyRate=0.050000
+axis1decayRate=0.050000
+axis1maxAbsValue=1.000000
+button0=260
+button1=268
+button2=266
+button3=261
+button4=269
+button5=267
+
+[KeyboardJoystick][3]
+axisCount=0
+buttonCount=0
+povCount=0
+
+[DriverStation][Main]
+disable=0
+zeroDisconnectedJoysticks=1
+enableDisableKeys=0
+estopKey=0
+
+[Mechanism2D][Mechanism2D]
+jsonLocation=
+
