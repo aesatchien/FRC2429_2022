@@ -52,7 +52,7 @@ class Climber(SubsystemBase):
         if self.counter % 2 == 0:
             self.current_filter.calculate(self.climber_left_neo.getOutputCurrent())  # update the current filter
 
-        if self.counter % 10 == 0:
+        if self.counter % 20 == 0:
 
             # ten per second updates
             SmartDashboard.putNumber('/climber/climber voltage', self.climber_left_neo.getAppliedOutput())

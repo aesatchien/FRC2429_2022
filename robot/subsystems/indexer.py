@@ -52,10 +52,7 @@ class Indexer(SubsystemBase):
 
     def periodic(self) -> None:
         
-        if self.counter % 5 == 0:
-
-            # ten per second updates
-                    
+        if self.counter % 25 == 0:
             SmartDashboard.putBoolean('/indexer/indexer state', self.indexer_enable)
             
 

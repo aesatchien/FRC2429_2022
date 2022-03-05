@@ -38,10 +38,7 @@ class Intake(SubsystemBase):
         
         self.counter += 1
 
-        if self.counter % 5 == 0:
-
-            # ten per second updates
-            
+        if self.counter % 25 == 0:
             SmartDashboard.putBoolean('/intake/intake motor state', self.intake_enable)
  
 

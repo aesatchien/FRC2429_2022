@@ -216,8 +216,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_rpos",
-              "_source1": "network_table:///SmartDashboard/drive_lpos",
+              "_source0": "network_table:///SmartDashboard/drive_lpos",
+              "_source1": "network_table:///SmartDashboard/drive_rpos",
               "_title": "Drivetrain Position",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -550,9 +550,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -4.0,
+    "x": 352.0,
     "y": 21.0,
-    "width": 1936.0,
+    "width": 1580.0,
     "height": 825.0
   }
 }

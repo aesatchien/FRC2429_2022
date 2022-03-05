@@ -67,10 +67,8 @@ class Shooter(SubsystemBase):
         
         self.counter += 1
 
-        if self.counter % 5 == 0:
-
-            # ten per second updates
-            
+        if self.counter % 25 == 0:
+            # not too often
             SmartDashboard.putNumber('/shooter/shooter rpm', self.flywheel_left_encoder.getVelocity())
             SmartDashboard.putBoolean('/shooter/shooter state', self.shooter_enable)
             
