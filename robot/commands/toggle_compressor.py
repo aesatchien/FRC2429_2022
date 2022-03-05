@@ -13,7 +13,7 @@ class ToggleCompressor(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if (self.pneumatics.get_compressor()):
+        if (self.pneumatics.get_compressor_state()):
             self.pneumatics.stop_compressor()
         else:
             self.pneumatics.start_compressor()
@@ -23,7 +23,6 @@ class ToggleCompressor(commands2.CommandBase):
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
-
 
 
     def execute(self) -> None:

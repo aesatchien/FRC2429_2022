@@ -26,6 +26,7 @@ from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.autonomous_lower_group import AutonomousLowerGroup
+from commands.drive_by_joystick import DriveByJoytick
 
 import constants
 import trajectory_io
@@ -65,20 +66,35 @@ class RobotContainer:
 
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
-        self.robot_drive.setDefaultCommand(
-            RunCommand(
-                lambda: self.robot_drive.arcade_drive(-1*constants.k_thrust_scale*self.driver_controller.getRawAxis(constants.k_controller_thrust_axis),
-                                                      constants.k_twist_scale*self.driver_controller.getRawAxis(constants.k_controller_twist_axis), ),
-                self.robot_drive,)
-        )
+        if not constants.k_is_simulation:
+            self.robot_drive.setDefaultCommand(DriveByJoytick(self, self.robot_drive))
+        else:
+            self.robot_drive.setDefaultCommand(
+                RunCommand(
+                    lambda: self.robot_drive.arcade_drive(
+                        -1 * constants.k_thrust_scale * self.driver_controller.getRawAxis(
+                            constants.k_controller_thrust_axis),
+                        constants.k_twist_scale * self.driver_controller.getRawAxis(
+                            constants.k_controller_twist_axis), ),
+                    self.robot_drive, ))
 
-        if False:  # test tank drive
+        if False:
+            # test arcade drive
+            self.robot_drive.setDefaultCommand(
+                RunCommand(
+                    lambda: self.robot_drive.arcade_drive(
+                        -1 * constants.k_thrust_scale * self.driver_controller.getRawAxis(
+                            constants.k_controller_thrust_axis),
+                        constants.k_twist_scale * self.driver_controller.getRawAxis(
+                            constants.k_controller_twist_axis), ),
+                    self.robot_drive, ))
+
+            # test tank drive
             self.robot_drive.setDefaultCommand(
                 RunCommand(
                     lambda: self.robot_drive.tank_drive_volts(-self.driver_controller.getRawAxis(constants.k_controller_thrust_axis) * 12,
                                                           self.driver_controller.getRawAxis(constants.k_controller_twist_axis) * 12, ),
-                    self.robot_drive,)
-            )
+                    self.robot_drive,))
 
     def set_start_time(self):  # call in teleopInit and autonomousInit in the robot
         self.start_time = time.time()
@@ -132,7 +148,7 @@ class RobotContainer:
 
         #shooting
         #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
-        self.buttonB.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+        self.buttonB.whenPressed(ToggleShooter(self, self.robot_shooter, 2000))
 
         #pneumatics
         self.buttonBack.whenPressed(ToggleShifting(self, self.robot_pneumatics))
@@ -155,11 +171,25 @@ class RobotContainer:
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
         # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
 
+        #SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        # self.buttonX.whenPressed(AutoRotateImu(self, self.robot_drive, 30))
+        # self.buttonX.whenPressed(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+        SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
+
+        SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
+        SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
+        SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
+
+        self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
+
+
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
         # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
 
@@ -169,7 +199,7 @@ class RobotContainer:
 
             #intake
             self.co_buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
-            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.65))
+            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.65))
 
             #indexer
             self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
@@ -177,7 +207,7 @@ class RobotContainer:
 
 
             #shooter
-            self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+            self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, 2000))
 
             #compressor
             self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))

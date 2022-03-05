@@ -4,8 +4,6 @@ from wpilib import SmartDashboard
 
 class ToggleShooter(commands2.CommandBase):
 
-    shooter_enable = False
-
     def __init__(self, container, shooter, rpm=500) -> None:
         super().__init__()
         self.setName('toggle shooter')
@@ -16,12 +14,7 @@ class ToggleShooter(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if (self.shooter_enable):
-            self.shooter.stop_shooter()
-            self.shooter_enable = False
-        else:
-            self.shooter.set_flywheel(self.rpm)
-            self.shooter_enable = True
+        self.shooter.toggle_shooter(self.rpm)
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)

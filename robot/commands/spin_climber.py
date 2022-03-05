@@ -23,9 +23,8 @@ class SpinClimber(commands2.CommandBase):
 
 
     def execute(self) -> None:
-        power = self.container.driver_controller.getRawAxis(5) * 10
+        power = self.container.driver_controller.getRawAxis(5) * 12
         self.climber.set_voltage(power)
-        print(f'right axis {self.container.driver_controller.getRawAxis(5)} power {power}')
             
 
     def isFinished(self) -> bool:  
@@ -33,6 +32,9 @@ class SpinClimber(commands2.CommandBase):
         return False
 
     def end(self, interrupted: bool) -> None:
+
+        self.climber.stop_motor()
+
         end_time = self.container.get_enabled_time()
         message = 'Interrupted' if interrupted else 'Ended'
         print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")

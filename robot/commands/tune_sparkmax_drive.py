@@ -1,3 +1,5 @@
+import time
+
 import commands2
 from wpilib import SmartDashboard
 from networktables import NetworkTablesInstance
@@ -14,6 +16,10 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
     for key in keys:
         sparkmax_table.putNumber(key + '_pos', PID_multiplier * constants.PID_dict_pos[key])
         sparkmax_table.putNumber(key + '_vel', PID_multiplier * constants.PID_dict_vel[key])
+    sparkmax_table.putNumber('vel_sp', 1)
+    sparkmax_table.putNumber('pos_sp', 1)
+    sparkmax_table.putNumber('vel_max_accel', constants.smartmotion_maxacc)
+    sparkmax_table.putNumber('pos_max_accel', constants.smartmotion_maxacc)
 
     def __init__(self, container, drive:Drivetrain, setpoint=1, control_type='position', spin=False) -> None:
         super().__init__()
@@ -42,15 +48,26 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
             self.drive.PID_dict_vel[key] = self.sparkmax_table.getNumber(key + '_vel', 0) / self.PID_multiplier
         self.drive.configure_controllers(pid_only=False)
 
+        # get setpoint from the dash
+        if self.control_type == 'position':
+            self.setpoint = self.sparkmax_table.getNumber('pos_sp', 1)
+            self.max_accel = self.sparkmax_table.getNumber('pos_max_accel', 500)
+        elif self.control_type == 'velocity':
+            self.setpoint = self.sparkmax_table.getNumber('vel_sp', 1)
+            self.max_accel = self.sparkmax_table.getNumber('vel_max_accel', 500)
+
+
         # set the control type
         if self.control_type == 'positon':
+            [pid_controller.setSmartMotionMaxAccel(self.max_accel, 0) for pid_controller in self.drive.pid_controllers]
             multipliers = [1.0, 1.0, -1.0, -1.0] if self.spin else [1.0, 1.0, 1.0, 1.0]
             for controller, multiplier in zip(self.drive.pid_controllers, multipliers):
-                controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartMotion)
+                controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartMotion, 0)
         elif self.control_type == 'velocity':  # velocity needs to be continuous
+            [pid_controller.setSmartMotionMaxAccel(self.max_accel, 1) for pid_controller in self.drive.pid_controllers]
             multipliers = [1.0, 1.0, -1.0, -1.0] if self.spin else [1.0, 1.0, 1.0, 1.0]
             for controller, multiplier in zip(self.drive.pid_controllers, multipliers):
-                controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity)
+                controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
         else:
             pass
 
@@ -63,13 +80,18 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
             return False  # run until cancelled
         elif self.control_type == 'position':
             error = self.setpoint - self.drive.left_encoder.getPosition()
-            return abs(self.error) < self.tolerance
+            return abs(error) < self.tolerance
         else:
             return True
 
     def end(self, interrupted: bool) -> None:
 
-        self.drive.tank_drive_volts(0, 0)  # stop the robot
+        for controller in self.drive.pid_controllers:
+            controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
+        for i in range (10):
+            time.sleep(0.1)
+            self.container.robot_drive.feed()
+        # self.drive.tank_drive_volts(0, 0)  # stop the robot
 
         end_time = self.container.get_enabled_time()
         message = 'Interrupted' if interrupted else 'Ended'
