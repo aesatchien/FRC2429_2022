@@ -85,7 +85,7 @@
           "9,0": {
             "size": [
               2,
-              5
+              11
             ],
             "content": {
               "_type": "List Layout",
@@ -116,6 +116,16 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Sparkmax/kD_pos",
                   "_title": "Sparkmax/kD_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/pos_sp",
+                  "_title": "Sparkmax/pos_sp"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/pos_max_accel",
+                  "_title": "Sparkmax/pos_max_accel"
                 }
               ]
             }
@@ -123,7 +133,7 @@
           "11,0": {
             "size": [
               2,
-              5
+              7
             ],
             "content": {
               "_type": "List Layout",
@@ -154,6 +164,16 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Sparkmax/kD_vel",
                   "_title": "Sparkmax/kD_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/vel_sp",
+                  "_title": "Sparkmax/vel_sp"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Sparkmax/vel_max_accel",
+                  "_title": "Sparkmax/vel_max_accel"
                 }
               ]
             }
@@ -209,7 +229,7 @@
               "Visible data/SmartDashboard/drive_rpos": true
             }
           },
-          "10,5": {
+          "18,6": {
             "size": [
               2,
               1
@@ -229,6 +249,28 @@
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/auto lower group",
               "_title": "SmartDashboard/auto lower group"
+            }
+          },
+          "6,8": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/AutoFetchBall",
+              "_title": "SmartDashboard/AutoFetchBall"
+            }
+          },
+          "9,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/drive_lvel",
+              "_title": "/SmartDashboard/drive_lvel"
             }
           }
         }
@@ -444,6 +486,11 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
                   "_title": "Spark[5]",
                   "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Basic Subsystem",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/frc2::SubsystemBase",
+                  "_title": "LiveWindow/Ungrouped/frc2::SubsystemBase"
                 }
               ]
             }
@@ -492,9 +539,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 242.0,
-    "y": 7.0,
-    "width": 1572.0,
-    "height": 932.0
+    "x": -4.0,
+    "y": 21.0,
+    "width": 1936.0,
+    "height": 828.0
   }
 }

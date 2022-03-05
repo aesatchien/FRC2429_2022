@@ -158,7 +158,8 @@ class RobotContainer:
         #SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         # self.buttonX.whenPressed(AutoRotateImu(self, self.robot_drive, 30))
-        self.buttonX.whenPressed(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+        # self.buttonX.whenPressed(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+        SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
