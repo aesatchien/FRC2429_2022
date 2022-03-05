@@ -181,16 +181,17 @@ class RobotContainer:
         SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
 
-        self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
-
+        #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
+        self.buttonX.whileHeld(AutoFetchBall(self, self.robot_drive,self.robot_vision))
 
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-        self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
+        #self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
         # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
-        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
 
         if self.competition_mode:

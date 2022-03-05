@@ -13,7 +13,8 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
         self.vision = vision
 
         self.controller = PIDController(0.01, 0, 0.0001)
-        self.feed_forward = 0.05
+        self.feed_forward = 0.08
+        self.min_approach = 0.7
 
         self.addRequirements(drive)  # commandsv2 version of requirements
 
@@ -34,7 +35,7 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
 
         error = abs(rotation_offset)
         
-        if ball_detected and error > 2:
+        if ball_detected and (error > 2 or distance > self.min_approach):
             SmartDashboard.putNumber('/AutoFetchBall/rotation_offset', rotation_offset)
             SmartDashboard.putNumber('/AutoFetchBall/distance', distance)
 
@@ -42,7 +43,7 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
             twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
             twist_output += copysign(1, rotation_offset) * self.feed_forward
 
-            thrust_output = 0.3 if distance > 1 else 0
+            thrust_output = 0.35 if distance > self.min_approach else 0
             self.drive.arcade_drive(thrust_output, twist_output)
         else:
             self.drive.arcade_drive(0, 0)

@@ -31,7 +31,7 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
 
         # left front left back  right front  right back
         velocities = [thrust + twist, thrust + twist, thrust - twist, thrust - twist]
-        if (thrust**2 + twist**2)**0.5 > 0.03:
+        if (thrust**2 + twist**2)**0.5 > 0.05:
             for controller, velocity, multiplier in zip(self.drive.pid_controllers, velocities, self.multipliers):
                 controller.setReference(velocity * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
         else:
