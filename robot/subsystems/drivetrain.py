@@ -135,7 +135,7 @@ class Drivetrain(SubsystemBase):
 
         # need to update the simulated PWMs here
         self.dummy_motor_left.set(left_volts/12)
-        self.dummy_motor_right.set(right_volts/12)
+        self.dummy_motor_right.set(-right_volts/12)
         SmartDashboard.putNumber('/drive/left_volts', left_volts)
         SmartDashboard.putNumber('/drive/right_volts', right_volts)
 

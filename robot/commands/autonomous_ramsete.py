@@ -164,7 +164,7 @@ class AutonomousRamsete(commands2.CommandBase):
         current_time = self.container.get_enabled_time() - self.start_time
         dt = current_time - self.previous_time
 
-        if self.previous_time < 0:
+        if self.previous_time < 0 or dt <= 0:  # had to add this <= on dt
             self.container.robot_drive.tank_drive_volts(0, 0)
             self.previous_time = current_time
             return
@@ -205,7 +205,7 @@ class AutonomousRamsete(commands2.CommandBase):
             left_feed_forward, right_feed_forward = -2, 0
             left_output_pid, right_output_pid = -3, 0
 
-        self.container.robot_drive.tank_drive_volts(left_output, -right_output)
+        self.container.robot_drive.tank_drive_volts(left_output, right_output)
         self.previous_speeds = target_wheel_speeds
         self.previous_time = current_time
         self.container.robot_drive.drive.feed()  # should this be in tank drive?

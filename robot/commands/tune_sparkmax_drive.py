@@ -18,8 +18,8 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
         sparkmax_table.putNumber(key + '_vel', PID_multiplier * constants.PID_dict_vel[key])
     sparkmax_table.putNumber('vel_sp', 1)
     sparkmax_table.putNumber('pos_sp', 1)
-    sparkmax_table.putNumber('vel_max_accel', 500)
-    sparkmax_table.putNumber('pos_max_accel', 500)
+    sparkmax_table.putNumber('vel_max_accel', constants.smartmotion_maxacc)
+    sparkmax_table.putNumber('pos_max_accel', constants.smartmotion_maxacc)
 
     def __init__(self, container, drive:Drivetrain, setpoint=1, control_type='position', spin=False) -> None:
         super().__init__()
@@ -88,7 +88,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
 
         for controller in self.drive.pid_controllers:
             controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
-        for i in range (5):
+        for i in range (10):
             time.sleep(0.1)
             self.container.robot_drive.feed()
         # self.drive.tank_drive_volts(0, 0)  # stop the robot

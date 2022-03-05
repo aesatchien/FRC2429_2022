@@ -85,7 +85,7 @@
           "9,0": {
             "size": [
               2,
-              11
+              7
             ],
             "content": {
               "_type": "List Layout",
@@ -216,8 +216,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_lpos",
-              "_source1": "network_table:///SmartDashboard/drive_rpos",
+              "_source0": "network_table:///SmartDashboard/drive_rpos",
+              "_source1": "network_table:///SmartDashboard/drive_lpos",
               "_title": "Drivetrain Position",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -251,7 +251,7 @@
               "_title": "SmartDashboard/auto lower group"
             }
           },
-          "6,8": {
+          "15,6": {
             "size": [
               2,
               1
@@ -271,6 +271,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/drive_lvel",
               "_title": "/SmartDashboard/drive_lvel"
+            }
+          },
+          "11,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/drive_lpos",
+              "_title": "SmartDashboard/drive_lpos"
             }
           }
         }
@@ -542,6 +553,6 @@
     "x": -4.0,
     "y": 21.0,
     "width": 1936.0,
-    "height": 828.0
+    "height": 825.0
   }
 }

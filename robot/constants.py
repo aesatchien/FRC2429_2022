@@ -16,7 +16,7 @@ k_co_driver_controller_port = 1
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
 # controller axis scales
-k_thrust_scale = 0.4 #halfed
+k_thrust_scale = 0.7 #halfed
 k_twist_scale = 0.45
 
 # --------------  DRIVETRAIN  ---------------
@@ -28,10 +28,10 @@ k_right_motor2_port = 4
 k_shifter_pneumatics_port = 3 # PCM
 
 PID_dict_pos = {'kP': 0.05, 'kI': 5.0e-7, 'kD': 0.40, 'kIz': 0, 'kFF': 0.002, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
-PID_dict_vel = {'kP': 0.05 , 'kI': 0.00025 , 'kD': 0.00, 'kIz': 0.1, 'kFF': 0.15, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+PID_dict_vel = {'kP': 0.05 , 'kI': 0.0005 , 'kD': 0.00, 'kIz': 0.2, 'kFF': 0.14, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
 smartmotion_maxvel = 1000  # rpm
-smartmotion_maxacc = 10 # rpm/s?
-current_limit = 40
+smartmotion_maxacc = 6 # rpm/s?
+current_limit = 80
 ramp_rate = 0.0
 
 
@@ -89,7 +89,7 @@ ka_volt_seconds_squared_per_meter = robot_characterization['ka']  # used in phys
 
 # The max velocity and acceleration for our autonomous trajectories
 k_max_speed_meters_per_second = 3.0
-k_max_acceleration_meters_per_second_squared = 4  # was 2.75 for 2021 paths
+k_max_acceleration_meters_per_second_squared = 3  # was 2.75 for 2021 paths
 k_max_centripetal_acceleration_meters_per_second_squared = 2.75
 k_max_voltage = 6
 
@@ -101,7 +101,7 @@ k_autonomous_voltage_constraint = DifferentialDriveVoltageConstraint(k_feed_forw
 k_ramsete_b = 2
 k_ramsete_zeta = 0.9
 # The P gain for our turn controllers.
-k_kp_drive_vel = 0.2 # 0.2  # used in Ramsete command
+k_kp_drive_vel = 0.05 # 0.2  # used in Ramsete command
 
 # The number of motors on the robot.
 k_drivetrain_motor_count = 4
