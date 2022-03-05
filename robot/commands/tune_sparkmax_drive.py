@@ -56,16 +56,15 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
             self.setpoint = self.sparkmax_table.getNumber('vel_sp', 1)
             self.max_accel = self.sparkmax_table.getNumber('vel_max_accel', 500)
 
+        multipliers = [1.0, 1.0, 1.0, 1.0] if self.spin else [1.0, 1.0, -1.0, -1.0]
 
         # set the control type
         if self.control_type == 'positon':
             [pid_controller.setSmartMotionMaxAccel(self.max_accel, 0) for pid_controller in self.drive.pid_controllers]
-            multipliers = [1.0, 1.0, -1.0, -1.0] if self.spin else [1.0, 1.0, 1.0, 1.0]
             for controller, multiplier in zip(self.drive.pid_controllers, multipliers):
                 controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartMotion, 0)
         elif self.control_type == 'velocity':  # velocity needs to be continuous
             [pid_controller.setSmartMotionMaxAccel(self.max_accel, 1) for pid_controller in self.drive.pid_controllers]
-            multipliers = [1.0, 1.0, -1.0, -1.0] if self.spin else [1.0, 1.0, 1.0, 1.0]
             for controller, multiplier in zip(self.drive.pid_controllers, multipliers):
                 controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
         else:
