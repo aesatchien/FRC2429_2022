@@ -178,6 +178,9 @@ class Drivetrain(SubsystemBase):
     def get_rate(self, encoder): # spark maxes and regular encoders use different calls... annoying.  used in ramsete.
         return encoder.getVelocity()
 
+    def get_position(self, encoder):
+        return encoder.getPosition()
+
     def get_average_encoder_rate(self):  # used in ramsete
         return (self.left_encoder.getVelocity() + self.right_encoder.getVelocity())/2
 
