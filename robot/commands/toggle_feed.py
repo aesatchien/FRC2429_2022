@@ -4,7 +4,6 @@ from wpilib import SmartDashboard
 
 class ToggleFeed(commands2.CommandBase):
 
-    feed_enable = False
 
     def __init__(self, container, indexer, voltage=2) -> None:
         super().__init__()
@@ -16,19 +15,12 @@ class ToggleFeed(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if (self.feed_enable):
-            self.indexer.stop_motor()
-            self.feed_enable = False
-        else:
-            self.indexer.set_voltage(self.voltage)
-            self.feed_enable = True
+        self.indexer.toggle_indexer(self.voltage)
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
-
-
 
     def execute(self) -> None:
         pass

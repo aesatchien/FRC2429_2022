@@ -20,6 +20,8 @@ class Pneumatics(SubsystemBase):
         #Decide on init piston position 
         self.stop_compressor()
 
+
+
     def toggle_intake(self):
         self.intake_piston.toggle()
 
@@ -34,7 +36,7 @@ class Pneumatics(SubsystemBase):
         # self.compressor.setClosedLoopControl(True)
         self.compressor.enableDigital()  # setClosedLoopControl(True) is no longer a call in 2022
     
-    def get_compressor(self):  # ToDo - fix this - see what Haochen meant, I think he meant 'is it on?'
+    def get_compressor_state(self):  # ToDo - fix this - see what Haochen meant, I think he meant 'is it on?'
         # return self.compressor.getClosedLoopControl()
         return self.compressor.enabled()  # getClosedLoopControl is no longer a call in 2022
     
@@ -46,6 +48,9 @@ class Pneumatics(SubsystemBase):
 
     def toggle_shifting(self):
         self.shifter.toggle()
+    
+    def get_shifting_state(self):
+        self.shifter.get()
 
     def pp_long(self):
         self.climber_piston_long.toggle()

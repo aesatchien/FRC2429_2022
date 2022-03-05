@@ -21,8 +21,9 @@ class Shooter(SubsystemBase):
         self.flywheel_right = rev.CANSparkMax(constants.k_flywheel_right_neo_port, motor_type)
         #self.flywheel_first_stage = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, motor_type)
 
+        self.flywheel_left.setInverted(True) # inverted left so positive rpm is shooting
         self.flywheel_right.follow(self.flywheel_left, invert=True)
-        #invert on of the first tage motor
+        #the follower is inverted
 
         # encoders
         self.flywheel_left_encoder = self.flywheel_left.getEncoder()
@@ -33,10 +34,15 @@ class Shooter(SubsystemBase):
         #self.flywheel_first_stage_controller = self.flywheel_first_stage.getPIDController()
         self.flywheel_left_controller.setP(0)
 
+        # toggle state
+        self.shooter_enable = False
+
 
 
     def set_flywheel(self, rpm):
         self.flywheel_left_controller.setReference(rpm, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 0)
+        self.shooter_enable = True
+
 
     #def set_first_stage(self, rpm):
         #self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kVoltage, 0)
@@ -44,9 +50,17 @@ class Shooter(SubsystemBase):
     def stop_shooter(self):
         self.flywheel_left_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         #self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
+        self.shooter_enable = False
+
 
     def get_flywheel(self):
         return self.flywheel_left_encoder.getVelocity()
+    
+    def toggle_shooter(self, rpm):
+        if self.shooter_enable:
+            self.stop_shooter()
+        else:
+            self.set_flywheel(rpm)
         
 
     def periodic(self) -> None:
@@ -58,6 +72,8 @@ class Shooter(SubsystemBase):
             # ten per second updates
             
             SmartDashboard.putNumber('/shooter/shooter rpm', self.flywheel_left_encoder.getVelocity())
+            SmartDashboard.putBoolean('/shooter/shooter state', self.shooter_enable)
+            
             
 
             

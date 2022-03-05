@@ -132,7 +132,7 @@ class RobotContainer:
 
         #shooting
         #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
-        self.buttonB.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+        self.buttonB.whenPressed(ToggleShooter(self, self.robot_shooter, 2000))
 
         #pneumatics
         self.buttonBack.whenPressed(ToggleShifting(self, self.robot_pneumatics))
@@ -169,7 +169,7 @@ class RobotContainer:
 
             #intake
             self.co_buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
-            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, -0.65))
+            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.65))
 
             #indexer
             self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
@@ -177,7 +177,7 @@ class RobotContainer:
 
 
             #shooter
-            self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, -2000))
+            self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, 2000))
 
             #compressor
             self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
