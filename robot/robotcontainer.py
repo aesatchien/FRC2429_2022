@@ -27,6 +27,7 @@ from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.autonomous_lower_group import AutonomousLowerGroup
 from commands.drive_by_joystick import DriveByJoytick
+from commands.hold_feed import HoldFeed
 
 import constants
 import trajectory_io
@@ -162,9 +163,13 @@ class RobotContainer:
         #intake
         self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
         #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
+        self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 2.5))
+
         
         #vision
         self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
+
+
 
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
@@ -205,6 +210,7 @@ class RobotContainer:
             #indexer
             self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
             # self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
+            self.co_buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 2.5))
 
 
             #shooter

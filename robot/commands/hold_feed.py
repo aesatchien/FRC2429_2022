@@ -2,12 +2,12 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class ToggleFeed(commands2.CommandBase):
+class HoldFeed(commands2.CommandBase):
 
 
     def __init__(self, container, indexer, voltage=2, force=None) -> None:
         super().__init__()
-        self.setName('toggle indexer')
+        self.setName('hold to feed')
         self.indexer = indexer
         self.container = container
         self.voltage = voltage
@@ -16,10 +16,7 @@ class ToggleFeed(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if self.force is not None:
-            self.indexer.set_voltage(self.voltage)
-        else:
-            self.indexer.toggle_indexer(self.voltage)
+        self.indexer.set_voltage(self.voltage)
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)

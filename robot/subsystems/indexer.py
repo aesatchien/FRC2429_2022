@@ -34,13 +34,13 @@ class Indexer(SubsystemBase):
 
 
     def set_voltage(self, voltage):
-        self.indexer_controller.setReference(voltage, rev.ControlType.kVoltage)
-        self.flywheel_first_stage_controller.setReference(voltage, rev.ControlType.kVoltage)
+        self.indexer_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
+        self.flywheel_first_stage_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         self.indexer_enable = True
     
     def stop_motor(self):
-        self.indexer_controller.setReference(0, rev.ControlType.kVoltage)
-        self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)  
+        self.indexer_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
+        self.flywheel_first_stage_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)  
         self.indexer_enable = False
 
     def toggle_indexer(self, voltage):
