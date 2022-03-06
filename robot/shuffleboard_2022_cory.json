@@ -502,6 +502,16 @@
                   "_type": "Basic Subsystem",
                   "_source0": "network_table:///LiveWindow/Ungrouped/frc2::SubsystemBase",
                   "_title": "LiveWindow/Ungrouped/frc2::SubsystemBase"
+                },
+                {
+                  "_type": "Voltage View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/AnalogInput[0]",
+                  "_title": "AnalogInput[0]",
+                  "Range/Min": 0.0,
+                  "Range/Max": 5.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Orientation": "HORIZONTAL",
+                  "Visuals/Number of tick marks": 5
                 }
               ]
             }
@@ -550,8 +560,8 @@
     }
   ],
   "windowGeometry": {
-    "x": 417.0,
-    "y": 12.0,
+    "x": 271.0,
+    "y": 43.0,
     "width": 1507.0,
     "height": 821.0
   }

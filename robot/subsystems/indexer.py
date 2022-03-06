@@ -1,5 +1,5 @@
 from commands2 import SubsystemBase
-from wpilib import SmartDashboard
+from wpilib import SmartDashboard, AnalogInput
 
 import rev
 
@@ -12,6 +12,7 @@ class Indexer(SubsystemBase):
         self.setName('Indexer')
         self.counter = 0
 
+        self.ball_sensor = AnalogInput(0)
 
         # motor
         motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
@@ -55,7 +56,8 @@ class Indexer(SubsystemBase):
     def periodic(self) -> None:
         
         if self.counter % 25 == 0:
-            SmartDashboard.putBoolean('/indexer/indexer state', self.indexer_enable)
-            
+            SmartDashboard.putBoolean('indexer state', self.indexer_enable)
+            SmartDashboard.putNumber('indexer ball sensor', self.ball_sensor.getValue())
+
 
             

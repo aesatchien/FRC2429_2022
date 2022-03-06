@@ -27,7 +27,7 @@ class HoldFeed(commands2.CommandBase):
         pass
 
     def isFinished(self) -> bool:  
-        return True
+        return False
 
     def end(self, interrupted: bool) -> None:
         self.indexer.stop_motor()

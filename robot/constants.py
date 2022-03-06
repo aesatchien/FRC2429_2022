@@ -19,6 +19,9 @@ k_controller_twist_axis = 4
 k_thrust_scale = 0.7 #halfed
 k_twist_scale = 0.45
 
+k_max_thrust_velocity = 3  # m/s
+k_max_twist_velocity = 1.5
+
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers
 k_left_motor1_port = 1
@@ -31,7 +34,7 @@ PID_dict_pos = {'kP': 0.05, 'kI': 5.0e-7, 'kD': 0.40, 'kIz': 0, 'kFF': 0.002, 'k
 PID_dict_vel = {'kP': 0.05 , 'kI': 0.0005 , 'kD': 0.00, 'kIz': 0.2, 'kFF': 0.14, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
 smartmotion_maxvel = 1000  # rpm
 smartmotion_maxacc = 6 # rpm/s?
-current_limit = 80
+current_limit = 60
 ramp_rate = 0.0
 
 
@@ -72,7 +75,7 @@ k_drive_kinematics = DifferentialDriveKinematics(k_track_width_meters)
 # should be wheel_diameter * pi / gear_ratio - and for the old double reduction gear box the gear ratio was 4.17:1.
 # With the shifter (low gear) I think it was a 12.26.  Then new 2020 WCD gearbox is 9.52, and the tuffbox is 12.75
 # Note that the SparkMAX counts revolutions, so we don't need counts per revolution (CPR = 1)
-k_gear_ratio = 4.17
+k_gear_ratio = 3.7  # 4.17 # high gear 2022
 # k_sparkmax_conversion_factor_inches = k_wheel_diameter_in * math.pi / k_gear_ratio
 k_sparkmax_conversion_factor_meters = k_wheel_diameter_m * math.pi / k_gear_ratio  # used in drivetrain
 

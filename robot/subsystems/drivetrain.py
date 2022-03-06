@@ -102,6 +102,9 @@ class Drivetrain(SubsystemBase):
         if constants.k_is_simulation:
             self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y,0))
 
+        # configure the controllers
+        self.configure_controllers(pid_only=False, burn_flash=False)
+
     # ----------------- SIMULATION AND TELEMETRY METHODS -----------------------
     def get_pose(self):  # used in ramsete and in this subsystem's updates
         """Returns the current position of the robot using its odometry."""
@@ -246,7 +249,7 @@ class Drivetrain(SubsystemBase):
 
         
 
-    def configure_controllers(self, pid_only=False):
+    def configure_controllers(self, pid_only=False, burn_flash=False):
         """Set the PIDs, etc for the controllers, slot 0 is position and slot 1 is velocity"""
 
         for i, controller in enumerate(self.pid_controllers):
@@ -288,7 +291,6 @@ class Drivetrain(SubsystemBase):
         else:
             print(f'\n *All SparkMax report {list(set(self.error_dict))[0]}')
 
-        burn_flash = False
         if burn_flash:
             start_time = time.time()
             for i, controller in enumerate(self.controllers):
