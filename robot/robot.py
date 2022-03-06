@@ -4,7 +4,6 @@ import typing
 import wpilib
 import commands2
 from commands2 import TimedCommandRobot
-
 from robotcontainer import RobotContainer
 
 
@@ -67,4 +66,21 @@ class MyRobot(commands2.TimedCommandRobot):
 
 
 if __name__ == "__main__":
-    wpilib.run(MyRobot)
+    import cProfile, pstats
+    debug = False
+    cProfile.run('wpilib.run(MyRobot)', 'stats')
+    if debug:
+        print('Starting with profiling')
+        profiler = cProfile.Profile()
+        profiler.enable()
+        # cProfile.run('wpilib.run(MyRobot)')
+        wpilib.run(MyRobot)
+        profiler.disable()
+        stats = pstats.Stats(profiler).sort_stats('ncalls')
+        stats.print_stats()
+        print('Finished with profiling')
+
+    else:
+        print('Skipping stats')
+        #cProfile.run('wpilib.run(MyRobot)')
+        wpilib.run(MyRobot)
