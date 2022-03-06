@@ -2,6 +2,7 @@ import commands2
 from math import copysign
 from wpilib import SmartDashboard
 from wpimath.controller import PIDController
+import time
 
 SmartDashboard.putNumber('/Imu/kf', 0)
 SmartDashboard.putNumber('/Imu/kp', 0)
@@ -18,8 +19,8 @@ class AutoRotateImu(commands2.CommandBase):
         self.container = container
         self.drive = drive
         self.degrees = degrees
-        self.controller = PIDController(0.004, 0, 0.001)
-        self.feed_forward = 0.1
+        self.controller = PIDController(0.005, 0, 0.001)
+        self.feed_forward = 0.2
         self.tolerance = 1.5
 
         self.addRequirements(drive)  # commandsv2 version of requirements
@@ -43,7 +44,6 @@ class AutoRotateImu(commands2.CommandBase):
 
     def isFinished(self) -> bool:
         relative_orientation = self.drive.navx.getAngle() - self.start_angle
-        
         return abs(relative_orientation - self.degrees) < self.tolerance
 
     def end(self, interrupted: bool) -> None:

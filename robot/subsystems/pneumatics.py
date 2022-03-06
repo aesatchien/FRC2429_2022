@@ -1,4 +1,3 @@
-from cv2 import fastNlMeansDenoising
 import wpilib
 from commands2 import SubsystemBase
 from wpilib import SmartDashboard, Solenoid, Compressor, DoubleSolenoid

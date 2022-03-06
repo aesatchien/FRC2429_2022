@@ -44,7 +44,7 @@ class RobotContainer:
 
         self.start_time = time.time()
 
-        self.competition_mode = False  # set up second controller
+        self.competition_mode = True  # set up second controller
 
         # Create an instance of the drivetrain subsystem.
         self.robot_drive = Drivetrain()
@@ -168,9 +168,6 @@ class RobotContainer:
         
         #vision
         self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
-
-
-
         # Testing autonomous calls - may want to bind them to calling on the dashboard
          #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
         #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
@@ -186,18 +183,17 @@ class RobotContainer:
         SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
 
-        #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
-        self.buttonX.whileHeld(AutoFetchBall(self, self.robot_drive,self.robot_vision))
+        #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
+        self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
 
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         #self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
         # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
-        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
+        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
         if self.competition_mode:
             #climber
