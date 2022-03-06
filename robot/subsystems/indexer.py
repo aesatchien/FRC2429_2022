@@ -46,8 +46,10 @@ class Indexer(SubsystemBase):
     def toggle_indexer(self, voltage):
         if self.indexer_enable:
             self.stop_motor()
+            self.indexer_enable = False
         else:
-            self.set_voltage(self, voltage)
+            self.set_voltage(voltage)
+            self.indexer_enable = True
 
 
     def periodic(self) -> None:
