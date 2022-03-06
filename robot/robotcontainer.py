@@ -143,7 +143,6 @@ class RobotContainer:
             self.co_buttonLeft = POVButton(self.co_driver_controller, 270)
             self.co_buttonRight = POVButton(self.co_driver_controller, 90)
 
-
         #climbing
         self.buttonRight.whenHeld(SpinClimber(self, self.robot_climber))
 
