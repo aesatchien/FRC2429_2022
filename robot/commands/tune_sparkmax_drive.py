@@ -10,7 +10,7 @@ import constants
 class TuneSparkmax(commands2.CommandBase):  # change the name for your command
 
     ntinst = NetworkTablesInstance.getDefault()
-    sparkmax_table = ntinst.getTable('Sparkmax')
+    sparkmax_table = ntinst.getTable('Rev')
     keys = ['kP', 'kI', 'kD', 'kIz', 'kFF']
     PID_multiplier = 1000  # small numbers do not show up well on the dash
     for key in keys:

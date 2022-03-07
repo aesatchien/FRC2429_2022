@@ -44,7 +44,7 @@ class RobotContainer:
 
         self.start_time = time.time()
 
-        self.competition_mode = False  # set up second controller
+        self.competition_mode = True  # set up second controller
 
         # Create an instance of the drivetrain subsystem.
         self.robot_drive = Drivetrain()
@@ -162,7 +162,7 @@ class RobotContainer:
         #intake
         self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
         #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
-        self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 2.5))
+        self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
 
         
         #vision
@@ -193,6 +193,8 @@ class RobotContainer:
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.65, source='dash'))
+        SmartDashboard.putData(ToggleIntake(self, self.robot_pneumatics))
 
         if self.competition_mode:
             #climber
@@ -205,7 +207,7 @@ class RobotContainer:
             #indexer
             self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
             # self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
-            self.co_buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 2.5))
+            self.co_buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
 
 
             #shooter

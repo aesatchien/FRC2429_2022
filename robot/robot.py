@@ -66,10 +66,11 @@ class MyRobot(commands2.TimedCommandRobot):
 
 
 if __name__ == "__main__":
-    import cProfile, pstats
     debug = False
-    cProfile.run('wpilib.run(MyRobot)', 'stats')
+
     if debug:
+        import cProfile, pstats
+        cProfile.run('wpilib.run(MyRobot)', 'stats')
         print('Starting with profiling')
         profiler = cProfile.Profile()
         profiler.enable()
@@ -82,5 +83,4 @@ if __name__ == "__main__":
 
     else:
         print('Skipping stats')
-        #cProfile.run('wpilib.run(MyRobot)')
         wpilib.run(MyRobot)

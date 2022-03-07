@@ -11,7 +11,7 @@
         "vgap": 16.0,
         "titleType": 1,
         "tiles": {
-          "13,5": {
+          "13,4": {
             "size": [
               2,
               1
@@ -94,38 +94,38 @@
               "_children": [
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kP_pos",
-                  "_title": "Sparkmax/kP_pos"
+                  "_source0": "network_table:///Rev/kP_pos",
+                  "_title": "Rev/kP_pos"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kFF_pos",
-                  "_title": "Sparkmax/kFF_pos"
+                  "_source0": "network_table:///Rev/kFF_pos",
+                  "_title": "Rev/kFF_pos"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kI_pos",
-                  "_title": "Sparkmax/kI_pos"
+                  "_source0": "network_table:///Rev/kI_pos",
+                  "_title": "Rev/kI_pos"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kIz_pos",
-                  "_title": "Sparkmax/kIz_pos"
+                  "_source0": "network_table:///Rev/kIz_pos",
+                  "_title": "Rev/kIz_pos"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kD_pos",
-                  "_title": "Sparkmax/kD_pos"
+                  "_source0": "network_table:///Rev/kD_pos",
+                  "_title": "Rev/kD_pos"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/pos_sp",
-                  "_title": "Sparkmax/pos_sp"
+                  "_source0": "network_table:///Rev/pos_sp",
+                  "_title": "Rev/pos_sp"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/pos_max_accel",
-                  "_title": "Sparkmax/pos_max_accel"
+                  "_source0": "network_table:///Rev/pos_max_accel",
+                  "_title": "Rev/pos_max_accel"
                 }
               ]
             }
@@ -142,43 +142,43 @@
               "_children": [
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kP_vel",
-                  "_title": "Sparkmax/kP_vel"
+                  "_source0": "network_table:///Rev/kP_vel",
+                  "_title": "Rev/kP_vel"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kFF_vel",
-                  "_title": "Sparkmax/kFF_vel"
+                  "_source0": "network_table:///Rev/kFF_vel",
+                  "_title": "Rev/kFF_vel"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kI_vel",
-                  "_title": "Sparkmax/kI_vel"
+                  "_source0": "network_table:///Rev/kI_vel",
+                  "_title": "Rev/kI_vel"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kIz_vel",
-                  "_title": "Sparkmax/kIz_vel"
+                  "_source0": "network_table:///Rev/kIz_vel",
+                  "_title": "Rev/kIz_vel"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/kD_vel",
-                  "_title": "Sparkmax/kD_vel"
+                  "_source0": "network_table:///Rev/kD_vel",
+                  "_title": "Rev/kD_vel"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/vel_sp",
-                  "_title": "Sparkmax/vel_sp"
+                  "_source0": "network_table:///Rev/vel_sp",
+                  "_title": "/Rev/vel_sp"
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Sparkmax/vel_max_accel",
-                  "_title": "Sparkmax/vel_max_accel"
+                  "_source0": "network_table:///Rev/vel_max_accel",
+                  "_title": "Rev/vel_max_accel"
                 }
               ]
             }
           },
-          "17,4": {
+          "15,5": {
             "size": [
               2,
               1
@@ -229,7 +229,7 @@
               "Visible data/SmartDashboard/drive_rpos": true
             }
           },
-          "13,6": {
+          "15,7": {
             "size": [
               2,
               1
@@ -240,7 +240,7 @@
               "_title": "SmartDashboard/Tune Sparkmax"
             }
           },
-          "13,4": {
+          "17,4": {
             "size": [
               2,
               1
@@ -282,6 +282,39 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/drive_lpos",
               "_title": "SmartDashboard/drive_lpos"
+            }
+          },
+          "13,6": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intake motor",
+              "_title": "SmartDashboard/intake motor"
+            }
+          },
+          "13,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/intake piston",
+              "_title": "SmartDashboard/intake piston"
+            }
+          },
+          "13,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/intake_speed",
+              "_title": "/SmartDashboard/intake_speed"
             }
           }
         }
@@ -560,9 +593,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 325.0,
-    "y": 58.0,
-    "width": 1507.0,
+    "x": 48.0,
+    "y": 23.0,
+    "width": 1576.0,
     "height": 821.0
   }
 }

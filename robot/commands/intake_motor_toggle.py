@@ -2,20 +2,24 @@
 import commands2
 from wpilib import SmartDashboard
 
-
 class IntakeMotorToggle(commands2.CommandBase):
+    SmartDashboard.putNumber('intake_speed', 0.65)
 
-
-    def __init__(self, container, intake, velocity, force=None) -> None:
+    def __init__(self, container, intake, velocity, source=None, force=None) -> None:
         super().__init__()
-        self.setName('toggle intake')
+        self.setName('intake motor')
         self.intake = intake
         self.container = container
         self.velocity = velocity
+        self.source = source
         self.force = force
         self.addRequirements(intake)  # commandsv2 version of requirements
 
     def initialize(self) -> None:
+
+        # allow for real-time updates
+        if self.source == 'dash':
+            self.velocity = SmartDashboard.getNumber('intake_speed', self.velocity)
 
         if self.force is not None:
             self.intake.set_velocity(self.velocity)
@@ -25,7 +29,7 @@ class IntakeMotorToggle(commands2.CommandBase):
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
-        SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
+        SmartDashboard.putString("alert", f"** Started {self.getName()} with speed {self.velocity} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
 
     def execute(self) -> None:

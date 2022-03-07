@@ -1,5 +1,4 @@
 import math
-
 import commands2
 from wpilib import SmartDashboard
 import rev
@@ -46,7 +45,7 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
             d_thrust = self.previous_thrust - thrust
             if abs(d_thrust) > self.max_thrust_differential:
                 thrust = self.previous_thrust - self.max_thrust_differential * math.copysign(1, d_thrust)
-                print(f'Applying decel limit: previous trust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+                print(f'Applying decel limit: previous velocity: {self.previous_thrust:.3f} delta_velocity: {d_thrust:0.3f}')
         self.previous_thrust = thrust
 
         if self.control_type == 'velocity':
@@ -60,6 +59,7 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
                 for controller in self.drive.pid_controllers:
                     controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
         else:  # arcade drive
+            # fix this - get the thrusts again
             self.drive.arcade_drive(thrust * self.max_arcade_thrust, twist * self.max_arcade_twist)
 
     def isFinished(self) -> bool:
