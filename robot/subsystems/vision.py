@@ -11,16 +11,20 @@ class Vision(SubsystemBase):
         
         self.ballcam_table = NetworkTables.getTable('BallCam')
         self.driver_station = DriverStation.getInstance()
-        self.camera_dict = {'red': {}, 'blue': {}}
+        self.camera_dict = {'red': {}, 'blue': {}, 'green': {}}
 
         for key in self.camera_dict.keys():
             self.camera_dict[key].update({'targets_entry': self.ballcam_table.getEntry(f"/{key}/targets")})
             self.camera_dict[key].update({'distance_entry': self.ballcam_table.getEntry(f"/{key}/distance")})
             self.camera_dict[key].update({'rotation_entry': self.ballcam_table.getEntry(f"/{key}/rotation")})
 
-        self.targets = 0
-        self.distance = 0
-        self.rotation = 0
+        self.ball_targets = 0
+        self.ball_distance = 0
+        self.ball_rotation = 0
+
+        self.hub_targets = 0
+        self.hub_distance = 0
+        self.hub_rotation = 0
 
         # set to red by default
         self.team_color = 'red'
@@ -36,13 +40,25 @@ class Vision(SubsystemBase):
             elif allianceColor == DriverStation.Alliance.kBlue:
                 self.team_color = 'blue'
 
-            self.targets = self.camera_dict[self.team_color]['targets_entry'].getDouble(0)
-            self.distance = self.camera_dict[self.team_color]['distance_entry'].getDouble(0)
-            self.rotation = self.camera_dict[self.team_color]['rotation_entry'].getDouble(0)
+            self.ball_targets = self.camera_dict[self.team_color]['targets_entry'].getDouble(0)
+            self.ball_distance = self.camera_dict[self.team_color]['distance_entry'].getDouble(0)
+            self.ball_rotation = self.camera_dict[self.team_color]['rotation_entry'].getDouble(0)
 
-            SmartDashboard.putNumber('/Vision/targets', self.targets)
-            SmartDashboard.putNumber('/Vision/distance', self.distance)
-            SmartDashboard.putNumber('/Vision/rotation', self.rotation)
+            # update hub values separately
+            self.hub_targets = self.camera_dict['green']['targets_entry'].getDouble(0)
+            self.hub_distance = self.camera_dict['green']['distance_entry'].getDouble(0)
+            self.hub_rotation = self.camera_dict['green']['rotation_entry'].getDouble(0)
+
+            SmartDashboard.putNumber('/Vision/ball/targets', self.ball_targets)
+            SmartDashboard.putNumber('/Vision/ball/distance', self.ball_distance)
+            SmartDashboard.putNumber('/Vision/ball/rotation', self.ball_rotation)
+
+            SmartDashboard.putNumber('/Vision/hub/targets', self.hub_targets)
+            SmartDashboard.putNumber('/Vision/hub/distance', self.hub_distance)
+            SmartDashboard.putNumber('/Vision/hub/rotation', self.hub_rotation)
 
     def getBallValues(self):
-        return (self.targets > 0, self.rotation, self.distance)
+        return (self.ball_targets > 0, self.ball_rotation, self.ball_distance)
+
+    def getHubValues(self):
+        return (self.hub_targets > 0, self.hub_rotation, self.hub_distance)
