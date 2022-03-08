@@ -35,11 +35,12 @@ class AutoRotateSparkmax(commands2.CommandBase):
         if self.target == 'ball':
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if ball_detected:
-                self.drive_time = self.distance_per_degree * rotation_offset / self.velocity
+                self.drive_time = abs(self.distance_per_degree * rotation_offset / self.velocity)
+
         elif self.target == 'hub':
             (hub_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if hub_detected:
-                self.drive_time = self.distance_per_degree * rotation_offset / self.velocity
+                self.drive_time = abs(self.distance_per_degree * rotation_offset / self.velocity)
 
         self.drive.smart_velocity(velocity=self.velocity * math.copysign(1, rotation_offset), spin=True)
 
@@ -47,8 +48,10 @@ class AutoRotateSparkmax(commands2.CommandBase):
         self.drive.drive.feed()
 
     def isFinished(self) -> bool:
-        error = self.degrees * self.distance_per_degree - abs(self.drive.left_encoder.getPosition() - self.encoder_start_position)
-        return abs(error) < 0.1
+        #error = self.degrees * self.distance_per_degree - abs(self.drive.left_encoder.getPosition() - self.encoder_start_position)
+        #return abs(error) < 0.1
+        return self.container.get_enabled_time() - self.start_time > self.drive_time
+
 
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()
