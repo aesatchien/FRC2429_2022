@@ -23,10 +23,19 @@ class Pneumatics(SubsystemBase):
         #Decide on init piston position 
         self.stop_compressor()
 
+        self.intake_extended = False
 
+    def set_intake_piston(self, position):
+        if position == 'extend':
+            self.intake_extended = True
+            self.intake_piston.set(True)
+        elif position == 'retract':
+            self.intake_extended = False
+            self.intake_piston.set(False)
 
     def toggle_intake(self):
         self.intake_piston.toggle()
+        self.intake_extended = not self.intake_extended
 
     def get_intake_state(self):
         return self.intake_piston.get()
@@ -67,8 +76,12 @@ class Pneumatics(SubsystemBase):
         
         self.counter =+ 1
 
-        SmartDashboard.putBoolean('compressor state', self.get_compressor_state())
-        SmartDashboard.putBoolean('close loop control', self.close_loop_enable)
+        if self.counter % 50 == 1:
+            SmartDashboard.putBoolean('compressor state', self.get_compressor_state())
+            SmartDashboard.putBoolean('close loop control', self.close_loop_enable)
+            SmartDashboard.putBoolean('intake_extended', self.intake_extended)
+            SmartDashboard.putBoolean('intake_state', self.intake_piston.get())
+
         
 
 

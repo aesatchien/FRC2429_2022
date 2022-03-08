@@ -2,18 +2,23 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class ToggleShifting(commands2.CommandBase):
+class IntakePositionToggle(commands2.CommandBase):
 
-    def __init__(self, container, pneumatics) -> None:
+    def __init__(self, container, pneumatics, force=None) -> None:
         super().__init__()
-        self.setName('toggle_shfiting')
+        self.setName('intake piston')
         self.container = container
         self.pneumatics = pneumatics
         self.addRequirements(pneumatics)  # commandsv2 version of requirements
-
+        self.force = force
     def initialize(self) -> None:
 
-        self.pneumatics.toggle_shifting()
+        if self.force == 'extend':
+            self.pneumatics.set_intake_piston(position='extend')
+        elif self.force == 'retract':
+            self.pneumatics.set_intake_piston(position='retract')
+        else:
+            self.pneumatics.toggle_intake()
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)

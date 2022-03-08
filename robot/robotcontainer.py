@@ -14,12 +14,12 @@ from subsystems.vision import Vision
 from commands.autonomous_ramsete import AutonomousRamsete
 from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 from commands.intake_motor_toggle import IntakeMotorToggle
-from commands.toggle_shooter import ToggleShooter
+from commands.shooter_toggle import ShooterToggle
 from commands.toggle_feed import ToggleFeed
 from commands.toggle_compressor import ToggleCompressor
 from commands.spin_climber import SpinClimber
-from commands.toggle_shifting import ToggleShifting
-from commands.toggle_intake import ToggleIntake
+from commands.shifter_toggle import ShifterToggle
+from commands.intake_position_toggle import IntakePositionToggle
 from commands.timed_feed import TimedFeed
 from commands.auto_fetch_ball import AutoFetchBall
 from commands.tune_sparkmax_drive import TuneSparkmax
@@ -148,10 +148,10 @@ class RobotContainer:
 
         #shooting
         #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
-        self.buttonB.whenPressed(ToggleShooter(self, self.robot_shooter, 2000))
+        self.buttonB.whenPressed(ShooterToggle(self, self.robot_shooter, 2000))
 
         #pneumatics
-        self.buttonBack.whenPressed(ToggleShifting(self, self.robot_pneumatics))
+        self.buttonBack.whenPressed(ShifterToggle(self, self.robot_pneumatics))
         self.buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
         self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_short())
         self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
@@ -160,7 +160,7 @@ class RobotContainer:
         # todo: reset to horizontal self.buttonRight.whenPressed(reset to horizontl)
 
         #intake
-        self.buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
+        self.buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
         #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
         self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
 
@@ -194,14 +194,14 @@ class RobotContainer:
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
         SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.65, source='dash'))
-        SmartDashboard.putData(ToggleIntake(self, self.robot_pneumatics))
+        SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
 
         if self.competition_mode:
             #climber
             #self.co_buttonY.whileHeld(SpinClimber(self, self.robot_climber))
 
             #intake
-            self.co_buttonDown.whenPressed(ToggleIntake(self, self.robot_pneumatics))
+            self.co_buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
             self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.65))
 
             #indexer
@@ -211,7 +211,7 @@ class RobotContainer:
 
 
             #shooter
-            self.co_buttonA.whenPressed(ToggleShooter(self, self.robot_shooter, 2000))
+            self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2000))
 
             #compressor
             self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))

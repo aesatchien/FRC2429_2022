@@ -2,7 +2,7 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class ToggleShooter(commands2.CommandBase):
+class ShooterToggle(commands2.CommandBase):
 
     def __init__(self, container, shooter, rpm=2000, force=None) -> None:
         super().__init__()

@@ -2,18 +2,18 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class ToggleIntake(commands2.CommandBase):
+class ShifterToggle(commands2.CommandBase):
 
     def __init__(self, container, pneumatics) -> None:
         super().__init__()
-        self.setName('intake piston')
+        self.setName('toggle_shfiting')
         self.container = container
         self.pneumatics = pneumatics
         self.addRequirements(pneumatics)  # commandsv2 version of requirements
 
     def initialize(self) -> None:
 
-        self.pneumatics.toggle_intake()
+        self.pneumatics.toggle_shifting()
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
