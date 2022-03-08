@@ -13,6 +13,8 @@ class HoldFeed(commands2.CommandBase):
         self.voltage = voltage
         self.force = force
         self.addRequirements(indexer)  # commandsv2 version of requirements
+        self.on_pulse_time = 0.15
+        self.off_pulse_time = 0.35
 
     def initialize(self) -> None:
 
@@ -24,7 +26,15 @@ class HoldFeed(commands2.CommandBase):
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
-        pass
+        current_time = self.container.get_enabled_time() - self.start_time
+        if current_time % (self.on_pulse_time + self.off_pulse_time) < self.on_pulse_time:
+            if not self.indexer.indexer_enabled:
+                self.indexer.set_voltage(self.voltage)
+                print('shoot')
+        else:
+            if self.indexer.indexer_enabled:
+                self.indexer.stop_motor()
+                print('wait')
 
     def isFinished(self) -> bool:  
         return False

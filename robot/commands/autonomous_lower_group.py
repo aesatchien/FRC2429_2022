@@ -34,7 +34,7 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
         self.addCommands(WaitCommand(0.1))
 
         # next step - return to hub with the shooter on
-        self.traj_2 = trajectory_io.generate_quick_trajectory(x=2.8, y=0, heading=0, velocity=3, reverse=True)
+        self.traj_2 = trajectory_io.generate_quick_trajectory(x=1.7, y=0, heading=0, velocity=3, reverse=True)
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_2))
         self.addCommands(WaitCommand(1))
 
