@@ -13,6 +13,10 @@ class Shooter(SubsystemBase):
         super().__init__()
         self.setName('Shooter')
         self.counter = 0
+        self.PID_dict_vel = {'kP': 0.00021, 'kI': 0, 'kD': 0, 'kIz': 0, 'kFF': 0.000192}
+        self.smartmotion_maxvel = 2501  # rpm
+        self.smartmotion_maxacc = 5001
+        self.current_limit = 35
 
         # initialize motors
         # looking from back to front
@@ -37,6 +41,8 @@ class Shooter(SubsystemBase):
         # toggle state
         self.shooter_enable = False
 
+        self.set_pids()
+
     def set_flywheel(self, rpm):
         self.flywheel_left_controller.setReference(rpm, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 0)
         self.shooter_enable = True
@@ -57,7 +63,21 @@ class Shooter(SubsystemBase):
             self.stop_shooter()
         else:
             self.set_flywheel(rpm)
-        
+
+    def set_pids(self, burn_flash=False):
+        self.error_dict = {}
+        i = 0
+        self.error_dict.update({'kP0_' + str(i): self.flywheel_left_controller.setP(self.PID_dict_vel['kP'], 0)})
+        self.error_dict.update({'kI0_' + str(i): self.flywheel_left_controller.setI(self.PID_dict_vel['kI'], 0)})
+        self.error_dict.update({'kIz0_' + str(i): self.flywheel_left_controller.setIZone(self.PID_dict_vel['kIz'], 0)})
+        self.error_dict.update({'kD0_' + str(i): self.flywheel_left_controller.setD(self.PID_dict_vel['kD'], 0)})
+        self.error_dict.update({'kD0_' + str(i): self.flywheel_left_controller.setFF(self.PID_dict_vel['kFF'], 0)})
+        self.error_dict.update({'Accel0_' + str(i): self.flywheel_left_controller.setSmartMotionMaxVelocity(self.smartmotion_maxvel, 0)})  #
+        self.error_dict.update({'Vel0_' + str(i): self.flywheel_left_controller.setSmartMotionMaxAccel(self.smartmotion_maxacc, 0)})
+
+        # print(self.error_dict)
+        if burn_flash:
+            self.flywheel_left.burnFlash()
 
     def periodic(self) -> None:
         
