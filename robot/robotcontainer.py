@@ -196,7 +196,7 @@ class RobotContainer:
         SmartDashboard.putData(AutonomousLowerGroup(container=self))
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
-        SmartDashboard.putData.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+        SmartDashboard.putData(ToggleCompressor(self, self.robot_pneumatics))
         SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.65, source='dash'))
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(HoldFeed(self, self.robot_indexer, 3))
