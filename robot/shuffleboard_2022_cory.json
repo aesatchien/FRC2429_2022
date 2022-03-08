@@ -9,7 +9,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 1,
+        "titleType": 0,
         "tiles": {
           "13,4": {
             "size": [
@@ -196,15 +196,15 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_rvel",
-              "_source1": "network_table:///SmartDashboard/drive_lvel",
+              "_source0": "network_table:///SmartDashboard/drive_lvel",
+              "_source1": "network_table:///SmartDashboard/drive_rvel",
               "_title": "Drivetrain Velocity",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "m/s",
+              "Y-axis/Unit": "ul",
               "Visible data/SmartDashboard/drive_lvel": true,
               "Visible data/SmartDashboard/drive_rvel": true
             }
@@ -216,15 +216,15 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_rpos",
-              "_source1": "network_table:///SmartDashboard/drive_lpos",
+              "_source0": "network_table:///SmartDashboard/drive_lpos",
+              "_source1": "network_table:///SmartDashboard/drive_rpos",
               "_title": "Drivetrain Position",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "meters",
+              "Y-axis/Unit": "ul",
               "Visible data/SmartDashboard/drive_lpos": true,
               "Visible data/SmartDashboard/drive_rpos": true
             }
@@ -514,24 +514,6 @@
                   "Colors/Color when false": "#8B0000FF"
                 },
                 {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "_title": "PWMSparkMax[1]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "_title": "PWMSparkMax[3]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
-                  "_title": "Spark[5]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
                   "_type": "Basic Subsystem",
                   "_source0": "network_table:///LiveWindow/Ungrouped/frc2::SubsystemBase",
                   "_title": "LiveWindow/Ungrouped/frc2::SubsystemBase"
@@ -545,6 +527,39 @@
                   "Range/Center": 0.0,
                   "Visuals/Orientation": "HORIZONTAL",
                   "Visuals/Number of tick marks": 5
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]/Value",
+                  "_title": "Spark[5]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]/Value",
+                  "_title": "PWMSparkMax[3]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]/Value",
+                  "_title": "PWMSparkMax[1]/Value"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
+                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[1]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
+                  "_title": "LiveWindow/Ungrouped/Spark[5]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
+                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[3]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -590,12 +605,201 @@
           }
         }
       }
+    },
+    {
+      "title": "Systems",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 32.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "10,0": {
+            "size": [
+              4,
+              11
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_title": "Shooter List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/shooter_ready",
+                  "_title": "shooter_ready",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/shooter_state",
+                  "_title": "shooter_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/shooter_rpm",
+                  "_title": "shooter_rpm"
+                }
+              ]
+            }
+          },
+          "14,0": {
+            "size": [
+              4,
+              11
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Indexer List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/indexer_state",
+                  "_title": "indexer_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/indexer_ballsensor",
+                  "_title": "indexer_ballsensor"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/indexer_v1",
+                  "_title": "indexer_v1"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/indexer_v2",
+                  "_title": "indexer_v2"
+                }
+              ]
+            }
+          },
+          "29,0": {
+            "size": [
+              8,
+              11
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Command Grid",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {}
+            }
+          },
+          "18,0": {
+            "size": [
+              4,
+              11
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Intake List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/intake_extended",
+                  "_title": "intake_extended",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/intake_motor_state",
+                  "_title": "intake_motor_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/intake_state",
+                  "_title": "intake_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/intake_speed",
+                  "_title": "intake_speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/intake_motor_pwr",
+                  "_title": "intake_motor_pwr"
+                }
+              ]
+            }
+          },
+          "22,0": {
+            "size": [
+              4,
+              11
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Compressor List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/compressor_state",
+                  "_title": "compressor_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              ]
+            }
+          },
+          "26,0": {
+            "size": [
+              3,
+              11
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Climber List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/climber_state",
+                  "_title": "climber_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/climber_voltage",
+                  "_title": "climber_voltage"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/climber_current",
+                  "_title": "climber_current"
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   ],
   "windowGeometry": {
-    "x": 315.0,
+    "x": 69.0,
     "y": 4.0,
-    "width": 1576.0,
+    "width": 1822.0,
     "height": 821.0
   }
 }

@@ -164,37 +164,12 @@ class RobotContainer:
         #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
         self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
 
-        
         #vision
         self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         # Testing autonomous calls - may want to bind them to calling on the dashboard
-         #self.buttonA.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive))
-        #self.buttonRight.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
-        # self.buttonLeft.whenPressed(AutonomousRamsete(container=self, drive=self.robot_drive, source='waypoint'))
-
-        #SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
-        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-        # self.buttonX.whenPressed(AutoRotateImu(self, self.robot_drive, 30))
-        # self.buttonX.whenPressed(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
-        SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
-
-        SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
-        SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
-        SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
 
         #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
         self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-
-        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
-        #SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-        #self.buttonX.whenPressed(AutoRotateSparkmax(self, self.robot_drive, 30))
-        # self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90))
-
-        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-        SmartDashboard.putData(AutonomousLowerGroup(container=self))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
-        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.65, source='dash'))
-        SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
 
         if self.competition_mode:
             #climber
@@ -209,20 +184,32 @@ class RobotContainer:
             # self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
             self.co_buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
 
-
             #shooter
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2000))
 
             #compressor
             self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
 
-        # We won't do anything with this button itself, so we don't need to define a variable.
-        (
-            self.buttonRB
-            .whenPressed(lambda: self.robot_drive.set_max_output(0.25))
-            .whenReleased(lambda: self.robot_drive.set_max_output(1))
-        )
+        # lots of putdatas for testing on the dash
+        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
 
+        SmartDashboard.putData(AutonomousLowerGroup(container=self))
+        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
+
+        SmartDashboard.putData.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.65, source='dash'))
+        SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
+        SmartDashboard.putData(HoldFeed(self, self.robot_indexer, 3))
+        SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 2000))
+
+        SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
+        SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
+        SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
+        SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
+
+
+        # We won't do anything with this button itself, so we don't need to define a variable.
+        # self.buttonRB.whenPressed(lambda: self.robot_drive.set_max_output(0.25)).whenReleased(lambda: self.robot_drive.set_max_output(1))
 
     def initialize_dashboard(self):
 

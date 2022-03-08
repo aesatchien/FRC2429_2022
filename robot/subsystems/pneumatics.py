@@ -77,8 +77,8 @@ class Pneumatics(SubsystemBase):
         self.counter =+ 1
 
         if self.counter % 50 == 1:
-            SmartDashboard.putBoolean('compressor state', self.get_compressor_state())
-            SmartDashboard.putBoolean('close loop control', self.close_loop_enable)
+            SmartDashboard.putBoolean('compressor_state', self.get_compressor_state())
+            # SmartDashboard.putBoolean('close loop control', self.close_loop_enable)
             SmartDashboard.putBoolean('intake_extended', self.intake_extended)
             SmartDashboard.putBoolean('intake_state', self.intake_piston.get())
 

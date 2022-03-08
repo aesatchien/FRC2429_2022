@@ -4,7 +4,6 @@ from wpilib import SmartDashboard
 
 class HoldFeed(commands2.CommandBase):
 
-
     def __init__(self, container, indexer, voltage=2, force=None) -> None:
         super().__init__()
         self.setName('hold to feed')
@@ -26,6 +25,7 @@ class HoldFeed(commands2.CommandBase):
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
+        # puslse the indexer off and on
         current_time = self.container.get_enabled_time() - self.start_time
         if current_time % (self.on_pulse_time + self.off_pulse_time) < self.on_pulse_time:
             if not self.indexer.indexer_enabled:

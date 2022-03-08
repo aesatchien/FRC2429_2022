@@ -215,10 +215,10 @@ class Drivetrain(SubsystemBase):
         if self.counter % 10 == 0:
             # start keeping track of where the robot is with an x and y position (only good for WCD)'
             pose = self.get_pose()
-            SmartDashboard.putString('/drive_pose', f'[{pose.X():2.2f}, {pose.Y():2.2f}, {pose.rotation().degrees():2.2f}]' )
+            SmartDashboard.putString('drive_pose', f'[{pose.X():2.2f}, {pose.Y():2.2f}, {pose.rotation().degrees():2.2f}]' )
             SmartDashboard.putNumber('drive_lpos', self.left_encoder.getPosition())
-            SmartDashboard.putNumber('drive_lvel', self.left_encoder.getVelocity())
             SmartDashboard.putNumber('drive_rpos', self.right_encoder.getPosition())
+            SmartDashboard.putNumber('drive_lvel', self.left_encoder.getVelocity())
             SmartDashboard.putNumber('drive_rvel', self.right_encoder.getVelocity())
 
 
@@ -247,7 +247,15 @@ class Drivetrain(SubsystemBase):
         for controller, encoder, multiplier in zip(self.pid_controllers, self.encoders, multipliers):
             controller.setReference(encoder.getPosition() + distance*multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartMotion)
 
-        
+    def smart_velocity(self, velocity=0.5, spin=False):
+        """
+        Thinking of an easy way to send the velocity setpoint to the drivetrain
+        Have to do in a command that owns drive
+        """
+        multipliers = [1.0, 1.0, 1.0, 1.0] if self.spin else [1.0, 1.0, -1.0, -1.0]
+        for controller, multiplier in zip(self.pid_controllers, multipliers):
+            controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
+
 
     def configure_controllers(self, pid_only=False, burn_flash=False):
         """Set the PIDs, etc for the controllers, slot 0 is position and slot 1 is velocity"""

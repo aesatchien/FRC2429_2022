@@ -85,8 +85,9 @@ class Shooter(SubsystemBase):
 
         if self.counter % 25 == 0:
             # not too often
-            SmartDashboard.putNumber('/shooter/shooter rpm', self.flywheel_left_encoder.getVelocity())
-            SmartDashboard.putBoolean('/shooter/shooter state', self.shooter_enable)
+            SmartDashboard.putNumber('shooter_rpm', self.flywheel_left_encoder.getVelocity())
+            SmartDashboard.putBoolean('shooter_state', self.shooter_enable)
+            SmartDashboard.putBoolean('shooter_ready', self.flywheel_left_encoder.getVelocity() > 1700)
             
             
 

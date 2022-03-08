@@ -31,10 +31,10 @@ class Climber(SubsystemBase):
         self.climber_enable = False
 
         # add encoder later
-        ntinst = NetworkTablesInstance.getDefault()
-        self.climber_table = ntinst.getTable('Climber')
-        self.climber_voltage = self.climber_table.getEntry('voltage')
-        self.climber_current = self.climber_table.getEntry('current')
+        #ntinst = NetworkTablesInstance.getDefault()
+        #self.climber_table = ntinst.getTable('Climber')
+        #self.climber_voltage = self.climber_table.getEntry('voltage')
+        #self.climber_current = self.climber_table.getEntry('current')
 
     def set_voltage(self, voltage):
         self.climber_left_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
@@ -55,13 +55,12 @@ class Climber(SubsystemBase):
         if self.counter % 20 == 0:
 
             # ten per second updates
-            SmartDashboard.putNumber('/climber/climber voltage', self.climber_left_neo.getAppliedOutput())
-            SmartDashboard.putNumber('/climber/climber current', self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
-            SmartDashboard.putBoolean('/climber/climber state', self.climber_enable)
-            
+            SmartDashboard.putNumber('climber_voltage', self.climber_left_neo.getAppliedOutput())
+            SmartDashboard.putNumber('climber_current', self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
+            SmartDashboard.putBoolean('climber_state', self.climber_enable)
 
-            self.climber_voltage.setValue(self.climber_left_neo.getAppliedOutput())  # does not like setNumber for some reason
-            self.climber_current.setValue(self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
+            #self.climber_voltage.setValue(self.climber_left_neo.getAppliedOutput())  # does not like setNumber for some reason
+            #self.climber_current.setValue(self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
 
 
 

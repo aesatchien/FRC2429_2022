@@ -113,11 +113,11 @@ class Indexer(SubsystemBase):
 
     def periodic(self) -> None:
 
-        
-
         self.counter += 1
 
         if self.counter % 25 == 0:
 
-            SmartDashboard.putBoolean('indexer state', self.indexer_enabled)
-            SmartDashboard.putNumber('indexer ball sensor', self.ball_sensor.getValue())
+            SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
+            SmartDashboard.putNumber('indexer_v1', self.indexer_stage_one.getAppliedOutput())
+            SmartDashboard.putNumber('indexer_v2', self.indexer_stage_two.getAppliedOutput())
+            SmartDashboard.putNumber('indexer_ballsensor', self.ball_sensor.getValue())
