@@ -38,7 +38,7 @@ class AutoRotateSparkmax(commands2.CommandBase):
                 self.drive_time = abs(self.distance_per_degree * rotation_offset / self.velocity)
 
         elif self.target == 'hub':
-            (hub_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
+            (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
             if hub_detected:
                 self.drive_time = abs(self.distance_per_degree * rotation_offset / self.velocity)
 

@@ -28,6 +28,8 @@ from commands.auto_rotate_imu import AutoRotateImu
 from commands.autonomous_lower_group import AutonomousLowerGroup
 from commands.drive_by_joystick import DriveByJoytick
 from commands.hold_feed import HoldFeed
+from commands.autonomous_shooting import AutonomousShooting
+from commands.autonomous_pickup import AutonomousPickup
 
 import constants
 import trajectory_io
@@ -207,6 +209,9 @@ class RobotContainer:
         SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
+
+        SmartDashboard.putData(AutonomousShooting(self))
+        SmartDashboard.putData(AutonomousPickup(self))
 
 
         # We won't do anything with this button itself, so we don't need to define a variable.

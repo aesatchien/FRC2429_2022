@@ -127,14 +127,45 @@ class AutonomousRamsete(commands2.CommandBase):
                 end_x, end_y, heading = -end_x, -end_y, -heading
             end_pose = geo.Pose2d(geo.Translation2d(x=end_x, y=end_y), geo.Rotation2d().fromDegrees(heading))
             try:
-                self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose], velocity=self.velocity, reverse=reverse,
-                                                                            display=False, save=True)
+                self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
+                                                    velocity=self.velocity, reverse=reverse, display=False, save=True)
             except Exception as e:  # don't send it a trajectory it can't calculate
                 print(f'Error generating trajectory: {e}')
                 self.end(interrupted=True)
 
         elif self.source == 'trajectory':  # we sent it a trajectory when we called the function
             pass
+        elif self.source == 'ball': # generate a tajectory from ball location
+            (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
+            if ball_detected:
+                end_x = distance
+                reverse = False
+                start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
+                end_pose = geo.Pose2d(geo.Translation2d(x=abs(end_x), y=0), geo.Rotation2d(0.000000))
+                try:
+                    self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
+                                                                                    velocity=self.velocity,
+                                                                                    reverse=reverse, display=False,
+                                                                                    save=True)
+                except Exception as e:  # don't send it a trajectory it can't calculate
+                    print(f'Error generating trajectory: {e}')
+                    self.end(interrupted=True)
+        elif self.source == 'hub':  # generate a trajectory from hub location
+            (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
+            if hub_detected:
+                ideal_distance = 1.0
+                end_x = ideal_distance - distance  # positive if we have to move away
+                reverse = end_x < 0  # we are facing away from target
+                start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
+                end_pose = geo.Pose2d(geo.Translation2d(x=abs(end_x), y=0), geo.Rotation2d(0.000000))
+                try:
+                    self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
+                                                                                    velocity=self.velocity,
+                                                                                    reverse=reverse, display=False,
+                                                                                    save=True)
+                except Exception as e:  # don't send it a trajectory it can't calculate
+                    print(f'Error generating trajectory: {e}')
+                    self.end(interrupted=True)
         else:
             pass  # just let it die
 
