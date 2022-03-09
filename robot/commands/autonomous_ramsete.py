@@ -135,63 +135,59 @@ class AutonomousRamsete(commands2.CommandBase):
 
         elif self.source == 'trajectory':  # we sent it a trajectory when we called the function
             pass
+
         elif self.source == 'ball': # generate a tajectory from ball location
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if ball_detected:
                 end_x = distance + 0.25  # overshoot a bit
                 reverse = False
-                start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
-                end_pose = geo.Pose2d(geo.Translation2d(x=abs(end_x), y=0), geo.Rotation2d(0.000000))
-                print(f'Atttempting hub drive, distance is {end_x}')
-                try:
-                    self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
-                                                                                    velocity=1.5,
-                                                                                    reverse=reverse, display=True,
-                                                                                    save=True)
-                except Exception as e:  # don't send it a trajectory it can't calculate
-                    print(f'Error generating trajectory: {e}')
+                print(f'Atttempting ball drive, distance is {end_x}')
+                success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(end_x), y=0, velocity=1.5, reverse=reverse, display=True)
+                if success == 0:
                     self.end(interrupted=True)
+            else:
+                success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(0), y=0, velocity=1.5, reverse=False, display=True)
+
         elif self.source == 'hub':  # generate a trajectory from hub location
             (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
             if hub_detected:
                 ideal_distance = 1.0
                 end_x = ideal_distance - distance  # positive if we have to move away
                 reverse = end_x < 0  # we are facing away from target
-                start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
-                end_pose = geo.Pose2d(geo.Translation2d(x=abs(end_x), y=0), geo.Rotation2d(0.000000))
                 print(f'Atttempting hub drive, distance is {end_x}')
-                try:
-                    self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
-                                                                                    velocity=1.5,
-                                                                                    reverse=reverse, display=True,
-                                                                                    save=True)
-                except Exception as e:  # don't send it a trajectory it can't calculate
-                    print(f'Error generating trajectory: {e}')
+                success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(end_x), y=0, velocity=1.5, reverse=reverse, display=True)
+                if success == 0:
                     self.end(interrupted=True)
+            else:
+                success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(0), y=0, velocity=1.5, reverse=False, display=True)
         else:
             pass  # just let it die
 
-        if self.relative:  # clean way to take a trajectory and shift it to new start location and orientation
-            # more than one way to update the trajectory - reset the drive odometer to initial pose
-            # or use the current odometry reading as the beginning of the trajectory
-            transform = geo.Transform2d(self.trajectory.initialPose(), self.drive.get_pose())
-            self.trajectory = self.trajectory.transformBy(transform)
+        if self.trajectory is not None:
+            if self.relative:  # clean way to take a trajectory and shift it to new start location and orientation
+                # more than one way to update the trajectory - reset the drive odometer to initial pose
+                # or use the current odometry reading as the beginning of the trajectory
 
-        self.container.robot_drive.drive.feed()  # this initialization is taking some time now
+                transform = geo.Transform2d(self.trajectory.initialPose(), self.drive.get_pose())
+                self.trajectory = self.trajectory.transformBy(transform)
 
-        #self.container.robot_drive.reset_odometry(self.start_pose)
-        initial_state = self.trajectory.sample(0)
-        # these are all meters in 2021
-        self.previous_speeds = self.kinematics.toWheelSpeeds(wpimath.kinematics.ChassisSpeeds(
-            initial_state.velocity, 0, initial_state.curvature * initial_state.velocity))
+            self.container.robot_drive.drive.feed()  # this initialization is taking some time now
 
-        self.start_time = self.container.get_enabled_time()
-        print("\n" + f"** Started {self.__class__.__name__} / {self.getName()} on {self.course} with load time {1000*(self.start_time-self.init_time):2.2f}ms"
-                     f" (b={self.beta}, z={self.zeta}, kp_vel={self.kp_vel}) at {self.start_time:.1f} s **")
-        print(f'Attempting to run trajectory from {self.trajectory.initialPose()} to {self.trajectory.states()[-1].pose}')
-        SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time:.1f} s **")
+            #self.container.robot_drive.reset_odometry(self.start_pose)
+            initial_state = self.trajectory.sample(0)
+            # these are all meters in 2021
+            self.previous_speeds = self.kinematics.toWheelSpeeds(wpimath.kinematics.ChassisSpeeds(
+                initial_state.velocity, 0, initial_state.curvature * initial_state.velocity))
 
-        print('Time\tTr Vel\tTr Rot\tlspd\trspd\tram ang\tram vx\tram vy\tlffw\trffw\tlpid\trpid')
+            self.start_time = self.container.get_enabled_time()
+            print("\n" + f"** Started {self.__class__.__name__} / {self.getName()} on {self.course} with load time {1000*(self.start_time-self.init_time):2.2f}ms"
+                         f" (b={self.beta}, z={self.zeta}, kp_vel={self.kp_vel}) at {self.start_time:.1f} s **")
+            print(f'Attempting to run trajectory from {self.trajectory.initialPose()} to {self.trajectory.states()[-1].pose}')
+            SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time:.1f} s **")
+
+            print('Time\tTr Vel\tTr Rot\tlspd\trspd\tram ang\tram vx\tram vy\tlffw\trffw\tlpid\trpid')
+        else:
+            print(f'No valid trajectory obtained.', flush=True)
 
     def execute(self) -> None:
         current_time = self.container.get_enabled_time() - self.start_time

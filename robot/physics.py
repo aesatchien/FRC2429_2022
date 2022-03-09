@@ -92,7 +92,7 @@ class PhysicsEngine:
         self.pose = geo.Pose2d(self.x, self.y, geo.Rotation2d().fromDegrees(constants.k_start_heading))
         initial_position_transform = geo.Transform2d(initial_pose, self.pose)
         self.drivesim.setState([self.x, self.y, self.pose.rotation().radians(), 0, 0, 0, 0])
-        self.physics_controller.move_robot(initial_position_transform)
+        #self.physics_controller.move_robot(initial_position_transform)
         self.previous_pose = self.drivesim.getPose()
 
     def update_sim(self, now: float, tm_diff: float) -> None:

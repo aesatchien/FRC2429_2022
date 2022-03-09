@@ -88,7 +88,7 @@ def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_spe
 
 # used in ramsete command
 def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=False) -> wpimath.trajectory:
-
+    return_code = 1  # success
     config = wpimath.trajectory.TrajectoryConfig(3, 3) # constants.k_max_acceleration_meters_per_second_squared)
     config.setKinematics(constants.k_drive_kinematics)
     config.addConstraint(constants.k_autonomous_voltage_constraint)
@@ -100,11 +100,19 @@ def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_spee
     if reverse:
         config.setReversed(True)
         end_pose = geo.Pose2d(geo.Translation2d(x=-x, y=-y), geo.Rotation2d.fromDegrees(-heading))
-    quick_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=[start_pose, end_pose], config=config)
+
+    try:
+        quick_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=[start_pose, end_pose], config=config)
+
+    except RuntimeError as e:
+        return_code = 0  # failure
+        print(f'FAILED to generate trajectory with x={x}: error {e}')
+        end_pose = geo.Pose2d(geo.Translation2d(x=x, y=y), geo.Rotation2d.fromDegrees(heading))
+        quick_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=[start_pose, end_pose], config=config)
 
     if display:
         print(x, y, heading, velocity, reverse, display, start_pose, end_pose, quick_trajectory.totalTime())
         print(f'Quick trajectory with {len(quick_trajectory.states())} states:  ', end='\n')
         _ = [print(state) for state in quick_trajectory.states()]
 
-    return quick_trajectory
+    return return_code, quick_trajectory

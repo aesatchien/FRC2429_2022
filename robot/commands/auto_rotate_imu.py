@@ -13,12 +13,13 @@ class AutoRotateImu(commands2.CommandBase):
     Rotate the robot based a PID control with the heading coming from the drivetrain's IMU
     """
 
-    def __init__(self, container, drive, degrees) -> None:
+    def __init__(self, container, drive, source='degrees', degrees=45) -> None:
         super().__init__()
         self.setName('Auto Rotate IMU')
         self.container = container
         self.drive = drive
         self.degrees = degrees
+        self.source = source
         self.controller = PIDController(0.0025, 0, 0)
         self.feed_forward = 0.25
         self.tolerance = 1.5
@@ -28,6 +29,15 @@ class AutoRotateImu(commands2.CommandBase):
     def initialize(self) -> None:
         self.drive.arcade_drive(0, 0)
         self.start_angle = self.drive.navx.getAngle()
+
+        # allow ball or hub to override our choice of turning
+        if self.source == 'ball':
+            (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
+            self.degrees = rotation_offset if ball_detected else 0
+        elif self.source == 'hub':
+            (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
+            self.degrees = rotation_offset if hub_detected else 0
+
         self.controller.setSetpoint(self.degrees)
 
         """Called just before this Command runs the first time."""

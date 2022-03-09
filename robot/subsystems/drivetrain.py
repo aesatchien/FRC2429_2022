@@ -295,7 +295,7 @@ class Drivetrain(SubsystemBase):
         if len(set(self.error_dict)) > 1:
             print('\n*Sparkmax setting*     *Response*')
             for key in sorted(self.error_dict.keys()):
-                print(f'     {key:15} \t {self.error_dict[key]}')
+                print(f'     {key:15} \t {self.error_dict[key]}', flush=True)
         else:
             print(f'\n *All SparkMax report {list(set(self.error_dict))[0]}')
 

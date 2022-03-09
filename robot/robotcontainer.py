@@ -220,7 +220,7 @@ class RobotContainer:
         SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
 
-        SmartDashboard.putData(AutoRotateImu(self, self.robot_drive, degrees=90))
+        SmartDashboard.putData(AutoRotateImu(self, self.robot_drive, source='degrees', degrees=90))
 
         SmartDashboard.putData(AutonomousShooting(self))
         SmartDashboard.putData(AutonomousPickup(self))

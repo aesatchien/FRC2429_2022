@@ -27,11 +27,6 @@ class AutoRotateSparkmax(commands2.CommandBase):
     def initialize(self) -> None:
         self.drive.drive.feed()
 
-        """Called just before this Command runs the first time."""
-        self.start_time = round(self.container.get_enabled_time(), 2)
-        print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
-        SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
-
         self.drive_time = 0  # exit right away if no targets
         if self.target == 'ball':
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
@@ -49,6 +44,10 @@ class AutoRotateSparkmax(commands2.CommandBase):
             self.drive_time = abs(self.distance_per_degree * self.degrees / self.velocity)
             self.drive.smart_velocity(velocity=self.velocity * math.copysign(1, self.degrees), spin=True)
 
+        """Called just before this Command runs the first time."""
+        self.start_time = round(self.container.get_enabled_time(), 2)
+        print("\n" + f"** Started {self.getName()} with drive time of {self.drive_time} at {self.start_time} s **", flush=True)
+        SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
         self.drive.drive.feed()
