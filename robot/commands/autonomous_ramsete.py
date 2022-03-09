@@ -75,6 +75,8 @@ class AutonomousRamsete(commands2.CommandBase):
         self.start_time = None
         self.course = None
 
+        self.exit = False  # it is so hard to kill this command
+
     def initialize(self) -> None:
         self.init_time = self.container.get_enabled_time()
         self.start_time = self.container.get_enabled_time()
@@ -145,8 +147,11 @@ class AutonomousRamsete(commands2.CommandBase):
                 success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(end_x), y=0, velocity=1.5, reverse=reverse, display=True)
                 if success == 0:
                     self.end(interrupted=True)
+                    self.exit = True
             else:
                 success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(0), y=0, velocity=1.5, reverse=False, display=True)
+                self.end(interrupted=True)
+                self.exit = True
 
         elif self.source == 'hub':  # generate a trajectory from hub location
             (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
@@ -158,8 +163,11 @@ class AutonomousRamsete(commands2.CommandBase):
                 success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(end_x), y=0, velocity=1.5, reverse=reverse, display=True)
                 if success == 0:
                     self.end(interrupted=True)
+                    self.exit = True
             else:
                 success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(0), y=0, velocity=1.5, reverse=False, display=True)
+                self.end(interrupted=True)
+                self.exit = True
         else:
             pass  # just let it die
 
@@ -256,7 +264,7 @@ class AutonomousRamsete(commands2.CommandBase):
 
     def isFinished(self) -> bool:  # ToDo: investigate the different end conditions for a ramsete process
         # for now just give it as much time as the trajectory calculated it needed
-        return (self.container.get_enabled_time() - self.start_time) > self.trajectory.totalTime()
+        return (self.container.get_enabled_time() - self.start_time) > self.trajectory.totalTime() or self.exit
 
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()

@@ -107,7 +107,7 @@ def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_spee
     except RuntimeError as e:
         return_code = 0  # failure
         print(f'FAILED to generate trajectory with x={x}: error {e}')
-        end_pose = geo.Pose2d(geo.Translation2d(x=x, y=y), geo.Rotation2d.fromDegrees(heading))
+        end_pose = geo.Pose2d(geo.Translation2d(x=1, y=y), geo.Rotation2d.fromDegrees(heading))
         quick_trajectory = wpimath.trajectory.TrajectoryGenerator.generateTrajectory(waypoints=[start_pose, end_pose], config=config)
 
     if display:

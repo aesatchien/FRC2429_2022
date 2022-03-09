@@ -6,6 +6,7 @@ from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
 from commands.toggle_feed import ToggleFeed
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
+from commands.auto_rotate_imu import AutoRotateImu
 from commands2 import WaitCommand
 
 import trajectory_io
@@ -26,7 +27,8 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed))
 
         # next step - spin to ball
-        self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
+        #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
+        self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='ball'))
         self.addCommands(WaitCommand(0.2))
         #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
         #self.addCommands(WaitCommand(0.2))
