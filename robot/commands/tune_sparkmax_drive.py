@@ -96,7 +96,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
 
         end_time = self.container.get_enabled_time()
         message = 'Interrupted' if interrupted else 'Ended'
-        print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
+        print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **", flush=True)
         SmartDashboard.putString(f"alert",
                                  f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
 
