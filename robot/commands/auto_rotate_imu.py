@@ -19,8 +19,8 @@ class AutoRotateImu(commands2.CommandBase):
         self.container = container
         self.drive = drive
         self.degrees = degrees
-        self.controller = PIDController(0.005, 0, 0.001)
-        self.feed_forward = 0.2
+        self.controller = PIDController(0.0025, 0, 0)
+        self.feed_forward = 0.25
         self.tolerance = 1.5
 
         self.addRequirements(drive)  # commandsv2 version of requirements

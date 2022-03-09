@@ -1,7 +1,6 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
 from commands2.button import JoystickButton, Button, POVButton
-from matplotlib import axis
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 
 from subsystems.drivetrain import Drivetrain
@@ -199,7 +198,7 @@ class RobotContainer:
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2000))
 
             #compressor
-            self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+            #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
 
             self.co_rightTrigger.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
@@ -215,11 +214,13 @@ class RobotContainer:
         SmartDashboard.putData(HoldFeed(self, self.robot_indexer, 3))
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 2000))
 
-        SmartDashboard.putData(AutoRotateSparkmax(self, self.robot_drive, target='ball'))
+        SmartDashboard.putData(AutoRotateSparkmax(self, self.robot_drive, target='degrees', degrees=90))
         SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
         SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
+
+        SmartDashboard.putData(AutoRotateImu(self, self.robot_drive, degrees=90))
 
         SmartDashboard.putData(AutonomousShooting(self))
         SmartDashboard.putData(AutonomousPickup(self))

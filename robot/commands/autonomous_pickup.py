@@ -28,8 +28,8 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
         # next step - spin to ball
         self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
         self.addCommands(WaitCommand(0.2))
-        self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
-        self.addCommands(WaitCommand(0.2))
+        #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
+        #self.addCommands(WaitCommand(0.2))
         
         # ToDo: add a set distance for driving - basically get the distance from the vision system and make a trajectory
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='ball'))

@@ -16,7 +16,7 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
         self.setName('auto lower group')  # change this to something appropriate for this command
         self.container = container
         self.indexer_speed = 3.0
-        self.intake_speed = 0.65
+        self.intake_speed = 0.80
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
 
@@ -26,7 +26,7 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
 
         # next step - reverse to a ball
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2000))
-        self.traj_1 = trajectory_io.generate_quick_trajectory(x=2.3, y=0, heading=0, velocity=3, reverse=False)
+        self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=3, reverse=False)
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_1))
 
         # hopefully pick up a ball
@@ -34,9 +34,9 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
         self.addCommands(WaitCommand(0.1))
 
         # next step - return to hub with the shooter on
-        self.traj_2 = trajectory_io.generate_quick_trajectory(x=1.7, y=0, heading=0, velocity=3, reverse=True)
-        self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_2))
-        self.addCommands(WaitCommand(1))
+        #self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)
+        #self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_2))
+        self.addCommands(WaitCommand(.3))
 
         # next step - shoot twice
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
@@ -45,6 +45,12 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
                          andThen(WaitCommand(self.index_pulse_off)))
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0).
+                         andThen(WaitCommand(self.index_pulse_off)))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+                         andThen(WaitCommand(self.index_pulse_on)))
+        
+        self.addCommands(WaitCommand(.5))
 
         # close up, turn off shooter
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics))

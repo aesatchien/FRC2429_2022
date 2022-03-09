@@ -9,7 +9,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "13,4": {
             "size": [
@@ -329,7 +328,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -542,24 +540,6 @@
                   "_type": "Text View",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]/Value",
                   "_title": "PWMSparkMax[1]/Value"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
-                  "_title": "LiveWindow/Ungrouped/Spark[5]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -615,9 +595,8 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
-          "8,0": {
+          "7,0": {
             "size": [
               4,
               9
@@ -654,7 +633,7 @@
               ]
             }
           },
-          "12,0": {
+          "11,0": {
             "size": [
               4,
               10
@@ -694,9 +673,9 @@
               ]
             }
           },
-          "27,0": {
+          "26,0": {
             "size": [
-              10,
+              11,
               10
             ],
             "content": {
@@ -710,11 +689,6 @@
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
                   "_title": "SmartDashboard/autonomous_ramsete"
-                },
-                "0,1": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto lower group",
-                  "_title": "SmartDashboard/auto lower group"
                 },
                 "1,0": {
                   "_type": "Command",
@@ -740,11 +714,21 @@
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/auto pickup",
                   "_title": "auto pickup"
+                },
+                "0,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/auto lower group",
+                  "_title": "SmartDashboard/auto lower group"
+                },
+                "0,2": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/Auto Rotate IMU",
+                  "_title": "SmartDashboard/Auto Rotate IMU"
                 }
               }
             }
           },
-          "16,0": {
+          "15,0": {
             "size": [
               4,
               12
@@ -798,7 +782,7 @@
               ]
             }
           },
-          "20,0": {
+          "19,0": {
             "size": [
               4,
               7
@@ -823,7 +807,7 @@
               ]
             }
           },
-          "24,0": {
+          "23,0": {
             "size": [
               3,
               9
@@ -851,6 +835,28 @@
                   "_title": "SmartDashboard/climber_current"
                 }
               ]
+            }
+          },
+          "20,9": {
+            "size": [
+              5,
+              3
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/autonomous routines",
+              "_title": "SmartDashboard/autonomous routines"
+            }
+          },
+          "27,10": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/drive_pose",
+              "_title": "SmartDashboard/drive_pose"
             }
           }
         }

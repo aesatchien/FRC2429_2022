@@ -138,14 +138,15 @@ class AutonomousRamsete(commands2.CommandBase):
         elif self.source == 'ball': # generate a tajectory from ball location
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if ball_detected:
-                end_x = distance
+                end_x = distance + 0.25  # overshoot a bit
                 reverse = False
                 start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
                 end_pose = geo.Pose2d(geo.Translation2d(x=abs(end_x), y=0), geo.Rotation2d(0.000000))
+                print(f'Atttempting hub drive, distance is {end_x}')
                 try:
                     self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
-                                                                                    velocity=self.velocity,
-                                                                                    reverse=reverse, display=False,
+                                                                                    velocity=1.5,
+                                                                                    reverse=reverse, display=True,
                                                                                     save=True)
                 except Exception as e:  # don't send it a trajectory it can't calculate
                     print(f'Error generating trajectory: {e}')
@@ -158,10 +159,11 @@ class AutonomousRamsete(commands2.CommandBase):
                 reverse = end_x < 0  # we are facing away from target
                 start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
                 end_pose = geo.Pose2d(geo.Translation2d(x=abs(end_x), y=0), geo.Rotation2d(0.000000))
+                print(f'Atttempting hub drive, distance is {end_x}')
                 try:
                     self.trajectory = trajectory_io.generate_trajectory_from_points(waypoints=[start_pose, end_pose],
-                                                                                    velocity=self.velocity,
-                                                                                    reverse=reverse, display=False,
+                                                                                    velocity=1.5,
+                                                                                    reverse=reverse, display=True,
                                                                                     save=True)
                 except Exception as e:  # don't send it a trajectory it can't calculate
                     print(f'Error generating trajectory: {e}')

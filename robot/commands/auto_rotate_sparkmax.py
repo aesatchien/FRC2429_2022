@@ -19,8 +19,8 @@ class AutoRotateSparkmax(commands2.CommandBase):
         self.addRequirements(drive)  # commandsv2 version of requirements
 
         self.target = target
-        self.distance_per_degree = 2.8 / 360  # calibration is 2.8?m for a 360 degree spin.  So 36 deg is 0.28m.
-        self.velocity = 0.5  # m/s
+        self.distance_per_degree = 1.5 / 360  # calibration is 2.8?m for a 360 degree spin.  So 36 deg is 0.28m.
+        self.velocity = 1.0  # m/s
         self.drive_time = 0  # how long we spin
         self.degrees = degrees
 
