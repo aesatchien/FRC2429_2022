@@ -26,7 +26,7 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
         # since the robot back heavy, so the reverse needs to be stronger than the fwd - rev should be 0.125, fwd 0.25
         self.max_thrust_differential = 0.07  # 0.05 starts to get a bit tippy but not that bad, cory likes 0.04
         self.max_thrust_differential_fwd = 0.05
-        self.max_thrust_differential_rev = 0.1
+        self.max_thrust_differential_rev = 0.05
 
     def initialize(self) -> None:
         """Called just before this Command runs the first time."""
