@@ -11,7 +11,7 @@ class AutoRotateSparkmax(commands2.CommandBase):
     Rotate the robot based on a calibrated FWD/REV motion of the drivetrain, not on the IMU
     SmartMotion could be much cleaner than using the IMU
     """
-    def __init__(self, container, drive: Drivetrain, target='ball') -> None:
+    def __init__(self, container, drive: Drivetrain, target='ball', degrees=0) -> None:
         super().__init__()
         self.setName('AutoRotateSparkmax')
         self.container = container
@@ -22,6 +22,7 @@ class AutoRotateSparkmax(commands2.CommandBase):
         self.distance_per_degree = 2.8 / 360  # calibration is 2.8?m for a 360 degree spin.  So 36 deg is 0.28m.
         self.velocity = 0.5  # m/s
         self.drive_time = 0  # how long we spin
+        self.degrees = degrees
 
     def initialize(self) -> None:
         self.drive.drive.feed()
@@ -36,13 +37,18 @@ class AutoRotateSparkmax(commands2.CommandBase):
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if ball_detected:
                 self.drive_time = abs(self.distance_per_degree * rotation_offset / self.velocity)
+                self.drive.smart_velocity(velocity=self.velocity * math.copysign(1, rotation_offset), spin=True)
 
         elif self.target == 'hub':
             (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
             if hub_detected:
                 self.drive_time = abs(self.distance_per_degree * rotation_offset / self.velocity)
+                self.drive.smart_velocity(velocity=self.velocity * math.copysign(1, rotation_offset), spin=True)
 
-        self.drive.smart_velocity(velocity=self.velocity * math.copysign(1, rotation_offset), spin=True)
+        elif self.target == 'degrees':
+            self.drive_time = abs(self.distance_per_degree * self.degrees / self.velocity)
+            self.drive.smart_velocity(velocity=self.velocity * math.copysign(1, self.degrees), spin=True)
+
 
     def execute(self) -> None:
         self.drive.drive.feed()

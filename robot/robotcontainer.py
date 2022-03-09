@@ -106,7 +106,7 @@ class RobotContainer:
         return time.time() - self.start_time
 
     def get_autonomous_command(self):
-        return AutonomousRamsete(container=self, drive=self.robot_drive)  # .andThen(lambda: self.robot_drive.tank_drive_volts(0, 0))
+        return self.autonomous_chooser.getSelected()
 
     # --------------  OI  ---------------
 
@@ -236,3 +236,8 @@ class RobotContainer:
                 self.velocity_chooser.setDefaultOption(str(velocity), velocity)
             else:
                 self.velocity_chooser.addOption(str(velocity), velocity)
+
+        # populate autonomous routines
+        self.autonomous_chooser = SendableChooser()
+        SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
+        self.autonomous_chooser.setDefaultOption('lower group 2 ball', AutonomousLowerGroup(self))

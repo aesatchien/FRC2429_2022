@@ -252,9 +252,9 @@ class Drivetrain(SubsystemBase):
         Thinking of an easy way to send the velocity setpoint to the drivetrain
         Have to do in a command that owns drive
         """
-        multipliers = [1.0, 1.0, 1.0, 1.0] if self.spin else [1.0, 1.0, -1.0, -1.0]
+        multipliers = [1.0, 1.0, 1.0, 1.0] if spin else [1.0, 1.0, -1.0, -1.0]
         for controller, multiplier in zip(self.pid_controllers, multipliers):
-            controller.setReference(self.setpoint * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
+            controller.setReference(velocity * multiplier, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 1)
 
 
     def configure_controllers(self, pid_only=False, burn_flash=False):
