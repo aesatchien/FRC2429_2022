@@ -6,12 +6,13 @@ import constants
 
 class DriveByJoytick(commands2.CommandBase):  # change the name for your command
 
-    def __init__(self, container, drive, control_type='velocity') -> None:
+    def __init__(self, container, drive, control_type='velocity', scaling=1) -> None:
         super().__init__()
         self.setName('drive_by_joystick')  # change this to something appropriate for this command
         self.container = container
         self.drive = drive
         self.control_type = control_type
+        self.scaling = scaling
         self.addRequirements(self.drive)  # commandsv2 version of requirements
 
         self.max_thrust_velocity = constants.k_max_thrust_velocity  # 2 m/s
@@ -38,10 +39,11 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
 
     def execute(self) -> None:
         # get thrust and twist from the controller
-        thrust = -self.container.driver_controller.getRawAxis(constants.k_controller_thrust_axis)
-        thrust = 0 if abs(thrust) < self.deadband else thrust
+        thrust = -(self.container.driver_controller.getRawAxis(constants.k_controller_thrust_axis))
+        thrust = 0 if abs(thrust) < self.deadband else math.copysign(1, thrust) * (abs(thrust) ** self.scaling)
+
         twist = self.container.driver_controller.getRawAxis(constants.k_controller_twist_axis)
-        twist = 0 if abs(twist) < self.deadband else twist
+        twist = 0 if abs(twist) < self.deadband else math.copysign(1, twist) * (abs(twist) ** self.scaling)
 
         # try to limit the change in thrust  BE VERY CAREFUL WITH THIS!  IT CAUSES RUNAWAY ROBOTS!
         # limits are made using 3m/s speed limit - adjust if you change it

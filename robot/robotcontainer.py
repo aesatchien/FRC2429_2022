@@ -72,7 +72,7 @@ class RobotContainer:
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
         if not constants.k_is_simulation:
-            self.robot_drive.setDefaultCommand(DriveByJoytick(self, self.robot_drive, control_type='velocity'))
+            self.robot_drive.setDefaultCommand(DriveByJoytick(self, self.robot_drive, control_type='velocity', scaling=1.0))
         else:
             self.robot_drive.setDefaultCommand(
                 RunCommand(

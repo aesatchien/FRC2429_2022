@@ -29,7 +29,7 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
         # next step - spin to ball
         #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='ball'))
-        self.addCommands(WaitCommand(0.2))
+        self.addCommands(WaitCommand(0.5))
         #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))
         #self.addCommands(WaitCommand(0.2))
         
