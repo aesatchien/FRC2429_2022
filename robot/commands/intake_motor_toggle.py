@@ -13,9 +13,13 @@ class IntakeMotorToggle(commands2.CommandBase):
         self.velocity = velocity
         self.source = source
         self.force = force
+        self.direction = 1
         self.addRequirements(intake)  # commandsv2 version of requirements
 
+
     def initialize(self) -> None:
+        if self.container.co_driver_controller is not None:
+            self.direction = -1 if self.container.co_driver_controller.getStartButton() else 1
 
         # allow for real-time updates
         if self.source == 'dash':
@@ -24,7 +28,7 @@ class IntakeMotorToggle(commands2.CommandBase):
         if self.force is not None:
             self.intake.set_velocity(self.velocity)
         else:
-            self.intake.toggle_intake_motor(self.velocity)
+            self.intake.toggle_intake_motor(self.velocity * self.direction)
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)

@@ -14,10 +14,9 @@ class HoldFeed(commands2.CommandBase):
         self.addRequirements(indexer)  # commandsv2 version of requirements
         self.on_pulse_time = 0.15
         self.off_pulse_time = 0.35
+        self.direction = 1
 
     def initialize(self) -> None:
-
-        self.indexer.set_voltage(self.voltage)
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
@@ -25,11 +24,14 @@ class HoldFeed(commands2.CommandBase):
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
+        if self.container.co_driver_controller is not None:
+            self.direction = -1 if self.container.co_driver_controller.getStartButton() else 1
+
         # puslse the indexer off and on
         current_time = self.container.get_enabled_time() - self.start_time
         if current_time % (self.on_pulse_time + self.off_pulse_time) < self.on_pulse_time:
             if not self.indexer.indexer_enabled:
-                self.indexer.set_voltage(self.voltage)
+                self.indexer.set_voltage(self.voltage * self.direction)
                 print('shoot')
         else:
             if self.indexer.indexer_enabled:

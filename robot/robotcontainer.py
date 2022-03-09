@@ -1,6 +1,7 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
 from commands2.button import JoystickButton, Button, POVButton
+from matplotlib import axis
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 
 from subsystems.drivetrain import Drivetrain
@@ -30,6 +31,8 @@ from commands.drive_by_joystick import DriveByJoytick
 from commands.hold_feed import HoldFeed
 from commands.autonomous_shooting import AutonomousShooting
 from commands.autonomous_pickup import AutonomousPickup
+
+from trigger.axis_button import AxisButton
 
 import constants
 import trajectory_io
@@ -144,6 +147,12 @@ class RobotContainer:
             self.co_buttonDown = POVButton(self.co_driver_controller, 180)
             self.co_buttonLeft = POVButton(self.co_driver_controller, 270)
             self.co_buttonRight = POVButton(self.co_driver_controller, 90)
+            self.co_rightTrigger = AxisButton(self.co_driver_controller, 3)
+        
+        else:
+            self.co_driver_controller = None
+
+            
 
         #climbing
         self.buttonRight.whenHeld(SpinClimber(self, self.robot_climber))
@@ -191,6 +200,8 @@ class RobotContainer:
 
             #compressor
             self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+
+            self.co_rightTrigger.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         # lots of putdatas for testing on the dash
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
