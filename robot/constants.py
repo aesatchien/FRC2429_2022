@@ -19,8 +19,8 @@ k_controller_twist_axis = 4
 k_thrust_scale = 0.7 #halfed
 k_twist_scale = 0.45
 
-k_max_thrust_velocity = 3  # m/s
-k_max_twist_velocity = 1.5
+k_max_thrust_velocity = 2  # m/s
+k_max_twist_velocity = 1
 
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers

@@ -14,8 +14,8 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
         self.control_type = control_type
         self.addRequirements(self.drive)  # commandsv2 version of requirements
 
-        self.max_thrust_velocity = constants.k_max_thrust_velocity  # 3 m/s
-        self.max_twist_velocity = constants.k_max_twist_velocity  # 1.5 m/s
+        self.max_thrust_velocity = constants.k_max_thrust_velocity  # 2 m/s
+        self.max_twist_velocity = constants.k_max_twist_velocity  # 1 m/s
         self.deadband = 0.07
         self.multipliers = [1.0, 1.0, -1.0, -1.0]
 
