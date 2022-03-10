@@ -196,8 +196,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_rvel",
-              "_source1": "network_table:///SmartDashboard/drive_lvel",
+              "_source0": "network_table:///SmartDashboard/drive_lvel",
+              "_source1": "network_table:///SmartDashboard/drive_rvel",
               "_title": "Drivetrain Velocity",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -216,8 +216,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_rpos",
-              "_source1": "network_table:///SmartDashboard/drive_lpos",
+              "_source0": "network_table:///SmartDashboard/drive_lpos",
+              "_source1": "network_table:///SmartDashboard/drive_rpos",
               "_title": "Drivetrain Position",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -628,10 +628,10 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "4,0": {
+          "3,0": {
             "size": [
               4,
-              9
+              13
             ],
             "content": {
               "_type": "Subsystem Layout",
@@ -665,47 +665,7 @@
               ]
             }
           },
-          "8,0": {
-            "size": [
-              4,
-              10
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Indexer List",
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Boolean Box",
-                  "_source0": "network_table:///SmartDashboard/indexer_state",
-                  "_title": "/SmartDashboard/indexer_state",
-                  "Colors/Color when true": "#7CFC00FF",
-                  "Colors/Color when false": "#8B0000FF"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/indexer_ballsensor",
-                  "_title": "/SmartDashboard/indexer_ballsensor"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/indexer_v1",
-                  "_title": "/SmartDashboard/indexer_v1"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/indexer_v2",
-                  "_title": "/SmartDashboard/indexer_v2"
-                },
-                {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/hold to feed",
-                  "_title": "/SmartDashboard/hold to feed"
-                }
-              ]
-            }
-          },
-          "23,0": {
+          "19,0": {
             "size": [
               10,
               10
@@ -765,7 +725,7 @@
               }
             }
           },
-          "12,0": {
+          "7,0": {
             "size": [
               4,
               12
@@ -819,7 +779,7 @@
               ]
             }
           },
-          "16,0": {
+          "11,0": {
             "size": [
               4,
               7
@@ -844,7 +804,7 @@
               ]
             }
           },
-          "20,0": {
+          "16,0": {
             "size": [
               3,
               9
@@ -874,10 +834,10 @@
               ]
             }
           },
-          "17,9": {
+          "12,8": {
             "size": [
               4,
-              1
+              2
             ],
             "content": {
               "_type": "Text View",
@@ -885,26 +845,69 @@
               "_title": "SmartDashboard/drive_pose"
             }
           },
-          "18,11": {
+          "12,10": {
             "size": [
-              3,
-              1
+              5,
+              3
             ],
             "content": {
-              "_type": "Text View",
+              "_type": "Simple Dial",
               "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[4]/Value",
-              "_title": "LiveWindow/Ungrouped/navX-Sensor[4]/Value"
+              "_title": "LiveWindow/Ungrouped/navX-Sensor[4]/Value",
+              "Range/Min": -180.0,
+              "Range/Max": 180.0,
+              "Visuals/Show value": true
             }
           },
-          "24,10": {
+          "18,10": {
             "size": [
-              4,
-              2
+              9,
+              3
             ],
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/autonomous routines",
               "_title": "SmartDashboard/autonomous routines"
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              12
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Indexer List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/indexer_state",
+                  "_title": "/SmartDashboard/indexer_state",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/indexer_ballsensor",
+                  "_title": "/SmartDashboard/indexer_ballsensor"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/indexer_v1",
+                  "_title": "/SmartDashboard/indexer_v1"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/indexer_v2",
+                  "_title": "/SmartDashboard/indexer_v2"
+                },
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/hold to feed",
+                  "_title": "/SmartDashboard/hold to feed"
+                }
+              ]
             }
           }
         }
@@ -912,9 +915,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 295.0,
-    "y": 9.0,
-    "width": 1624.0,
+    "x": 496.0,
+    "y": 5.0,
+    "width": 1424.0,
     "height": 821.0
   }
 }

@@ -254,5 +254,5 @@ class RobotContainer:
         # populate autonomous routines
         self.autonomous_chooser = SendableChooser()
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
-        self.autonomous_chooser.setDefaultOption('lower group 2 ball', AutonomousLowerGroup(self))
-        self.autonomous_chooser.addOption('auto stage two', AutonomousStageTwo(self))
+        self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousLowerGroup(self))
+        self.autonomous_chooser.addOption('3 ball lower', AutonomousStageTwo(self))

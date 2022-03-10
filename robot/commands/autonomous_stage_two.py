@@ -8,6 +8,7 @@ from commands.toggle_feed import ToggleFeed
 from commands2 import WaitCommand
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.autonomous_pickup import AutonomousPickup
+from commands.autonomous_shooting import AutonomousShooting
 
 import trajectory_io
 
@@ -28,8 +29,8 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
         # next step - reverse to a ball
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2000, force='on'))
-        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.2, y=0, heading=0, velocity=2, reverse=False)
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2050, force='on'))
+        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.1, y=0, heading=0, velocity=1.8, reverse=False)
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory',trajectory=self.traj_1))
 
         # hopefully pick up a ball
@@ -41,7 +42,7 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
         # self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_2))
         self.addCommands(WaitCommand(.3))
 
-        # next step - shoot twice
+        # next step - shoot twice - this could just call the autonomous shooting routine for brevity
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0).
@@ -66,6 +67,22 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
 
         # pick up ball
         self.addCommands(AutonomousPickup(self.container))
+
+        # rotate towards the hub
+
+        self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='degrees', degrees=-75))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0))
+
+        # start the shooter and move to the hub
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=1900, force='on'))
+
+        # get close enough to see it
+        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.3, y=0, heading=0, velocity=2, reverse=True)
+        self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory',
+                              trajectory=self.traj_1))
+
+        # call the shooting routine
+        self.addCommands(AutonomousShooting(self.container))
 
         # close up, turn off shooter
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))

@@ -8,7 +8,9 @@ class Vision(SubsystemBase):
         super().__init__()
         self.setName('Vision')
         self.counter = 0
-        
+
+        self.hub_offset = -9
+
         self.ballcam_table = NetworkTables.getTable('BallCam')
         self.driver_station = DriverStation.getInstance()
         self.camera_dict = {'red': {}, 'blue': {}, 'green': {}}
@@ -61,4 +63,4 @@ class Vision(SubsystemBase):
         return (self.ball_targets > 0, self.ball_rotation, self.ball_distance)
 
     def getHubValues(self):
-        return (self.hub_targets > 0, self.hub_rotation, self.hub_distance)
+        return (self.hub_targets > 0, self.hub_rotation + self.hub_offset , self.hub_distance)

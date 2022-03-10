@@ -23,18 +23,21 @@ class AutonomousShooting(commands2.SequentialCommandGroup):  # change the name f
 
         # close and stop intake, fire up shooter
         # self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0))
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2000))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0, force='off'))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=1950, force='on'))
 
         # next step - spin to hub
         self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='hub'))
         self.addCommands(WaitCommand(0.2))
-        self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='hub'))
-        self.addCommands(WaitCommand(0.2))
+        #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='hub'))
+        #self.addCommands(WaitCommand(0.2))
 
         # ToDo: add a set distance for shooting - basically get the distance from the vision system and make a trajectory
         # adjust distance
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='hub'))
+
+        # align again - just in case
+        self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='hub'))
 
         # next step - shoot twice
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
@@ -46,6 +49,6 @@ class AutonomousShooting(commands2.SequentialCommandGroup):  # change the name f
 
         # close up, turn off shooter
         #self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0))
-        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0))
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0, force='off'))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))

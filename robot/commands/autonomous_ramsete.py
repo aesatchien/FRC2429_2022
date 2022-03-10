@@ -141,7 +141,7 @@ class AutonomousRamsete(commands2.CommandBase):
         elif self.source == 'ball': # generate a tajectory from ball location
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if ball_detected:
-                end_x = distance + 0.1  # overshoot a bit
+                end_x = distance - 0.25  # let's not overshoot - dist is from camera, not bumper
                 reverse = False
                 print(f'Atttempting ball drive, distance is {end_x}')
                 success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(end_x), y=0, velocity=1.5, reverse=reverse, display=True)
@@ -156,7 +156,7 @@ class AutonomousRamsete(commands2.CommandBase):
         elif self.source == 'hub':  # generate a trajectory from hub location
             (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
             if hub_detected:
-                ideal_distance = 1.0
+                ideal_distance = 1.3
                 end_x = ideal_distance - distance  # positive if we have to move away
                 reverse = end_x < 0  # we are facing away from target
                 print(f'Atttempting hub drive, distance is {end_x}')
