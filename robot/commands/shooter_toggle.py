@@ -15,8 +15,10 @@ class ShooterToggle(commands2.CommandBase):
 
     def initialize(self) -> None:
         
-        if self.force is not None:
+        if self.force == 'on':
             self.shooter.set_flywheel(self.rpm)
+        elif self.force == 'off':
+            self.shooter.stop_shooter()
         else:
             self.shooter.toggle_shooter(self.rpm)
         

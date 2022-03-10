@@ -24,7 +24,7 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
 
         # open and start intake
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
         # next step - spin to ball
         #self.addCommands(AutoRotateSparkmax(self.container, self.container.robot_drive, target='ball'))

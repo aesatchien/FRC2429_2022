@@ -16,8 +16,10 @@ class ToggleFeed(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if self.force is not None:
+        if self.force == 'on':
             self.indexer.set_voltage(self.voltage)
+        elif self.force == 'off':
+            self.indexer.stop_motor()
         else:
             self.indexer.toggle_indexer(self.voltage)
         

@@ -25,8 +25,10 @@ class IntakeMotorToggle(commands2.CommandBase):
         if self.source == 'dash':
             self.velocity = SmartDashboard.getNumber('intake_speed', self.velocity)
 
-        if self.force is not None:
+        if self.force == 'on':
             self.intake.set_velocity(self.velocity)
+        elif self.force == 'off':
+            self.intake.stop_motor()
         else:
             self.intake.toggle_intake_motor(self.velocity * self.direction)
         

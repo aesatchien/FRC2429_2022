@@ -22,10 +22,10 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
 
         # open and start intake
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
         # next step - reverse to a ball
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2000))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2000, force='on'))
         status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.2, y=0, heading=0, velocity=2, reverse=False)
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_1))
 
@@ -53,7 +53,7 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
         self.addCommands(WaitCommand(.5))
 
         # close up, turn off shooter
-        self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0))
-        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0))
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0))
+        self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0, force='off'))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))
