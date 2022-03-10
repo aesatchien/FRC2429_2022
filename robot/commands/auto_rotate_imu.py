@@ -20,8 +20,8 @@ class AutoRotateImu(commands2.CommandBase):
         self.drive = drive
         self.degrees = degrees
         self.source = source
-        self.controller = PIDController(0.0025, 0, 0)
-        self.feed_forward = 0.25
+        self.controller = PIDController(0.0025, 0, 0.0001)
+        self.feed_forward = 0.2
         self.tolerance = 1.5
 
         self.addRequirements(drive)  # commandsv2 version of requirements
@@ -38,11 +38,19 @@ class AutoRotateImu(commands2.CommandBase):
             (hub_detected, rotation_offset, distance) = self.container.robot_vision.getHubValues()
             self.degrees = rotation_offset if hub_detected else 0
 
+        if abs(self.degrees) > 30:
+            self.feed_forward = 0.25
+            self.controller = PIDController(0.0025, 0, 0.0001)
+        else:
+            self.feed_forward = 0.2
+            self.controller = PIDController(0.0025, 0, 0.0001)
+
+
         self.controller.setSetpoint(self.degrees)
 
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
-        print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
+        print("\n" + f"** Started {self.getName()} at {self.start_time} s with target {self.degrees} **", flush=True)
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
@@ -59,7 +67,8 @@ class AutoRotateImu(commands2.CommandBase):
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()
         message = 'Interrupted' if interrupted else 'Ended'
-        print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **", flush=True)
+        relative_orientation = self.drive.navx.getAngle() - self.start_angle
+        print(f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s at {relative_orientation} **", flush=True)
         SmartDashboard.putString(f"alert",
                                  f"** {message} {self.getName()} at {end_time:.1f} s after {end_time - self.start_time:.1f} s **")
 

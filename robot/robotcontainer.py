@@ -30,6 +30,7 @@ from commands.drive_by_joystick import DriveByJoytick
 from commands.hold_feed import HoldFeed
 from commands.autonomous_shooting import AutonomousShooting
 from commands.autonomous_pickup import AutonomousPickup
+from commands.autonomous_stage_two import AutonomousStageTwo
 
 from trigger.axis_button import AxisButton
 
@@ -221,6 +222,7 @@ class RobotContainer:
         SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
 
         SmartDashboard.putData(AutoRotateImu(self, self.robot_drive, source='degrees', degrees=90))
+        SmartDashboard.putData(AutonomousStageTwo(self))
 
         SmartDashboard.putData(AutonomousShooting(self))
         SmartDashboard.putData(AutonomousPickup(self))
@@ -253,3 +255,4 @@ class RobotContainer:
         self.autonomous_chooser = SendableChooser()
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
         self.autonomous_chooser.setDefaultOption('lower group 2 ball', AutonomousLowerGroup(self))
+        self.autonomous_chooser.addOption('auto stage two', AutonomousStageTwo(self))

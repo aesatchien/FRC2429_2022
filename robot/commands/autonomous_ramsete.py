@@ -141,7 +141,7 @@ class AutonomousRamsete(commands2.CommandBase):
         elif self.source == 'ball': # generate a tajectory from ball location
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
             if ball_detected:
-                end_x = distance + 0.25  # overshoot a bit
+                end_x = distance + 0.1  # overshoot a bit
                 reverse = False
                 print(f'Atttempting ball drive, distance is {end_x}')
                 success, self.trajectory = trajectory_io.generate_quick_trajectory(x=abs(end_x), y=0, velocity=1.5, reverse=reverse, display=True)

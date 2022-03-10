@@ -45,7 +45,7 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
                          andThen(WaitCommand(self.index_pulse_on)))
 
         # shut down intake
-        self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0))
-        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0))
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0))
+        #self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
+        #self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0))
+        #self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0))
+        #self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0))
