@@ -30,12 +30,12 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
 
         # next step - reverse to a ball
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2050, force='on'))
-        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.1, y=0, heading=0, velocity=1.8, reverse=False)
+        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.3, y=0, heading=0, velocity=1.8, reverse=False)
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory',trajectory=self.traj_1))
 
         # hopefully pick up a ball
         # self.addCommands(ToggleShooter(self.container, self.container.robot_shooter, rpm=2000))
-        self.addCommands(WaitCommand(0.1))
+        self.addCommands(WaitCommand(0.3))
 
         # next step - return to hub with the shooter on
         # status, self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)
@@ -54,7 +54,7 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
 
-        self.addCommands(WaitCommand(.5))
+        self.addCommands(WaitCommand(.2))
 
         # turn to look at other ball
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='degrees', degrees=100))
@@ -71,7 +71,7 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
         # rotate towards the hub
 
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='degrees', degrees=-75))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0))
+        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0, force='off'))
 
         # start the shooter and move to the hub
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=1900, force='on'))

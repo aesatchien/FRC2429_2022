@@ -45,7 +45,7 @@ class AutoRotateImu(commands2.CommandBase):
             self.feed_forward = 0.2
             self.controller = PIDController(0.0025, 0, 0.0001)
 
-
+        self.controller.reset()
         self.controller.setSetpoint(self.degrees)
 
         """Called just before this Command runs the first time."""

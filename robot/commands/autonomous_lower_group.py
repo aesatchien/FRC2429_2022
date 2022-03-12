@@ -17,21 +17,21 @@ class AutonomousLowerGroup(commands2.SequentialCommandGroup):  # change the name
         self.container = container
         self.indexer_speed = 3.0
         self.intake_speed = 0.75
-        self.index_pulse_on = 0.15
-        self.index_pulse_off = 0.4
+        self.index_pulse_on = 0.2
+        self.index_pulse_off = 0.5
 
         # open and start intake
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
         # next step - reverse to a ball
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2000, force='on'))
-        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.2, y=0, heading=0, velocity=2, reverse=False)
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2200, force='on'))
+        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=2, reverse=False)
         self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='trajectory', trajectory=self.traj_1))
 
         # hopefully pick up a ball
         #self.addCommands(ToggleShooter(self.container, self.container.robot_shooter, rpm=2000))
-        self.addCommands(WaitCommand(0.1))
+        self.addCommands(WaitCommand(0.5))
 
         # next step - return to hub with the shooter on
         # status, self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)

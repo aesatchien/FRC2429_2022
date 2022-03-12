@@ -19,7 +19,7 @@ class AutonomousShooting(commands2.SequentialCommandGroup):  # change the name f
         self.indexer_speed = 3.0
         self.intake_speed = 0.65
         self.index_pulse_on = 0.15
-        self.index_pulse_off = 0.4
+        self.index_pulse_off = 0.3
 
         # close and stop intake, fire up shooter
         # self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
@@ -46,6 +46,12 @@ class AutonomousShooting(commands2.SequentialCommandGroup):  # change the name f
                          andThen(WaitCommand(self.index_pulse_off)))
         self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0).
+                         andThen(WaitCommand(self.index_pulse_off)))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+                         andThen(WaitCommand(self.index_pulse_on)))
+        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0).
+                         andThen(WaitCommand(self.index_pulse_off)))
 
         # close up, turn off shooter
         #self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics))

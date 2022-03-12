@@ -19,10 +19,14 @@ class Pneumatics(SubsystemBase):
         self.climber_piston_short = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_climber_short_port)
 
         self.close_loop_enable = True
-        
-        #Decide on init piston position 
-        self.stop_compressor()
 
+        competition = True
+        if competition:
+            self.start_compressor()
+        else:
+            self.stop_compressor()
+
+        # Decide on init piston position
         self.intake_extended = False
 
     def set_intake_piston(self, position):

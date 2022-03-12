@@ -9,7 +9,7 @@ class Vision(SubsystemBase):
         self.setName('Vision')
         self.counter = 0
 
-        self.hub_offset = -9
+        self.hub_offset = 0
 
         self.ballcam_table = NetworkTables.getTable('BallCam')
         self.driver_station = DriverStation.getInstance()
@@ -55,9 +55,15 @@ class Vision(SubsystemBase):
             SmartDashboard.putNumber('/Vision/ball/distance', self.ball_distance)
             SmartDashboard.putNumber('/Vision/ball/rotation', self.ball_rotation)
 
-            SmartDashboard.putNumber('/Vision/hub/targets', self.hub_targets)
-            SmartDashboard.putNumber('/Vision/hub/distance', self.hub_distance)
-            SmartDashboard.putNumber('/Vision/hub/rotation', self.hub_rotation)
+
+            SmartDashboard.putNumber('hub_targets', self.hub_targets)
+            if self.hub_targets > 0:
+                SmartDashboard.putNumber('hub_distance', self.hub_distance)
+                SmartDashboard.putNumber('hub_rotation', self.hub_rotation)
+            else:
+                SmartDashboard.putNumber('hub_distance', 999)
+                SmartDashboard.putNumber('hub_rotation', 999)
+
 
     def getBallValues(self):
         return (self.ball_targets > 0, self.ball_rotation, self.ball_distance)

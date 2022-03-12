@@ -31,6 +31,7 @@ from commands.hold_feed import HoldFeed
 from commands.autonomous_shooting import AutonomousShooting
 from commands.autonomous_pickup import AutonomousPickup
 from commands.autonomous_stage_two import AutonomousStageTwo
+from commands.auto_track_hub import AutoTrackHub
 
 from trigger.axis_button import AxisButton
 
@@ -152,8 +153,6 @@ class RobotContainer:
         else:
             self.co_driver_controller = None
 
-            
-
         #climbing
         self.buttonRight.whenHeld(SpinClimber(self, self.robot_climber))
 
@@ -162,8 +161,9 @@ class RobotContainer:
         self.buttonB.whenPressed(ShooterToggle(self, self.robot_shooter, 2000))
 
         #pneumatics
-        self.buttonBack.whenPressed(ShifterToggle(self, self.robot_pneumatics))
-        self.buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+        self.buttonStart.whenPressed(ShifterToggle(self, self.robot_pneumatics))
+        self.buttonBack.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+
         self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_short())
         self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
 
@@ -176,11 +176,14 @@ class RobotContainer:
         self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
 
         #vision
-        self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
+        self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_vision))
+        #self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         # Testing autonomous calls - may want to bind them to calling on the dashboard
+        self.buttonB.whileHeld((AutonomousShooting(self)))
 
         #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
-        self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        #self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+
 
         if self.competition_mode:
             #climber
@@ -188,7 +191,7 @@ class RobotContainer:
 
             #intake
             self.co_buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
-            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.65))
+            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.75))
 
             #indexer
             self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
@@ -210,7 +213,7 @@ class RobotContainer:
         SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
 
         SmartDashboard.putData(ToggleCompressor(self, self.robot_pneumatics))
-        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.65, source='dash'))
+        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.85, source='None'))
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(HoldFeed(self, self.robot_indexer, 3))
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 2000))

@@ -30,6 +30,8 @@ class IntakeMotorToggle(commands2.CommandBase):
         elif self.force == 'off':
             self.intake.stop_motor()
         else:
+            if not self.intake.intake_enable:  # stop shooter when intaking balls
+                self.container.robot_shooter.stop_shooter()
             self.intake.toggle_intake_motor(self.velocity * self.direction)
         
         """Called just before this Command runs the first time."""

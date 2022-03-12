@@ -549,28 +549,28 @@
                   "_title": "PWMSparkMax[1]/Value"
                 },
                 {
+                  "_type": "PDP",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+                  "_title": "PowerDistributionPanel[0]",
+                  "Visuals/Show voltage and current values": true
+                },
+                {
                   "_type": "Motor Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "_title": "PWMSparkMax[1]",
+                  "_title": "/LiveWindow/Ungrouped/PWMSparkMax[1]",
                   "Visuals/Orientation": "HORIZONTAL"
                 },
                 {
                   "_type": "Motor Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
-                  "_title": "Spark[5]",
+                  "_title": "/LiveWindow/Ungrouped/Spark[5]",
                   "Visuals/Orientation": "HORIZONTAL"
                 },
                 {
                   "_type": "Motor Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "_title": "PWMSparkMax[3]",
+                  "_title": "/LiveWindow/Ungrouped/PWMSparkMax[3]",
                   "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "PDP",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
-                  "_title": "PowerDistributionPanel[0]",
-                  "Visuals/Show voltage and current values": true
                 }
               ]
             }
@@ -630,8 +630,8 @@
         "tiles": {
           "3,0": {
             "size": [
-              4,
-              13
+              5,
+              14
             ],
             "content": {
               "_type": "Subsystem Layout",
@@ -661,6 +661,16 @@
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/toggle shooter",
                   "_title": "/SmartDashboard/toggle shooter"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/hub_rotation",
+                  "_title": "/SmartDashboard/hub_rotation"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/hub_distance",
+                  "_title": "/SmartDashboard/hub_distance"
                 }
               ]
             }
@@ -677,20 +687,10 @@
               "Layout/Number of rows": 3,
               "Layout/Label position": "BOTTOM",
               "_children": {
-                "0,0": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
-                  "_title": "/SmartDashboard/autonomous_ramsete"
-                },
                 "0,1": {
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/auto lower group",
                   "_title": "/SmartDashboard/auto lower group"
-                },
-                "1,0": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Tune Sparkmax",
-                  "_title": "/SmartDashboard/Tune Sparkmax"
                 },
                 "1,1": {
                   "_type": "Command",
@@ -702,30 +702,40 @@
                   "_source0": "network_table:///SmartDashboard/AutoFetchBall",
                   "_title": "/SmartDashboard/AutoFetchBall"
                 },
-                "2,0": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto shoot",
-                  "_title": "/SmartDashboard/auto shoot"
-                },
-                "2,1": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto pickup",
-                  "_title": "/SmartDashboard/auto pickup"
-                },
                 "0,2": {
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/Auto Rotate IMU",
                   "_title": "SmartDashboard/Auto Rotate IMU"
                 },
-                "2,2": {
+                "0,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/auto shoot",
+                  "_title": "/SmartDashboard/auto shoot"
+                },
+                "1,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/auto pickup",
+                  "_title": "/SmartDashboard/auto pickup"
+                },
+                "2,0": {
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/auto stage two",
                   "_title": "SmartDashboard/auto stage two"
+                },
+                "2,2": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/Tune Sparkmax",
+                  "_title": "/SmartDashboard/Tune Sparkmax"
+                },
+                "2,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
+                  "_title": "/SmartDashboard/autonomous_ramsete"
                 }
               }
             }
           },
-          "7,0": {
+          "8,0": {
             "size": [
               4,
               12
@@ -779,7 +789,7 @@
               ]
             }
           },
-          "11,0": {
+          "12,0": {
             "size": [
               4,
               7
@@ -800,6 +810,13 @@
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/toggle compressor",
                   "_title": "/SmartDashboard/toggle compressor"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "_title": "/LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -822,19 +839,29 @@
                   "Colors/Color when false": "#8B0000FF"
                 },
                 {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/climber_voltage",
-                  "_title": "/SmartDashboard/climber_voltage"
+                  "_type": "Number Bar",
+                  "_source0": "network_table:///SmartDashboard/climber_current",
+                  "_title": "climber_current",
+                  "Range/Min": 0.0,
+                  "Range/Max": 40.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Num tick marks": 5,
+                  "Visuals/Show text": true
                 },
                 {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/climber_current",
-                  "_title": "/SmartDashboard/climber_current"
+                  "_type": "Number Bar",
+                  "_source0": "network_table:///SmartDashboard/climber_voltage",
+                  "_title": "climber_voltage",
+                  "Range/Min": -12.0,
+                  "Range/Max": 12.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Num tick marks": 5,
+                  "Visuals/Show text": true
                 }
               ]
             }
           },
-          "12,8": {
+          "12,7": {
             "size": [
               4,
               2
@@ -845,10 +872,10 @@
               "_title": "SmartDashboard/drive_pose"
             }
           },
-          "12,10": {
+          "12,9": {
             "size": [
               5,
-              3
+              4
             ],
             "content": {
               "_type": "Simple Dial",
@@ -859,7 +886,7 @@
               "Visuals/Show value": true
             }
           },
-          "18,10": {
+          "20,10": {
             "size": [
               9,
               3
@@ -915,9 +942,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 496.0,
-    "y": 5.0,
-    "width": 1424.0,
-    "height": 821.0
+    "x": 501.0,
+    "y": 0.0,
+    "width": 1426.0,
+    "height": 816.0
   }
 }
