@@ -85,6 +85,9 @@ class Pneumatics(SubsystemBase):
             # SmartDashboard.putBoolean('close loop control', self.close_loop_enable)
             SmartDashboard.putBoolean('intake_extended', self.intake_extended)
             SmartDashboard.putBoolean('intake_state', self.intake_piston.get())
+            SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
+            SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
+
 
         
 
