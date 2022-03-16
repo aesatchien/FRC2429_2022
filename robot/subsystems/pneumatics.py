@@ -28,6 +28,11 @@ class Pneumatics(SubsystemBase):
 
         # Decide on init piston position
         self.intake_extended = False
+        SmartDashboard.putBoolean('intake_extended', self.intake_extended)
+        SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
+        SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
+        SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
+
 
     def set_intake_piston(self, position):
         if position == 'extend':
@@ -36,10 +41,12 @@ class Pneumatics(SubsystemBase):
         elif position == 'retract':
             self.intake_extended = False
             self.intake_piston.set(False)
+        SmartDashboard.putBoolean('intake_extended', self.intake_extended)
 
     def toggle_intake(self):
         self.intake_piston.toggle()
         self.intake_extended = not self.intake_extended
+        SmartDashboard.putBoolean('intake_extended', self.intake_extended)
 
     def get_intake_state(self):
         return self.intake_piston.get()
@@ -48,16 +55,20 @@ class Pneumatics(SubsystemBase):
         # self.compressor.stop()  # deprecated in 2022
         self.compressor.disable()   # should now be disable, as of 2022
         self.close_loop_enable = False
+        SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
 
     def start_compressor(self):
         # self.compressor.setClosedLoopControl(True)
         self.compressor.enableDigital()  # setClosedLoopControl(True) is no longer a call in 2022
         self.close_loop_enable = True
-    
-    def get_compressor_state(self):  # ToDo - fix this - see what Haochen meant, I think he meant 'is it on?'
-        # return self.compressor.getClosedLoopControl()
-        return self.compressor.enabled()  # getClosedLoopControl is no longer a call in 2022
-    
+        SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
+
+    def toggle_compressor(self):
+        if self.close_loop_enable:
+            self.stop_compressor()
+        else:
+            self.start_compressor()
+
     def up_shift(self):
         self.shifter.set(True)
 
@@ -72,21 +83,22 @@ class Pneumatics(SubsystemBase):
 
     def pp_long(self):
         self.climber_piston_long.toggle()
+        SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
         
     def pp_short(self):
         self.climber_piston_short.toggle()
+        SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
 
     def periodic(self) -> None:
         
-        self.counter =+ 1
+        self.counter += 1
 
-        if self.counter % 50 == 1:
-            SmartDashboard.putBoolean('compressor_state', self.get_compressor_state())
-            # SmartDashboard.putBoolean('close loop control', self.close_loop_enable)
-            SmartDashboard.putBoolean('intake_extended', self.intake_extended)
-            SmartDashboard.putBoolean('intake_state', self.intake_piston.get())
-            SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
-            SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
+        if self.counter % 25 == 1:
+            # the compressor turns itself off and on, so we have to ask it its state
+            SmartDashboard.putBoolean('compressor_state', self.compressor.enabled())
+            # SmartDashboard.putBoolean('intake_state', self.intake_piston.get())
+
+
 
 
         

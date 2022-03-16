@@ -178,17 +178,6 @@
               ]
             }
           },
-          "15,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
-              "_title": "autonomous_ramsete"
-            }
-          },
           "5,0": {
             "size": [
               4,
@@ -229,28 +218,6 @@
               "Visible data/SmartDashboard/drive_rpos": true
             }
           },
-          "15,7": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/Tune Sparkmax",
-              "_title": "SmartDashboard/Tune Sparkmax"
-            }
-          },
-          "17,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/auto lower group",
-              "_title": "SmartDashboard/auto lower group"
-            }
-          },
           "15,4": {
             "size": [
               2,
@@ -284,28 +251,6 @@
               "_title": "SmartDashboard/drive_lpos"
             }
           },
-          "13,6": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/intake motor",
-              "_title": "SmartDashboard/intake motor"
-            }
-          },
-          "13,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/intake piston",
-              "_title": "SmartDashboard/intake piston"
-            }
-          },
           "13,7": {
             "size": [
               2,
@@ -317,7 +262,7 @@
               "_title": "/SmartDashboard/intake_speed"
             }
           },
-          "17,5": {
+          "17,7": {
             "size": [
               2,
               1
@@ -326,6 +271,50 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/get_shooter_rpm",
               "_title": "SmartDashboard/get_shooter_rpm"
+            }
+          },
+          "15,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/IntakePistonToggle",
+              "_title": "SmartDashboard/IntakePistonToggle"
+            }
+          },
+          "13,5": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/IntakeMotorToggle",
+              "_title": "SmartDashboard/IntakeMotorToggle"
+            }
+          },
+          "17,4": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/AutonomousLowerGroup",
+              "_title": "SmartDashboard/AutonomousLowerGroup"
+            }
+          },
+          "15,7": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/TuneSparkmax",
+              "_title": "SmartDashboard/TuneSparkmax"
             }
           }
         }
@@ -640,11 +629,6 @@
                   "_title": "shooter_rpm"
                 },
                 {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/toggle shooter",
-                  "_title": "/SmartDashboard/toggle shooter"
-                },
-                {
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/hub_rotation",
                   "_title": "/SmartDashboard/hub_rotation"
@@ -653,68 +637,13 @@
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/hub_distance",
                   "_title": "/SmartDashboard/hub_distance"
+                },
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/ShooterToggle",
+                  "_title": "SmartDashboard/ShooterToggle"
                 }
               ]
-            }
-          },
-          "19,0": {
-            "size": [
-              10,
-              10
-            ],
-            "content": {
-              "_type": "Grid Layout",
-              "_title": "Command Grid",
-              "Layout/Number of columns": 3,
-              "Layout/Number of rows": 3,
-              "Layout/Label position": "BOTTOM",
-              "_children": {
-                "0,1": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto lower group",
-                  "_title": "/SmartDashboard/auto lower group"
-                },
-                "1,1": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/AutoRotateSparkmax",
-                  "_title": "/SmartDashboard/AutoRotateSparkmax"
-                },
-                "1,2": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/AutoFetchBall",
-                  "_title": "/SmartDashboard/AutoFetchBall"
-                },
-                "0,2": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Auto Rotate IMU",
-                  "_title": "SmartDashboard/Auto Rotate IMU"
-                },
-                "0,0": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto shoot",
-                  "_title": "/SmartDashboard/auto shoot"
-                },
-                "1,0": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto pickup",
-                  "_title": "/SmartDashboard/auto pickup"
-                },
-                "2,0": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/auto stage two",
-                  "_title": "SmartDashboard/auto stage two"
-                },
-                "2,2": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/Tune Sparkmax",
-                  "_title": "/SmartDashboard/Tune Sparkmax"
-                },
-                "2,1": {
-                  "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/autonomous_ramsete",
-                  "_title": "/SmartDashboard/autonomous_ramsete"
-                }
-              }
             }
           },
           "8,0": {
@@ -760,13 +689,13 @@
                 },
                 {
                   "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/intake piston",
-                  "_title": "/SmartDashboard/intake piston"
+                  "_source0": "network_table:///SmartDashboard/IntakePistonToggle",
+                  "_title": "SmartDashboard/IntakePistonToggle"
                 },
                 {
                   "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/intake motor",
-                  "_title": "/SmartDashboard/intake motor"
+                  "_source0": "network_table:///SmartDashboard/IntakeMotorToggle",
+                  "_title": "SmartDashboard/IntakeMotorToggle"
                 }
               ]
             }
@@ -868,7 +797,7 @@
               "Visuals/Show value": true
             }
           },
-          "20,10": {
+          "19,7": {
             "size": [
               9,
               3
@@ -913,10 +842,65 @@
                 },
                 {
                   "_type": "Command",
-                  "_source0": "network_table:///SmartDashboard/hold to feed",
-                  "_title": "/SmartDashboard/hold to feed"
+                  "_source0": "network_table:///SmartDashboard/IndexerHold",
+                  "_title": "SmartDashboard/IndexerHold"
                 }
               ]
+            }
+          },
+          "19,0": {
+            "size": [
+              10,
+              6
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Command Grid",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoFetchBall",
+                  "_title": "SmartDashboard/AutoFetchBall"
+                },
+                "1,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoPickup",
+                  "_title": "SmartDashboard/AutoPickup"
+                },
+                "2,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoShoot",
+                  "_title": "SmartDashboard/AutoShoot"
+                },
+                "0,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoRotateIMU",
+                  "_title": "SmartDashboard/AutoRotateIMU"
+                },
+                "1,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoRotateSparkmax",
+                  "_title": "SmartDashboard/AutoRotateSparkmax"
+                },
+                "2,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoRamsete",
+                  "_title": "SmartDashboard/AutoRamsete"
+                },
+                "0,2": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutonomousLowerGroup",
+                  "_title": "SmartDashboard/AutonomousLowerGroup"
+                },
+                "1,2": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutonomousStageTwo",
+                  "_title": "SmartDashboard/AutonomousStageTwo"
+                }
+              }
             }
           }
         }

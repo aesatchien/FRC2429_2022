@@ -29,6 +29,7 @@ class Climber(SubsystemBase):
         self.climber_right_neo.follow(self.climber_left_neo, invert=True)
 
         self.climber_enable = False
+        SmartDashboard.putBoolean('climber_state', self.climber_enable)
 
         # add encoder later
         #ntinst = NetworkTablesInstance.getDefault()
@@ -39,25 +40,25 @@ class Climber(SubsystemBase):
     def set_voltage(self, voltage):
         self.climber_left_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         self.climber_enable = True
+        SmartDashboard.putBoolean('climber_state', self.climber_enable)
 
     def stop_motor(self):
         self.climber_left_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         self.climber_enable = False
+        SmartDashboard.putBoolean('climber_state', self.climber_enable)
 
 
     def periodic(self) -> None:
 
         self.counter += 1
 
-        if self.counter % 2 == 0:
+        if self.climber_enable and self.counter % 2 == 0:
             self.current_filter.calculate(self.climber_left_neo.getOutputCurrent())  # update the current filter
 
-        if self.counter % 20 == 0:
-
+        if self.counter % 25 == 0:
             # ten per second updates
             SmartDashboard.putNumber('climber_voltage', self.climber_left_neo.getAppliedOutput())
             SmartDashboard.putNumber('climber_current', self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
-            SmartDashboard.putBoolean('climber_state', self.climber_enable)
 
             #self.climber_voltage.setValue(self.climber_left_neo.getAppliedOutput())  # does not like setNumber for some reason
             #self.climber_current.setValue(self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))

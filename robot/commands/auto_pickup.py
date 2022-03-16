@@ -1,17 +1,17 @@
 import commands2
 from wpilib import SmartDashboard
-from commands.auto_ramsete import AutonomousRamsete
+from commands.auto_ramsete import AutoRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
-from commands.indexer_toggle import ToggleFeed
+from commands.indexer_toggle import IndexerToggle
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands2 import WaitCommand
 
 import trajectory_io
 
-class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for your command
+class AutoPickup(commands2.SequentialCommandGroup):  # change the name for your command
 
     def __init__(self, container) -> None:
         super().__init__()
@@ -34,14 +34,14 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
         #self.addCommands(WaitCommand(0.2))
         
         # ToDo: add a set distance for driving - basically get the distance from the vision system and make a trajectory
-        self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, source='ball'))
+        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, source='ball'))
 
         # next step - pulse in the ball
-        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=0).
+        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
                          andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(ToggleFeed(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
 
         # shut down intake

@@ -2,7 +2,7 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class HoldFeed(commands2.CommandBase):
+class IndexerHold(commands2.CommandBase):
 
     def __init__(self, container, indexer, voltage=2, force=None) -> None:
         super().__init__()

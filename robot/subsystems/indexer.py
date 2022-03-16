@@ -32,6 +32,7 @@ class Indexer(SubsystemBase):
         self.indexer_stage_one_enable = False
         self.indexer_stage_two_enable = False
         self.indexer_enabled = False
+        SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
 
 
         #self.stages = []
@@ -79,12 +80,13 @@ class Indexer(SubsystemBase):
         self.set_voltage_stage_one(voltage)
         self.set_voltage_stage_two(voltage)
         self.indexer_enabled = True
+        SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
 
-    
     def stop_motor(self):
         self.stop_stage_one_motor()
         self.stop_stage_two_motor()
         self.indexer_enabled = False
+        SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
 
 
     def toggle_stage_one(self, voltage):
@@ -116,8 +118,7 @@ class Indexer(SubsystemBase):
         self.counter += 1
 
         if self.counter % 25 == 0:
-
-            SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
+            # moved the on/off state to the functions themselves
             SmartDashboard.putNumber('indexer_v1', self.indexer_stage_one.getAppliedOutput())
             SmartDashboard.putNumber('indexer_v2', self.indexer_stage_two.getAppliedOutput())
-            SmartDashboard.putNumber('indexer_ballsensor', self.ball_sensor.getValue())
+            # SmartDashboard.putNumber('indexer_ballsensor', self.ball_sensor.getValue())

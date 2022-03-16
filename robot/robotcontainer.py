@@ -11,25 +11,25 @@ from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
 from subsystems.vision import Vision
 
-from commands.auto_ramsete import AutonomousRamsete
+from commands.auto_ramsete import AutoRamsete
 from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
-from commands.indexer_toggle import ToggleFeed
-from commands.toggle_compressor import ToggleCompressor
-from commands.climber_spin import SpinClimber
+from commands.indexer_toggle import IndexerToggle
+from commands.compressor_toggle import CompressorToggle
+from commands.climber_spin import ClimberSpin
 from commands.shifter_toggle import ShifterToggle
 from commands.intake_position_toggle import IntakePositionToggle
-from commands.timed_feed import TimedFeed
+from commands.indexer_hold import IndexerHold
 from commands.auto_fetch_ball import AutoFetchBall
 from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
-from commands.autonomous_lower_group import AutonomousLowerGroup
+from commands.autonomous_two_ball import AutonomousTwoBall
 from commands.drive_by_joystick import DriveByJoytick
-from commands.indexer_hold import HoldFeed
-from commands.auto_shoot import AutonomousShooting
-from commands.auto_pickup import AutonomousPickup
+from commands.indexer_hold import IndexerHold
+from commands.auto_shoot import AutoShoot
+from commands.auto_pickup import AutoPickup
 from commands.autonomous_stage_two import AutonomousStageTwo
 from commands.auto_track_hub import AutoTrackHub
 
@@ -154,7 +154,7 @@ class RobotContainer:
             self.co_driver_controller = None
 
         #climbing
-        self.buttonRight.whenHeld(SpinClimber(self, self.robot_climber))
+        self.buttonRight.whenHeld(ClimberSpin(self, self.robot_climber))
 
         #shooting
         #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
@@ -162,7 +162,7 @@ class RobotContainer:
 
         #pneumatics
         self.buttonStart.whenPressed(ShifterToggle(self, self.robot_pneumatics))
-        self.buttonBack.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
+        self.buttonBack.whenPressed(CompressorToggle(self, self.robot_pneumatics))
 
         self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_short())
         self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
@@ -173,13 +173,13 @@ class RobotContainer:
         #intake
         self.buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
         #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
-        self.buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
+        self.buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 3))
 
         #vision
         self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_vision))
         #self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         # Testing autonomous calls - may want to bind them to calling on the dashboard
-        self.buttonB.whileHeld((AutonomousShooting(self)))
+        self.buttonB.whileHeld((AutoShoot(self)))
 
         #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
         #self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
@@ -194,9 +194,9 @@ class RobotContainer:
             self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.75))
 
             #indexer
-            self.co_buttonRB.whenPressed(ToggleFeed(self, self.robot_indexer, 2))
+            self.co_buttonRB.whenPressed(IndexerToggle(self, self.robot_indexer, 2))
             # self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
-            self.co_buttonUp.whileHeld(HoldFeed(self, self.robot_indexer, 3))
+            self.co_buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 3))
 
             #shooter
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2000))
@@ -209,13 +209,12 @@ class RobotContainer:
         # lots of putdatas for testing on the dash
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
 
-        SmartDashboard.putData(AutonomousLowerGroup(container=self))
-        SmartDashboard.putData(AutonomousRamsete(container=self, drive=self.robot_drive, source='dash'))
-
-        SmartDashboard.putData(ToggleCompressor(self, self.robot_pneumatics))
+        SmartDashboard.putData(AutonomousTwoBall(container=self))
+        SmartDashboard.putData(AutoRamsete(container=self, drive=self.robot_drive, source='dash'))
+        SmartDashboard.putData(CompressorToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.85, source='None'))
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
-        SmartDashboard.putData(HoldFeed(self, self.robot_indexer, 3))
+        SmartDashboard.putData(IndexerHold(self, self.robot_indexer, 3))
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 2000))
 
         SmartDashboard.putData(AutoRotateSparkmax(self, self.robot_drive, target='degrees', degrees=90))
@@ -227,8 +226,8 @@ class RobotContainer:
         SmartDashboard.putData(AutoRotateImu(self, self.robot_drive, source='degrees', degrees=90))
         SmartDashboard.putData(AutonomousStageTwo(self))
 
-        SmartDashboard.putData(AutonomousShooting(self))
-        SmartDashboard.putData(AutonomousPickup(self))
+        SmartDashboard.putData(AutoShoot(self))
+        SmartDashboard.putData(AutoPickup(self))
 
 
         # We won't do anything with this button itself, so we don't need to define a variable.
@@ -257,5 +256,5 @@ class RobotContainer:
         # populate autonomous routines
         self.autonomous_chooser = SendableChooser()
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
-        self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousLowerGroup(self))
+        self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousTwoBall(self))
         self.autonomous_chooser.addOption('3 ball lower', AutonomousStageTwo(self))

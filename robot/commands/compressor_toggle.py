@@ -2,7 +2,7 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class ToggleCompressor(commands2.CommandBase):
+class CompressorToggle(commands2.CommandBase):
 
     def __init__(self, container, pneumatics) -> None:
         super().__init__()
@@ -13,11 +13,7 @@ class ToggleCompressor(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        if (self.pneumatics.get_compressor_state()):
-            self.pneumatics.stop_compressor()
-        else:
-            self.pneumatics.start_compressor()
-
+        self.pneumatics.toggle_compressor()
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)

@@ -20,7 +20,7 @@ import constants  # 2429's drive constants
 import trajectory_io  # helper file for generating trajectories from our list of paths
 
 
-class AutonomousRamsete(commands2.CommandBase):
+class AutoRamsete(commands2.CommandBase):
 
     # constants for ramsete follower and velocity PID controllers - don't want a different copy for each command
     beta = constants.k_ramsete_b

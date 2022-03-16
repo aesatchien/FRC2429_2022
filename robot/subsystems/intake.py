@@ -14,15 +14,19 @@ class Intake(SubsystemBase):
         self.intake_775.setInverted(True)
 
         self.intake_enable = False
+        SmartDashboard.putBoolean('intake_motor_state', self.intake_enable)
+
         self.counter = 0
         
     def set_velocity(self, velocity):
         self.intake_775.set(velocity)
         self.intake_enable = True
+        SmartDashboard.putBoolean('intake_motor_state', self.intake_enable)
 
     def stop_motor(self):
         self.intake_775.stopMotor()
         self.intake_enable = False
+        SmartDashboard.putBoolean('intake_motor_state', self.intake_enable)
 
     def get_velocity(self):
         return self.intake_775.get()
@@ -39,7 +43,6 @@ class Intake(SubsystemBase):
         self.counter += 1
 
         if self.counter % 25 == 0:
-            SmartDashboard.putBoolean('intake_motor_state', self.intake_enable)
             SmartDashboard.putNumber('intake_motor_pwr', self.intake_775.get())
 
  

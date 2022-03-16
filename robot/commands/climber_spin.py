@@ -5,7 +5,7 @@ from wpilib import SmartDashboard
 
 
 
-class SpinClimber(commands2.CommandBase):
+class ClimberSpin(commands2.CommandBase):
 
 
     def __init__(self, container, climber) -> None:
@@ -29,6 +29,7 @@ class SpinClimber(commands2.CommandBase):
         scale = 2.0
         power = math.copysign(1, thrust) * (abs(thrust) ** scale) *  12
         self.climber.set_voltage(power)
+        self.container.robot_drive.feed()
             
 
     def isFinished(self) -> bool:  

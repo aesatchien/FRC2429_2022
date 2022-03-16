@@ -40,12 +40,14 @@ class Shooter(SubsystemBase):
 
         # toggle state
         self.shooter_enable = False
+        SmartDashboard.putBoolean('shooter_state', self.shooter_enable)
 
         self.set_pids()
 
     def set_flywheel(self, rpm):
         self.flywheel_left_controller.setReference(rpm, rev.CANSparkMaxLowLevel.ControlType.kSmartVelocity, 0)
         self.shooter_enable = True
+        SmartDashboard.putBoolean('shooter_state', self.shooter_enable)
 
     #def set_first_stage(self, rpm):
         #self.flywheel_first_stage_controller.setReference(rpm, rev.ControlType.kVoltage, 0)
@@ -54,6 +56,7 @@ class Shooter(SubsystemBase):
         self.flywheel_left_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         #self.flywheel_first_stage_controller.setReference(0, rev.ControlType.kVoltage)
         self.shooter_enable = False
+        SmartDashboard.putBoolean('shooter_state', self.shooter_enable)
 
     def get_flywheel(self):
         return self.flywheel_left_encoder.getVelocity()
@@ -83,10 +86,9 @@ class Shooter(SubsystemBase):
         
         self.counter += 1
 
-        if self.counter % 25 == 0:
+        if self.counter % 20 == 0:
             # not too often
             SmartDashboard.putNumber('shooter_rpm', self.flywheel_left_encoder.getVelocity())
-            SmartDashboard.putBoolean('shooter_state', self.shooter_enable)
             SmartDashboard.putBoolean('shooter_ready', self.flywheel_left_encoder.getVelocity() > 1800)
             
             
