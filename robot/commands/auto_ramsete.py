@@ -55,7 +55,7 @@ class AutonomousRamsete(commands2.CommandBase):
 
     def __init__(self, container, drive: Drivetrain, relative=True, source=None, trajectory=None) -> None:
         super().__init__()
-        self.setName('autonomous_ramsete')
+        self.setName('AutoRamsete')
         self.drive = drive
         self.container = container
         self.relative = True  # used to see if we will use absolute paths or relative ones

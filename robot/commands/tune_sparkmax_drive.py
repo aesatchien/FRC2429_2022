@@ -23,7 +23,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
 
     def __init__(self, container, drive:Drivetrain, setpoint=1, control_type='position', spin=False) -> None:
         super().__init__()
-        self.setName('Tune Sparkmax')  # change this to something appropriate for this command
+        self.setName('TuneSparkmax')  # change this to something appropriate for this command
         self.container = container
         self.drive = drive
         self.addRequirements(self.drive)  # commandsv2 version of requirements

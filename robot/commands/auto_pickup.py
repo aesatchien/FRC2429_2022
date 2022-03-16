@@ -1,10 +1,10 @@
 import commands2
 from wpilib import SmartDashboard
-from commands.autonomous_ramsete import AutonomousRamsete
+from commands.auto_ramsete import AutonomousRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
-from commands.toggle_feed import ToggleFeed
+from commands.indexer_toggle import ToggleFeed
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands2 import WaitCommand
@@ -15,7 +15,7 @@ class AutonomousPickup(commands2.SequentialCommandGroup):  # change the name for
 
     def __init__(self, container) -> None:
         super().__init__()
-        self.setName('auto pickup')  # change this to something appropriate for this command
+        self.setName('AutoPickup')  # change this to something appropriate for this command
         self.container = container
         self.indexer_speed = 3.0
         self.intake_speed = 0.65

@@ -6,7 +6,7 @@ class ShifterToggle(commands2.CommandBase):
 
     def __init__(self, container, pneumatics) -> None:
         super().__init__()
-        self.setName('toggle_shfiting')
+        self.setName('ShifterToggle')
         self.container = container
         self.pneumatics = pneumatics
         self.addRequirements(pneumatics)  # commandsv2 version of requirements

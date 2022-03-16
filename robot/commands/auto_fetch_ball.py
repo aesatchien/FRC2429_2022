@@ -31,13 +31,13 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
         self.drive.feed()
 
         (ball_detected, rotation_offset, distance) = self.vision.getBallValues()
-        SmartDashboard.putBoolean('/AutoFetchBall/ball_detected', ball_detected)
+        SmartDashboard.putBoolean(r'AutoFetchBall/ball_detected', ball_detected)
 
         error = abs(rotation_offset)
         
         if ball_detected and (error > 2 or distance > self.min_approach):
-            SmartDashboard.putNumber('/AutoFetchBall/rotation_offset', rotation_offset)
-            SmartDashboard.putNumber('/AutoFetchBall/distance', distance)
+            SmartDashboard.putNumber(r'AutoFetchBall/rotation_offset', rotation_offset)
+            SmartDashboard.putNumber(r'AutoFetchBall/distance', distance)
 
             orientation = self.drive.navx.getAngle()
             twist_output = self.controller.calculate(orientation, orientation + rotation_offset)

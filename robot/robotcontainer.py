@@ -11,13 +11,13 @@ from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
 from subsystems.vision import Vision
 
-from commands.autonomous_ramsete import AutonomousRamsete
+from commands.auto_ramsete import AutonomousRamsete
 from commands.auto_ramsete_wpilib import AutoRamseteWpilib
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
-from commands.toggle_feed import ToggleFeed
+from commands.indexer_toggle import ToggleFeed
 from commands.toggle_compressor import ToggleCompressor
-from commands.spin_climber import SpinClimber
+from commands.climber_spin import SpinClimber
 from commands.shifter_toggle import ShifterToggle
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.timed_feed import TimedFeed
@@ -27,9 +27,9 @@ from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.autonomous_lower_group import AutonomousLowerGroup
 from commands.drive_by_joystick import DriveByJoytick
-from commands.hold_feed import HoldFeed
-from commands.autonomous_shooting import AutonomousShooting
-from commands.autonomous_pickup import AutonomousPickup
+from commands.indexer_hold import HoldFeed
+from commands.auto_shoot import AutonomousShooting
+from commands.auto_pickup import AutonomousPickup
 from commands.autonomous_stage_two import AutonomousStageTwo
 from commands.auto_track_hub import AutoTrackHub
 

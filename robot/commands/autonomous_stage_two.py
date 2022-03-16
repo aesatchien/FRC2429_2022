@@ -1,14 +1,14 @@
 import commands2
 from wpilib import SmartDashboard
-from commands.autonomous_ramsete import AutonomousRamsete
+from commands.auto_ramsete import AutonomousRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
-from commands.toggle_feed import ToggleFeed
+from commands.indexer_toggle import ToggleFeed
 from commands2 import WaitCommand
 from commands.auto_rotate_imu import AutoRotateImu
-from commands.autonomous_pickup import AutonomousPickup
-from commands.autonomous_shooting import AutonomousShooting
+from commands.auto_pickup import AutonomousPickup
+from commands.auto_shoot import AutonomousShooting
 
 import trajectory_io
 
@@ -17,7 +17,7 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
 
     def __init__(self, container) -> None:
         super().__init__()
-        self.setName('auto stage two')  # change this to something appropriate for this command
+        self.setName('AutonomousStageTwo')  # change this to something appropriate for this command
         self.container = container
         self.indexer_speed = 3.0
         self.intake_speed = 0.75

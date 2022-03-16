@@ -7,7 +7,7 @@ class IntakeMotorToggle(commands2.CommandBase):
 
     def __init__(self, container, intake, velocity, source=None, force=None) -> None:
         super().__init__()
-        self.setName('intake motor')
+        self.setName('IntakeMotorToggle')
         self.intake = intake
         self.container = container
         self.velocity = velocity

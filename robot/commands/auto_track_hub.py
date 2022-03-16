@@ -7,7 +7,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
     def __init__(self, container, drive, vision) -> None:
         super().__init__()
-        self.setName('trackhub')  # change this to something appropriate for this command
+        self.setName('AutoTrackHub')  # change this to something appropriate for this command
         self.container = container
         self.drive = drive
         self.vision = vision

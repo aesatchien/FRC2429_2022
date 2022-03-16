@@ -6,7 +6,7 @@ class ShooterToggle(commands2.CommandBase):
 
     def __init__(self, container, shooter, rpm=2000, force=None) -> None:
         super().__init__()
-        self.setName('toggle shooter')
+        self.setName('ShooterToggle')
         self.shooter = shooter
         self.container = container
         self.rpm = rpm

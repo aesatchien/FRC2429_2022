@@ -10,7 +10,7 @@ class SpinClimber(commands2.CommandBase):
 
     def __init__(self, container, climber) -> None:
         super().__init__()
-        self.setName('Spin Climber')
+        self.setName('ClimberSpin')
         self.climber = climber
         self.container = container
         self.addRequirements(climber)  # commandsv2 version of requirements

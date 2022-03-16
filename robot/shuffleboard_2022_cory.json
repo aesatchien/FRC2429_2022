@@ -553,24 +553,6 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
                   "_title": "PowerDistributionPanel[0]",
                   "Visuals/Show voltage and current values": true
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "_title": "/LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
-                  "_title": "/LiveWindow/Ungrouped/Spark[5]",
-                  "Visuals/Orientation": "HORIZONTAL"
-                },
-                {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "_title": "/LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -942,9 +924,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 501.0,
-    "y": 0.0,
-    "width": 1426.0,
-    "height": 816.0
+    "x": 1739.0,
+    "y": 53.0,
+    "width": 1688.0,
+    "height": 840.0
   }
 }

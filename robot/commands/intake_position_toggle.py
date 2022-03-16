@@ -6,7 +6,7 @@ class IntakePositionToggle(commands2.CommandBase):
 
     def __init__(self, container, pneumatics, force=None) -> None:
         super().__init__()
-        self.setName('intake piston')
+        self.setName('IntakePistonToggle')
         self.container = container
         self.pneumatics = pneumatics
         self.addRequirements(pneumatics)  # commandsv2 version of requirements

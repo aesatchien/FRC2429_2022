@@ -15,7 +15,7 @@ class AutoRotateImu(commands2.CommandBase):
 
     def __init__(self, container, drive, source='degrees', degrees=45) -> None:
         super().__init__()
-        self.setName('Auto Rotate IMU')
+        self.setName('AutoRotateIMU')
         self.container = container
         self.drive = drive
         self.degrees = degrees

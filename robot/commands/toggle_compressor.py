@@ -6,7 +6,7 @@ class ToggleCompressor(commands2.CommandBase):
 
     def __init__(self, container, pneumatics) -> None:
         super().__init__()
-        self.setName('toggle compressor')
+        self.setName('CompressorToggle')
         self.pneumatics = pneumatics
         self.container = container
         self.addRequirements(pneumatics)  # commandsv2 version of requirements
