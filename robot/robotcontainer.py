@@ -153,6 +153,7 @@ class RobotContainer:
         else:
             self.co_driver_controller = None
 
+        self.buttonX.whileHeld(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
         #climbing
         self.buttonRight.whenHeld(ClimberSpin(self, self.robot_climber))
 

@@ -32,6 +32,7 @@ class Pneumatics(SubsystemBase):
         SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
         SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
         SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
+        SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
 
 
     def set_intake_piston(self, position):
@@ -71,12 +72,15 @@ class Pneumatics(SubsystemBase):
 
     def up_shift(self):
         self.shifter.set(True)
+        SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
 
     def down_shift(self):
         self.shifter.set(False)
+        SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
 
     def toggle_shifting(self):
         self.shifter.toggle()
+        SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
     
     def get_shifting_state(self):
         self.shifter.get()
@@ -96,7 +100,6 @@ class Pneumatics(SubsystemBase):
         if self.counter % 25 == 1:
             # the compressor turns itself off and on, so we have to ask it its state
             SmartDashboard.putBoolean('compressor_state', self.compressor.enabled())
-            # SmartDashboard.putBoolean('intake_state', self.intake_piston.get())
 
 
 
