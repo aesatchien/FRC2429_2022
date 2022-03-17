@@ -9,19 +9,8 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
+        "titleType": 1,
         "tiles": {
-          "13,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///FMSInfo/IsRedAlliance",
-              "_title": "IsRedAlliance"
-            }
-          },
           "13,0": {
             "size": [
               6,
@@ -64,15 +53,15 @@
                   "_source0": "network_table:///Ramsete/waypoint_x",
                   "_title": "waypoint_x"
                 },
-                "1,2": {
-                  "_type": "Toggle Button",
-                  "_source0": "network_table:///Ramsete/ramsete_write",
-                  "_title": "Ramsete/ramsete_write"
-                },
                 "0,2": {
                   "_type": "Toggle Button",
                   "_source0": "network_table:///Ramsete/waypoint_reverse",
                   "_title": "Ramsete/waypoint_reverse"
+                },
+                "1,2": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///Ramsete/ramsete_write",
+                  "_title": "Ramsete/ramsete_write"
                 },
                 "2,2": {
                   "_type": "ComboBox Chooser",
@@ -85,7 +74,7 @@
           "9,0": {
             "size": [
               2,
-              7
+              8
             ],
             "content": {
               "_type": "List Layout",
@@ -126,6 +115,11 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Rev/pos_max_accel",
                   "_title": "Rev/pos_max_accel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev/pos_arbff",
+                  "_title": "/Rev/pos_arbff"
                 }
               ]
             }
@@ -133,7 +127,7 @@
           "11,0": {
             "size": [
               2,
-              7
+              8
             ],
             "content": {
               "_type": "List Layout",
@@ -174,6 +168,11 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Rev/vel_max_accel",
                   "_title": "Rev/vel_max_accel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev/vel_arbff",
+                  "_title": "/Rev/vel_arbff"
                 }
               ]
             }
@@ -218,103 +217,82 @@
               "Visible data/SmartDashboard/drive_rpos": true
             }
           },
-          "15,4": {
+          "3,0": {
             "size": [
               2,
-              1
+              5
             ],
             "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/AutoFetchBall",
-              "_title": "SmartDashboard/AutoFetchBall"
+              "_type": "List Layout",
+              "_title": "Misc List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/drive_lvel",
+                  "_title": "drive_lvel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/drive_lpos",
+                  "_title": "drive_lpos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/intake_speed",
+                  "_title": "/intake_speed"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/get_shooter_rpm",
+                  "_title": "get_shooter_rpm"
+                }
+              ]
             }
           },
-          "9,7": {
+          "13,4": {
             "size": [
-              2,
-              1
+              6,
+              3
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/drive_lvel",
-              "_title": "/SmartDashboard/drive_lvel"
-            }
-          },
-          "11,7": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/drive_lpos",
-              "_title": "SmartDashboard/drive_lpos"
-            }
-          },
-          "13,7": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/intake_speed",
-              "_title": "/SmartDashboard/intake_speed"
-            }
-          },
-          "17,7": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/get_shooter_rpm",
-              "_title": "SmartDashboard/get_shooter_rpm"
-            }
-          },
-          "15,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/IntakePistonToggle",
-              "_title": "SmartDashboard/IntakePistonToggle"
-            }
-          },
-          "13,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/IntakeMotorToggle",
-              "_title": "SmartDashboard/IntakeMotorToggle"
-            }
-          },
-          "17,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/AutonomousLowerGroup",
-              "_title": "SmartDashboard/AutonomousLowerGroup"
-            }
-          },
-          "15,7": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Command",
-              "_source0": "network_table:///SmartDashboard/TuneSparkmax",
-              "_title": "SmartDashboard/TuneSparkmax"
+              "_type": "Grid Layout",
+              "_title": "Command Grid",
+              "Layout/Number of columns": 3,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Toggle Button",
+                  "_source0": "network_table:///FMSInfo/IsRedAlliance",
+                  "_title": "IsRedAlliance"
+                },
+                "1,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoFetchBall",
+                  "_title": "SmartDashboard/AutoFetchBall"
+                },
+                "2,0": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/IntakePistonToggle",
+                  "_title": "SmartDashboard/IntakePistonToggle"
+                },
+                "2,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/IntakeMotorToggle",
+                  "_title": "SmartDashboard/IntakeMotorToggle"
+                },
+                "0,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/TuneSparkmax",
+                  "_title": "SmartDashboard/TuneSparkmax"
+                },
+                "1,1": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/AutoShoot",
+                  "_title": "/SmartDashboard/AutoShoot"
+                }
+              }
             }
           }
         }

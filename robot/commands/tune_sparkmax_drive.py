@@ -18,6 +18,8 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
         sparkmax_table.putNumber(key + '_vel', PID_multiplier * constants.PID_dict_vel[key])
     sparkmax_table.putNumber('vel_sp', 1)
     sparkmax_table.putNumber('pos_sp', 1)
+    sparkmax_table.putNumber('pos_arbff', 0)
+    sparkmax_table.putNumber('vel_arbff', 0)
     sparkmax_table.putNumber('vel_max_accel', constants.smartmotion_maxacc)
     sparkmax_table.putNumber('pos_max_accel', constants.smartmotion_maxacc)
 
@@ -52,18 +54,22 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
         if self.control_type == 'position':
             self.setpoint = self.sparkmax_table.getNumber('pos_sp', 1)
             self.max_accel = self.sparkmax_table.getNumber('pos_max_accel', 500)
+            self.k_arb_ff = self.sparkmax_table.getNumber('pos_arbff', 0)
+
         elif self.control_type == 'velocity':
             self.setpoint = self.sparkmax_table.getNumber('vel_sp', 1)
             self.max_accel = self.sparkmax_table.getNumber('vel_max_accel', 500)
+            self.k_arb_ff = self.sparkmax_table.getNumber('vel_arbff', 0)
 
         multipliers = [1.0, 1.0, 1.0, 1.0] if self.spin else [1.0, 1.0, -1.0, -1.0]
 
         # set the control type
-        if self.control_type == 'positon':
+        if self.control_type == 'position':
             positions = [encoder.getPosition() for encoder in self.drive.encoders]
             [pid_controller.setSmartMotionMaxAccel(self.max_accel, 0) for pid_controller in self.drive.pid_controllers]
             for controller, multiplier, position in zip(self.drive.pid_controllers, multipliers, positions):
-                controller.setReference(self.setpoint * multiplier + position, rev.CANSparkMaxLowLevel.ControlType.kSmartMotion, 0)
+                controller.setReference(self.setpoint * multiplier + position,
+                                        rev.CANSparkMaxLowLevel.ControlType.kSmartMotion, 0, arbFeedforward=self.k_arb_ff)
         elif self.control_type == 'velocity':  # velocity needs to be continuous
             [pid_controller.setSmartMotionMaxAccel(self.max_accel, 1) for pid_controller in self.drive.pid_controllers]
             for controller, multiplier in zip(self.drive.pid_controllers, multipliers):

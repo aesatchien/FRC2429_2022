@@ -30,8 +30,8 @@ k_right_motor1_port = 3
 k_right_motor2_port = 4
 k_shifter_pneumatics_port = 3 # PCM
 
-PID_dict_pos = {'kP': 0.05, 'kI': 5.0e-7, 'kD': 0.40, 'kIz': 0, 'kFF': 0.002, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
-PID_dict_vel = {'kP': 0.05 , 'kI': 0.0005, 'kD': 0.00, 'kIz': 0.2, 'kFF': 0.17, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+PID_dict_pos = {'kP': 0.05, 'kI': 5.0e-7, 'kD': 0.40, 'kIz': 0, 'kFF': 0.002, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+PID_dict_vel = {'kP': 0.05 , 'kI': 0.0005, 'kD': 0.00, 'kIz': 0.2, 'kFF': 0.17, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
 smartmotion_maxvel = 1000  # rpm
 smartmotion_maxacc = 6 # rpm/s?
 current_limit = 60

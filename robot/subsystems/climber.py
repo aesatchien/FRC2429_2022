@@ -58,6 +58,7 @@ class Climber(SubsystemBase):
         if self.counter % 25 == 0:
             # ten per second updates
             SmartDashboard.putNumber('climber_voltage', self.climber_left_neo.getAppliedOutput())
+            SmartDashboard.putNumber('climber_position', self.climber_left_encoder.getPosition())
             SmartDashboard.putNumber('climber_current', self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
 
             #self.climber_voltage.setValue(self.climber_left_neo.getAppliedOutput())  # does not like setNumber for some reason
