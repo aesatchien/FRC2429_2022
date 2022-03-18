@@ -23,6 +23,8 @@ class Climber(SubsystemBase):
         self.climber_left_encoder = self.climber_left_neo.getEncoder()
         self.climber_right_encoder = self.climber_right_neo.getEncoder()
 
+        self.climber_left_encoder.setPositionConversionFactor(240)
+
         self.climber_left_controller = self.climber_left_neo.getPIDController()
         self.climber_right_controller = self.climber_right_neo.getPIDController()
 
@@ -46,6 +48,12 @@ class Climber(SubsystemBase):
         self.climber_left_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
         self.climber_enable = False
         SmartDashboard.putBoolean('climber_state', self.climber_enable)
+
+    def get_angle(self):
+        return self.climber_left_encoder.getPosition()
+
+    def reset_angle(self):
+        self.climber_left_encoder.setPosition(0)
 
 
     def periodic(self) -> None:
