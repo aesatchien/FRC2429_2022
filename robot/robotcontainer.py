@@ -208,7 +208,7 @@ class RobotContainer:
             self.co_rightTrigger.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         # lots of putdatas for testing on the dash
-        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
+        SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
 
         SmartDashboard.putData(AutonomousTwoBall(container=self))
         SmartDashboard.putData(AutoRamsete(container=self, drive=self.robot_drive, source='dash'))
