@@ -89,7 +89,9 @@ k_start_x = 7.7
 k_start_y = 2.1
 k_start_heading = -90
 
-robot_characterization = {'ks':0.446, 'kv':1.55, 'ka':0.40, 'track_width':0.73}
+# robot_characterization = {'ks':0.446, 'kv':1.55, 'ka':0.40, 'track_width':0.73}  # 2021 bot characterization
+robot_characterization = {'ks':0.291, 'kv':1.63, 'ka':0.293, 'track_width':0.89}  # 2022 climberbot
+
 ks_volts = robot_characterization['ks']  # so far this is only used in the Ramsete command, but in 2021 we used it in tank model as well
 kv_volt_seconds_per_meter = robot_characterization['kv']  # used in physics.py LinearSystemId and Ramsete
 ka_volt_seconds_squared_per_meter = robot_characterization['ka']  # used in physics.py LinearSystemId and Ramsete

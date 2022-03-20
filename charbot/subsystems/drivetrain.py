@@ -67,7 +67,7 @@ class Drivetrain(SubsystemBase):
         # Create the motor controllers and their respective speed controllers
         self.left_motors = SpeedControllerGroup(self.spark_neo_left_front, self.spark_neo_left_rear)
         self.right_motors = SpeedControllerGroup(self.spark_neo_right_front, self.spark_neo_right_rear)
-        # self.right_motors.setInverted(True)  # 2022 change - drivetrain used to invert this by default before 2022
+        self.right_motors.setInverted(True)  # 2022 change - drivetrain used to invert this by default before 2022
 
         # Create the differential drivetrain object, allowing for easy motor control
         self.drive = DifferentialDrive(self.left_motors, self.right_motors)
@@ -131,7 +131,7 @@ class Drivetrain(SubsystemBase):
         self.left_motors.setVoltage(left_volts)
         # Set the voltage of the right side. It's inverted with a negative sign
         #  because its motors need to spin in the negative direction to move forward
-        self.right_motors.setVoltage(right_volts)
+        self.right_motors.setVoltage(-right_volts)
 
         # need to update the simulated PWMs here
         self.dummy_motor_left.set(left_volts/12)
