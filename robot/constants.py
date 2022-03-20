@@ -52,8 +52,8 @@ k_climber_left_port = 10 # CAN ID
 k_climber_right_port = 11 # CAN ID
 k_climber_long_port = 0 # PCM
 k_climber_short_port = 1 # PCM
-PID_dict_pos_climber = {'kP': 0.002, 'kI': 0, 'kD': 0.002, 'kIz': 0, 'kFF': 0.008, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
-PID_dict_vel_climber = {'kP': 0.002, 'kI': 0, 'kD': 0.002, 'kIz': 0, 'kFF': 0.008, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+PID_dict_pos_climber = {'kP': 5, 'kI': 0, 'kD': 0, 'kIz': 0, 'kFF': 5, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
+PID_dict_vel_climber = {'kP': 0.002, 'kI': 0.004, 'kD': 0, 'kIz': 0.002, 'kFF': 0.0075, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
 
 
 # --------------  INDEXER  ---------------

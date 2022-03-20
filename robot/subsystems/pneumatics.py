@@ -20,7 +20,7 @@ class Pneumatics(SubsystemBase):
 
         self.close_loop_enable = True
 
-        competition = True
+        competition = False
         if competition:
             self.start_compressor()
         else:

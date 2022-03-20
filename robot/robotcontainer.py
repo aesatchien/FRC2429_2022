@@ -23,6 +23,7 @@ from commands.intake_position_toggle import IntakePositionToggle
 from commands.indexer_hold import IndexerHold
 from commands.auto_fetch_ball import AutoFetchBall
 from commands.tune_sparkmax_drive import TuneSparkmax
+from commands.tune_sparkmax_climber import TuneSparkmaxClimber
 from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.autonomous_two_ball import AutonomousTwoBall
@@ -153,7 +154,7 @@ class RobotContainer:
         else:
             self.co_driver_controller = None
 
-        self.buttonX.whileHeld(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
+        self.buttonX.whenPressed(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
         #climbing
         self.buttonRight.whenHeld(ClimberSpin(self, self.robot_climber))
 
@@ -209,6 +210,7 @@ class RobotContainer:
 
         # lots of putdatas for testing on the dash
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
+        SmartDashboard.putData(TuneSparkmaxClimber(container=self, climber=self.robot_climber, setpoint=1, control_type='position'))
 
         SmartDashboard.putData(AutonomousTwoBall(container=self))
         SmartDashboard.putData(AutoRamsete(container=self, drive=self.robot_drive, source='dash'))

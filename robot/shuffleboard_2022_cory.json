@@ -184,8 +184,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_lvel",
-              "_source1": "network_table:///SmartDashboard/drive_rvel",
+              "_source0": "network_table:///SmartDashboard/drive_rvel",
+              "_source1": "network_table:///SmartDashboard/drive_lvel",
               "_title": "Drivetrain Velocity",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -204,8 +204,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_lpos",
-              "_source1": "network_table:///SmartDashboard/drive_rpos",
+              "_source0": "network_table:///SmartDashboard/drive_rpos",
+              "_source1": "network_table:///SmartDashboard/drive_lpos",
               "_title": "Drivetrain Position",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -217,9 +217,9 @@
               "Visible data/SmartDashboard/drive_rpos": true
             }
           },
-          "3,0": {
+          "2,0": {
             "size": [
-              2,
+              3,
               5
             ],
             "content": {
@@ -227,11 +227,6 @@
               "_title": "Misc List",
               "Layout/Label position": "BOTTOM",
               "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/drive_lvel",
-                  "_title": "drive_lvel"
-                },
                 {
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/drive_lpos",
@@ -246,6 +241,21 @@
                   "_type": "Text View",
                   "_source0": "network_table:///SmartDashboard/get_shooter_rpm",
                   "_title": "get_shooter_rpm"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/drive_lvel",
+                  "_title": "drive_lvel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/climber_position",
+                  "_title": "/SmartDashboard/climber_position"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/climber_voltage",
+                  "_title": "SmartDashboard/climber_voltage"
                 }
               ]
             }
@@ -253,7 +263,7 @@
           "13,4": {
             "size": [
               6,
-              3
+              4
             ],
             "content": {
               "_type": "Grid Layout",
@@ -291,8 +301,154 @@
                   "_type": "Command",
                   "_source0": "network_table:///SmartDashboard/AutoShoot",
                   "_title": "/SmartDashboard/AutoShoot"
+                },
+                "0,2": {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/TuneSparkmaxClimber",
+                  "_title": "/SmartDashboard/TuneSparkmaxClimber"
                 }
               }
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List Layout",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "21,0": {
+            "size": [
+              2,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Climber kVel List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kP_vel",
+                  "_title": "Rev_Climber/kP_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kFF_vel",
+                  "_title": "Rev_Climber/kFF_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kI_vel",
+                  "_title": "Rev_Climber/kI_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kIz_vel",
+                  "_title": "Rev_Climber/kIz_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kD_vel",
+                  "_title": "Rev_Climber/kD_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/vel_sp",
+                  "_title": "Rev_Climber/vel_sp"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/vel_max_accel",
+                  "_title": "Rev_Climber/vel_max_accel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/vel_arbff",
+                  "_title": "Rev_Climber/vel_arbff"
+                }
+              ]
+            }
+          },
+          "19,0": {
+            "size": [
+              2,
+              8
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Climber kPos List",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kP_pos",
+                  "_title": "Rev_Climber/kP_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kFF_pos",
+                  "_title": "Rev_Climber/kFF_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kI_pos",
+                  "_title": "Rev_Climber/kI_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kIz_pos",
+                  "_title": "Rev_Climber/kIz_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kD_pos",
+                  "_title": "Rev_Climber/kD_pos"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/pos_sp",
+                  "_title": "Rev_Climber/pos_sp"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/pos_max_accel",
+                  "_title": "Rev_Climber/pos_max_accel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/pos_arbff",
+                  "_title": "Rev_Climber/pos_arbff"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/pos_max_vel",
+                  "_title": "/Rev_Climber/pos_max_vel"
+                }
+              ]
+            }
+          },
+          "0,5": {
+            "size": [
+              5,
+              4
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/climber_velocity",
+              "_title": "/SmartDashboard/climber_velocity",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/climber_velocity": true
             }
           }
         }
@@ -915,9 +1071,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.800000190734863,
-    "y": 6.400000095367432,
-    "width": 1525.5999755859375,
-    "height": 627.2000122070312
+    "x": 5.0,
+    "y": 13.0,
+    "width": 1898.0,
+    "height": 841.0
   }
 }
