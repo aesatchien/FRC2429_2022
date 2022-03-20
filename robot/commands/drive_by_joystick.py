@@ -6,7 +6,7 @@ import constants
 
 class DriveByJoytick(commands2.CommandBase):  # change the name for your command
 
-    SmartDashboard.putString('drive_limit', 'thrust')
+    SmartDashboard.putString('drive_limit', 'momentum')
 
     def __init__(self, container, drive, control_type='velocity', scaling=1) -> None:
         super().__init__()

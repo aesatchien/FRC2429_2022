@@ -30,35 +30,12 @@ class AutoRamsete(commands2.CommandBase):
     velocity = constants.k_max_speed_meters_per_second
     write_telemetry = False
 
-    dash = True  # ToDo: decide if I ever want to hide this or to make it
-    if dash is True:
-        ntinst = NetworkTablesInstance.getDefault()
-        ramsete_table = ntinst.getTable('Ramsete')
-        ramsete_table.putNumber("ramsete_kpvel", kp_vel)
-        ramsete_table.putNumber("ramsete_B", beta)
-        ramsete_table.putNumber("ramsete_Z", zeta)
-        ramsete_table.putBoolean("ramsete_write", write_telemetry)
-        ramsete_table.putNumber("waypoint_x", 1)
-        ramsete_table.putNumber("waypoint_y", 0)
-        ramsete_table.putNumber("waypoint_heading", 0)
-        ramsete_table.putBoolean("waypoint_reverse", False)
-
-        #SmartDashboard.putNumber("/ramsete/ramsete_kpvel", kp_vel)
-        #SmartDashboard.putNumber("/ramsete/ramsete_B", beta)
-        #SmartDashboard.putNumber("/ramsete/ramsete_Z", zeta)
-        #SmartDashboard.putBoolean("/ramsete/ramsete_write", write_telemetry)
-        #SmartDashboard.putNumber("/ramsete/waypoint_x", 1)
-        #SmartDashboard.putNumber("/ramsete/waypoint_y", 0)
-        #SmartDashboard.putNumber("/ramsete/waypoint_heading", 0)
-        #SmartDashboard.putBoolean("/ramsete/waypoint_reverse", False)
-
-
-    def __init__(self, container, drive: Drivetrain, relative=True, source=None, trajectory=None) -> None:
+    def __init__(self, container, drive: Drivetrain, dash=True, relative=True, source=None, trajectory=None) -> None:
         super().__init__()
         self.setName('AutoRamsete')
         self.drive = drive
         self.container = container
-        self.relative = True  # used to see if we will use absolute paths or relative ones
+        self.relative = relative  # used to see if we will use absolute paths or relative ones
         self.addRequirements(drive)  # commandsv2 version of requirements
         #self.withTimeout(10)
 
@@ -77,6 +54,23 @@ class AutoRamsete(commands2.CommandBase):
 
         self.exit = False  # it is so hard to kill this command
 
+        self.dash = dash  # ToDo: decide if I ever want to hide this or to make it a choice
+        if self.dash is True:
+            ntinst = NetworkTablesInstance.getDefault()
+            self.ramsete_table = ntinst.getTable('Ramsete')
+            self.ramsete_table.putBoolean("ramsete_relative", True)
+            self.ramsete_table.putNumber("ramsete_kpvel", self.kp_vel)
+            self.ramsete_table.putNumber("ramsete_B", self.beta)
+            self.ramsete_table.putNumber("ramsete_Z", self.zeta)
+            self.ramsete_table.putBoolean("ramsete_write", self.write_telemetry)
+            self.ramsete_table.putNumber("waypoint_x", 1)
+            self.ramsete_table.putNumber("waypoint_y", 0)
+            self.ramsete_table.putNumber("waypoint_heading", 0)
+            self.ramsete_table.putBoolean("waypoint_reverse", False)
+
+
+
+
     def initialize(self) -> None:
         self.init_time = self.container.get_enabled_time()
         self.start_time = self.container.get_enabled_time()
@@ -90,11 +84,12 @@ class AutoRamsete(commands2.CommandBase):
             # self.beta = SmartDashboard.getNumber("/ramsete/ramsete_B", self.beta)
             # self.zeta = SmartDashboard.getNumber("/ramsete/ramsete_Z", self.zeta)
             # self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
+            self.relative = self.ramsete_table.getBoolean('ramsete_relative', True)
             self.kp_vel = self.ramsete_table.getNumber('ramsete_kpvel', self.kp_vel)
             self.beta = self.ramsete_table.getNumber('ramsete_B', self.beta)
             self.zeta = self.ramsete_table.getNumber('ramsete_Z', self.zeta)
             self.write_telemetry = self.ramsete_table.getBoolean('ramsete_write', self.write_telemetry)
-            print(self.kp_vel, self.beta, self.zeta, self.write_telemetry)
+        # print(f'Ramsete: Relative: {self.relative} Kp_vel: {self.kp_vel}, B: {self.beta}, Z: {self.zeta}, Write Telem:{self.write_telemetry}')
         # create controllers
         self.follower = controller.RamseteController(self.beta, self.zeta)
         self.left_controller = controller.PIDController(self.kp_vel, 0, self.kd_vel)
@@ -189,7 +184,7 @@ class AutoRamsete(commands2.CommandBase):
 
             self.start_time = self.container.get_enabled_time()
             print("\n" + f"** Started {self.__class__.__name__} / {self.getName()} on {self.course} with load time {1000*(self.start_time-self.init_time):2.2f}ms"
-                         f" (b={self.beta}, z={self.zeta}, kp_vel={self.kp_vel}) at {self.start_time:.1f} s **")
+                         f" (relative={self.relative}, b={self.beta}, z={self.zeta}, kp_vel={self.kp_vel}) at {self.start_time:.1f} s **")
             print(f'Attempting to run trajectory from {self.trajectory.initialPose()} to {self.trajectory.states()[-1].pose}')
             SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time:.1f} s **")
 

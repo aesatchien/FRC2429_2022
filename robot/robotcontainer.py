@@ -254,3 +254,4 @@ class RobotContainer:
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
         self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousTwoBall(self))
         self.autonomous_chooser.addOption('3 ball lower', AutonomousStageTwo(self))
+        self.autonomous_chooser.addOption("Ramsete Test", AutoRamsete(container=self, drive=self.robot_drive, dash=False, relative=False, source='pathweaver'))
