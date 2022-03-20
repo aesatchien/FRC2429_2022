@@ -215,7 +215,8 @@ class Drivetrain(SubsystemBase):
         if self.counter % 15 == 0:
             # start keeping track of where the robot is with an x and y position (only good for WCD)'
             pose = self.get_pose()
-            SmartDashboard.putString('drive_pose', f'[{pose.X():2.2f}, {pose.Y():2.2f}, {pose.rotation().degrees():2.2f}]' )
+            # SmartDashboard.putString('drive_pose', f'[{pose.X():2.2f}, {pose.Y():2.2f}, {pose.rotation().degrees():2.2f}]' )
+            SmartDashboard.putNumberArray('drive_pose', [pose.X(), pose.Y(), pose.rotation().degrees()])
             SmartDashboard.putNumber('drive_lpos', self.left_encoder.getPosition())
             SmartDashboard.putNumber('drive_rpos', self.right_encoder.getPosition())
             SmartDashboard.putNumber('drive_lvel', self.left_encoder.getVelocity())
