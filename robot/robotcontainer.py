@@ -78,14 +78,7 @@ class RobotContainer:
             self.robot_drive.setDefaultCommand(DriveByJoytick(self, self.robot_drive, control_type='velocity', scaling=1.0))
         else:
             self.robot_drive.setDefaultCommand(
-                RunCommand(
-                    lambda: self.robot_drive.arcade_drive(
-                        -1 * constants.k_thrust_scale * self.driver_controller.getRawAxis(
-                            constants.k_controller_thrust_axis),
-                        constants.k_twist_scale * self.driver_controller.getRawAxis(
-                            constants.k_controller_twist_axis), ),
-                    self.robot_drive, ))
-
+                DriveByJoytick(self, self.robot_drive, control_type='simulation', scaling=1.0))
         if False:
             # test arcade drive
             self.robot_drive.setDefaultCommand(

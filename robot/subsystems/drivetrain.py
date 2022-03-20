@@ -19,6 +19,8 @@ class Drivetrain(SubsystemBase):
 
         self.counter = 0  # used for updating the log
         self.x, self.y = 0, 0
+        self.previous_vel = 0  # used for simulating acceleration
+        self.previous_time = time.time()
 
         # if we need to configure the sparkmaxes for smartvelocity and smartmotion
         self.error_dict = {}  # used for tracking errors from the SparkMAX controllers
@@ -185,7 +187,7 @@ class Drivetrain(SubsystemBase):
         return encoder.getPosition()
 
     def get_average_encoder_rate(self):  # used in ramsete
-        return (self.left_encoder.getVelocity() + self.right_encoder.getVelocity())/2
+        return (self.left_encoder.getVelocity() - self.right_encoder.getVelocity())/2
 
     def get_rotation2d(self):  # used in ramsete
         return geo.Rotation2d.fromDegrees(-self.navx.getAngle())
@@ -233,11 +235,20 @@ class Drivetrain(SubsystemBase):
             # print(self.get_wheel_speeds(), self.l_encoder.getRate(), self.r_encoder.getRate())
 
     def simulationPeriodic(self) -> None:
-        pass
         # do this in the functions that set the motors themselves?
         #self.dummy_motor_left.set(self.spark_neo_left_front.get())
         #self.dummy_motor_right.set(self.spark_neo_right_front.get())
-
+        self.time = time.time()
+        self.vel = self.left_encoder.getVelocity()
+        dt = self.time - self.previous_time
+        try:
+            self.acc = (self.vel - self.previous_vel) / 0.02 # dv/ dt
+        except ZeroDivisionError:
+            self.acc = 0
+        SmartDashboard.putNumber('drive_lvel', self.vel)
+        SmartDashboard.putNumber('drive_lacc', self.acc)
+        self.previous_vel = self.vel
+        self.previous_time = self.time
 
     def smart_motion(self, distance=0, spin=False):
         """

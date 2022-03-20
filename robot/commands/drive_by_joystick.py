@@ -6,6 +6,8 @@ import constants
 
 class DriveByJoytick(commands2.CommandBase):  # change the name for your command
 
+    SmartDashboard.putString('drive_limit', 'thrust')
+
     def __init__(self, container, drive, control_type='velocity', scaling=1) -> None:
         super().__init__()
         self.setName('drive_by_joystick')  # change this to something appropriate for this command
@@ -15,8 +17,8 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
         self.scaling = scaling
         self.addRequirements(self.drive)  # commandsv2 version of requirements
 
-        self.max_thrust_velocity = constants.k_max_thrust_velocity  # 2 m/s
-        self.max_twist_velocity = constants.k_max_twist_velocity  # 1 m/s
+        self.max_thrust_velocity = constants.k_max_thrust_velocity  # 2.75 m/s
+        self.max_twist_velocity = constants.k_max_twist_velocity  # 1.25 m/s
         self.deadband = 0.05
         self.multipliers = [1.0, 1.0, -1.0, -1.0]
 
@@ -25,9 +27,9 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
         self.previous_thrust = 0
 
         # since the robot back heavy, so the reverse needs to be stronger than the fwd - rev should be 0.125, fwd 0.25
-        self.max_thrust_differential = 0.07  # 0.05 starts to get a bit tippy but not that bad, cory likes 0.04
-        self.max_thrust_differential_fwd = 0.04
-        self.max_thrust_differential_rev = 0.04
+        self.max_thrust_differential = 0.04  # 0.05 starts to get a bit tippy but not that bad, cory likes 0.04
+        self.max_thrust_differential_fwd = 0.10  # still helps with brownouts
+        self.max_thrust_differential_rev = 0.02 # 0.04 should be safe in most cases unless you rock it like AC/DC
 
     def initialize(self) -> None:
         """Called just before this Command runs the first time."""
@@ -47,13 +49,36 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
 
         # try to limit the change in thrust  BE VERY CAREFUL WITH THIS!  IT CAUSES RUNAWAY ROBOTS!
         # limits are made using 3m/s speed limit - adjust if you change it
-        limit_decel = True
-        if limit_decel:
-            d_thrust = self.previous_thrust - thrust
-            max_thrust_differential = self.max_thrust_differential_rev if thrust < 0 else self.max_thrust_differential_fwd
+        d_thrust = self.previous_thrust - thrust
+        limit_decel = 'thrust'
+        limit_decel = SmartDashboard.getString('drive_limit', 'thrust')
+        if limit_decel == 'simple':  # global limit in both directions, limits fwd acceleration
+            max_thrust_differential = self.max_thrust_differential
             if abs(d_thrust) > max_thrust_differential:
                 thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
-                print(f'Applying {1 * math.copysign(1, thrust)} limit: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+                thrust_sign = '+' if math.copysign(1, thrust) > 0 else '-'
+                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+        if limit_decel == 'thrust':  # just look at the sign of the stick.  FWD-> REV is fine but 0->FWD as bad as REV-FWD so you are too slow to start
+            max_thrust_differential = self.max_thrust_differential_rev if thrust > 0 else self.max_thrust_differential_fwd
+            if abs(d_thrust) > max_thrust_differential:
+                thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
+                thrust_sign = '+' if math.copysign(1, thrust) > 0 else '-'
+                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+        elif limit_decel == 'dthrust':  # look at the sign of the change in the stick - behaves the same as thrust control
+            max_thrust_differential = self.max_thrust_differential_rev if d_thrust < 0 else self.max_thrust_differential_fwd
+            if abs(d_thrust) > max_thrust_differential:
+                thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
+                thrust_sign = '+' if math.copysign(1, d_thrust) > 0 else '-'
+                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+        elif limit_decel == 'momentum':  # look at the sign of the current momentum, seems to work well
+            # may need to allow some neg velocity before switching limits or an intermediate value if we haven't built up speed
+            vel = self.drive.get_average_encoder_rate()  # should be avg fwd velocity of robot
+            max_thrust_differential = self.max_thrust_differential_rev if vel < 0 else self.max_thrust_differential_fwd
+            if abs(d_thrust) > max_thrust_differential:
+                thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
+                thrust_sign = '+' if math.copysign(1, vel) > 0 else '-'
+                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+
         self.previous_thrust = thrust
 
         if self.control_type == 'velocity':
