@@ -20,6 +20,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
     sparkmax_table.putNumber('pos_sp', 1)
     sparkmax_table.putNumber('pos_arbff', 0)
     sparkmax_table.putNumber('vel_arbff', 0)
+    sparkmax_table.putNumber('pos_max_vel', 1)
     sparkmax_table.putNumber('vel_max_accel', constants.smartmotion_maxacc)
     sparkmax_table.putNumber('pos_max_accel', constants.smartmotion_maxacc)
 
@@ -56,6 +57,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
             self.setpoint = self.sparkmax_table.getNumber('pos_sp', 1)
             self.max_accel = self.sparkmax_table.getNumber('pos_max_accel', 500)
             self.k_arb_ff = self.sparkmax_table.getNumber('pos_arbff', 0)
+            self.max_vel = self.sparkmax_table.getNumber('pos_max_vel', 1)
 
         elif self.control_type == 'velocity':
             self.setpoint = self.sparkmax_table.getNumber('vel_sp', 1)
@@ -69,7 +71,7 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
         if self.control_type == 'position':
             positions = [encoder.getPosition() for encoder in self.drive.encoders]
             self.initial_position = positions[0]
-
+            [pid_controller.setSmartMotionMaxVelocity(self.max_vel, 0) for pid_controller in self.drive.pid_controllers]
             [pid_controller.setSmartMotionMaxAccel(self.max_accel, 0) for pid_controller in self.drive.pid_controllers]
             # [pid_controller.setSmartMotionMaxVelocity(self.max_vel, 0) for pid_controller in self.drive.pid_controllers]
             for controller, multiplier, position in zip(self.drive.pid_controllers, multipliers, positions):
@@ -90,9 +92,9 @@ class TuneSparkmax(commands2.CommandBase):  # change the name for your command
         if self.control_type == 'velocity':
             return False  # run until cancelled
         elif self.control_type == 'position':
-            # return False
-            error = self.setpoint - (self.drive.left_encoder.getPosition() - self.initial_position)
-            return abs(error) < self.tolerance
+            return False
+            # error = self.setpoint - (self.drive.left_encoder.getPosition() - self.initial_position)
+            # return abs(error) < self.tolerance
         else:
             return True
 

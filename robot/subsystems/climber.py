@@ -44,6 +44,8 @@ class Climber(SubsystemBase):
         self.smartmotion_maxvel = constants.smartmotion_maxvel
         self.smartmotion_maxacc = constants.smartmotion_maxacc
 
+        # self.climber_left_controller.setSmartMotionAccelStrategy()
+
         # add encoder later
         #ntinst = NetworkTablesInstance.getDefault()
         #self.climber_table = ntinst.getTable('Climber')

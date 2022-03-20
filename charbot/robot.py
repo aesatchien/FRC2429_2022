@@ -9,6 +9,7 @@ then run frc-characterization.exe drive new and
 import wpilib
 from wpilib import Timer
 import commands2
+from robotcontainer import RobotContainer
 
 # characterization stuff
 import math
@@ -34,7 +35,8 @@ class Robot(commands2.TimedCommandRobot):
         """Robot-wide initialization code should go here"""
         super().__init__()
 
-        self.drivetrain = Drivetrain()
+        self.container = RobotContainer()
+        self.drivetrain = self.container.robot_drive
 
         self.enabled_time = 0  # something is especially weird with the sim about this needing to be initialized in robotInit
 
