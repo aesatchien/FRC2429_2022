@@ -224,7 +224,6 @@ class Drivetrain(SubsystemBase):
             SmartDashboard.putNumber('drive_lvel', self.left_encoder.getVelocity())
             SmartDashboard.putNumber('drive_rvel', self.right_encoder.getVelocity())
 
-
         if self.counter % 100 == 0:
             pass
             # self.display_PIDs()
@@ -249,6 +248,8 @@ class Drivetrain(SubsystemBase):
         SmartDashboard.putNumber('drive_lacc', self.acc)
         self.previous_vel = self.vel
         self.previous_time = self.time
+        pose = self.get_pose()
+        SmartDashboard.putNumberArray('drive_pose', [pose.X(), pose.Y(), pose.rotation().degrees()])
 
     def smart_motion(self, distance=0, spin=False):
         """
