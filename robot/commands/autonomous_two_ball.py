@@ -26,7 +26,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
 
         # next step - reverse to a ball
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2200, force='on'))
-        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=2, reverse=False)
+        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=0.5, reverse=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_1))
 
         # hopefully pick up a ball

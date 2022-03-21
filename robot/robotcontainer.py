@@ -11,6 +11,7 @@ from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
 from subsystems.vision import Vision
 
+from commands.auto_set_pose import AutoSetPose
 from commands.auto_shoot import AutoShoot
 from commands.auto_pickup import AutoPickup
 from commands.auto_track_hub import AutoTrackHub
@@ -205,6 +206,7 @@ class RobotContainer:
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
         SmartDashboard.putData(TuneSparkmaxClimber(container=self, climber=self.robot_climber, setpoint=1, control_type='position'))
 
+        SmartDashboard.putData(AutoSetPose(self, pose=None))
         SmartDashboard.putData(AutonomousTwoBall(container=self))
         SmartDashboard.putData(AutoRamsete(container=self, drive=self.robot_drive, source='dash'))
         SmartDashboard.putData(CompressorToggle(self, self.robot_pneumatics))

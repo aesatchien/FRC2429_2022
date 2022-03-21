@@ -91,7 +91,7 @@ def generate_trajectory_from_points(waypoints=None, velocity=constants.k_max_spe
 # used in ramsete command
 def generate_quick_trajectory(x=1, y=0, heading=0, velocity=constants.k_max_speed_meters_per_second, reverse=False, display=False) -> wpimath.trajectory:
     return_code = 1  # success
-    config = wpimath.trajectory.TrajectoryConfig(3, 3) # constants.k_max_acceleration_meters_per_second_squared)
+    config = wpimath.trajectory.TrajectoryConfig(velocity, constants.k_max_acceleration_meters_per_second_squared) # constants.k_max_acceleration_meters_per_second_squared)
     config.setKinematics(constants.k_drive_kinematics)
     config.addConstraint(constants.k_autonomous_voltage_constraint)
     config.addConstraint(CentripetalAccelerationConstraint(constants.k_max_centripetal_acceleration_meters_per_second_squared))

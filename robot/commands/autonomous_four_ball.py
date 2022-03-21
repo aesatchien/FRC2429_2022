@@ -25,9 +25,10 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
         trajectory_files = ['two_ball_traversal', 'terminal_to_shot']
-        path_velocity = 2.5
+        path_velocity = 0.5
 
         # run the initial two-ball command
+
         self.addCommands(AutonomousTwoBall(self.container))
 
         # drive to terminal, getting open ball on the way

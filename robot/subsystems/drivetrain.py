@@ -103,6 +103,11 @@ class Drivetrain(SubsystemBase):
         # set us on the board where we want to be in simulation
         if constants.k_is_simulation:
             self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y,0))
+        else:
+            self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+            time.sleep(0.05)
+            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x,
+                                constants.k_start_y, geo.Rotation2d().fromDegrees(constants.k_start_heading)))
 
         # configure the controllers
         self.configure_controllers(pid_only=False, burn_flash=False)
@@ -119,8 +124,12 @@ class Drivetrain(SubsystemBase):
 
     def reset_odometry(self, pose):  # used in ramsete
         """ Resets the robot's odometry to a given position."""
+        print(f'resetting odometry to {pose}')
         self.reset_encoders()
+        # this worked for ramsete, but is not coming up on dash
         self.odometry.resetPosition(pose, self.navx.getRotation2d())
+        # trying a hard reset for 2022
+        #self.odometry = DifferentialDriveOdometry(pose=pose)
 
     def arcade_drive(self, fwd, rot):
         """Drive the robot with standard arcade controls."""
