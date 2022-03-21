@@ -29,7 +29,9 @@ def generate_trajectory(path_name:str, velocity=constants.k_max_speed_meters_per
     :return: generated trajectory
     """
 
-    pathweaver_y_offfset = 4.572
+    # pathweaver_y_offfset = 4.572  # pathweaver 2021, starts at the top of the field
+    pathweaver_y_offfset = 8.218  # pathweaver 2022, starts Y at the top of the field
+
     p = Path(constants.k_path_location + path_name)
     if p.is_file():
         lines = []

@@ -52,8 +52,8 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         
         self.addCommands(WaitCommand(.5))
 
-        # close up, turn off shooter
-        self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
+        # close up, turn off shooter - maybe
+        # self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0, force='off'))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0, force='off'))
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))

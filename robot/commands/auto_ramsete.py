@@ -68,9 +68,6 @@ class AutoRamsete(commands2.CommandBase):
             self.ramsete_table.putNumber("waypoint_heading", 0)
             self.ramsete_table.putBoolean("waypoint_reverse", False)
 
-
-
-
     def initialize(self) -> None:
         self.init_time = self.container.get_enabled_time()
         self.start_time = self.container.get_enabled_time()
@@ -111,6 +108,7 @@ class AutoRamsete(commands2.CommandBase):
                     field_x = SmartDashboard.getNumber('/sim/field_x', self.trajectory.sample(0).pose.X())
                     field_y = SmartDashboard.getNumber('/sim/field_y', self.trajectory.sample(0).pose.Y())
                     self.start_pose = geo.Pose2d(field_x, field_y, self.container.robot_drive.get_rotation2d())
+
         elif self.source == 'dash':  # we told it to calculate a trajectory from a point on the dashboard
             self.velocity = float(self.container.velocity_chooser.getSelected())
             start_pose = geo.Pose2d(geo.Translation2d(x=0, y=0), geo.Rotation2d(0.000000))
@@ -131,7 +129,8 @@ class AutoRamsete(commands2.CommandBase):
                 self.end(interrupted=True)
 
         elif self.source == 'trajectory':  # we sent it a trajectory when we called the function
-            pass
+            print('Following trajectory passed in ...')
+            self.course = 'parameter'
 
         elif self.source == 'ball': # generate a tajectory from ball location
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()
@@ -170,7 +169,6 @@ class AutoRamsete(commands2.CommandBase):
             if self.relative:  # clean way to take a trajectory and shift it to new start location and orientation
                 # more than one way to update the trajectory - reset the drive odometer to initial pose
                 # or use the current odometry reading as the beginning of the trajectory
-
                 transform = geo.Transform2d(self.trajectory.initialPose(), self.drive.get_pose())
                 self.trajectory = self.trajectory.transformBy(transform)
 

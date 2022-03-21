@@ -1,5 +1,6 @@
 import commands2
 from wpilib import SmartDashboard
+from commands.autonomous_two_ball import AutonomousTwoBall
 from commands.auto_ramsete import AutoRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
@@ -24,37 +25,8 @@ class AutonomousStageTwo(commands2.SequentialCommandGroup):  # change the name f
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
 
-        # open and start intake
-        self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
-
-        # next step - reverse to a ball
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2050, force='on'))
-        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.3, y=0, heading=0, velocity=1.8, reverse=False)
-        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_1))
-
-        # hopefully pick up a ball
-        # self.addCommands(ToggleShooter(self.container, self.container.robot_shooter, rpm=2000))
-        self.addCommands(WaitCommand(0.3))
-
-        # next step - return to hub with the shooter on
-        # status, self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)
-        # self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_2))
-        self.addCommands(WaitCommand(.3))
-
-        # next step - shoot twice - this could just call the autonomous shooting routine for brevity
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-                         andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-                         andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-
-        self.addCommands(WaitCommand(.2))
+        # run the initial two-ball command
+        self.addCommands(AutonomousTwoBall(self.container))
 
         # turn to look at other ball
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='degrees', degrees=100))

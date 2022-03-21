@@ -1,6 +1,6 @@
 # drivetrain to use both in sim and robot mode - sim handles the Sparkmax now
 # started 2022 0102 to update to commands2
-
+import math
 import time
 from commands2 import SubsystemBase
 from wpilib import SpeedControllerGroup, PWMSparkMax, SmartDashboard
@@ -179,6 +179,9 @@ class Drivetrain(SubsystemBase):
         """Return the current heading of the robot."""
         # return self.gyro.getRotation2d().getDegrees()
         return -self.navx.getAngle()
+        # negative makes you increase CCW, as Ramsete wants.  Do the 360 remainder or it flips sign at 180.
+        # return - math.remainder(self.navx.Angle(), 360)
+
 
     def get_rate(self, encoder): # spark maxes and regular encoders use different calls... annoying.  used in ramsete.
         return encoder.getVelocity()

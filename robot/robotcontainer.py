@@ -11,28 +11,28 @@ from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
 from subsystems.vision import Vision
 
+from commands.auto_shoot import AutoShoot
+from commands.auto_pickup import AutoPickup
+from commands.auto_track_hub import AutoTrackHub
+from commands.auto_rotate_sparkmax import AutoRotateSparkmax
+from commands.auto_rotate_imu import AutoRotateImu
+from commands.auto_fetch_ball import AutoFetchBall
 from commands.auto_ramsete import AutoRamsete
-from commands.auto_ramsete_wpilib import AutoRamseteWpilib
+from commands.drive_by_joystick import DriveByJoytick
 from commands.intake_motor_toggle import IntakeMotorToggle
-from commands.shooter_toggle import ShooterToggle
+from commands.indexer_hold import IndexerHold
 from commands.indexer_toggle import IndexerToggle
 from commands.compressor_toggle import CompressorToggle
 from commands.climber_spin import ClimberSpin
-from commands.shifter_toggle import ShifterToggle
 from commands.intake_position_toggle import IntakePositionToggle
-from commands.indexer_hold import IndexerHold
-from commands.auto_fetch_ball import AutoFetchBall
+from commands.shifter_toggle import ShifterToggle
+from commands.shooter_toggle import ShooterToggle
 from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.tune_sparkmax_climber import TuneSparkmaxClimber
-from commands.auto_rotate_sparkmax import AutoRotateSparkmax
-from commands.auto_rotate_imu import AutoRotateImu
+
 from commands.autonomous_two_ball import AutonomousTwoBall
-from commands.drive_by_joystick import DriveByJoytick
-from commands.indexer_hold import IndexerHold
-from commands.auto_shoot import AutoShoot
-from commands.auto_pickup import AutoPickup
 from commands.autonomous_stage_two import AutonomousStageTwo
-from commands.auto_track_hub import AutoTrackHub
+from commands.autonomous_four_ball import AutonomousFourBall
 
 from trigger.axis_button import AxisButton
 
@@ -254,4 +254,5 @@ class RobotContainer:
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
         self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousTwoBall(self))
         self.autonomous_chooser.addOption('3 ball lower', AutonomousStageTwo(self))
+        self.autonomous_chooser.addOption('4 ball lower', AutonomousFourBall(self))
         self.autonomous_chooser.addOption("Ramsete Test", AutoRamsete(container=self, drive=self.robot_drive, dash=False, relative=False, source='pathweaver'))
