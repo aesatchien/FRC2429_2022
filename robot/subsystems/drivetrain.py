@@ -105,7 +105,7 @@ class Drivetrain(SubsystemBase):
             self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y,0))
         else:
             self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
-            time.sleep(0.05)
+            time.sleep(0.01)  # how long does it take to reset the navX?
             self.reset_odometry(pose=geo.Pose2d(constants.k_start_x,
                                 constants.k_start_y, geo.Rotation2d().fromDegrees(constants.k_start_heading)))
 
@@ -125,7 +125,9 @@ class Drivetrain(SubsystemBase):
     def reset_odometry(self, pose):  # used in ramsete
         """ Resets the robot's odometry to a given position."""
         print(f'resetting odometry to {pose}')
-        self.reset_encoders()
+        self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+        time.sleep(0.01)
+        # self.reset_encoders()  # necessary?
         # this worked for ramsete, but is not coming up on dash
         self.odometry.resetPosition(pose, self.navx.getRotation2d())
         # trying a hard reset for 2022
