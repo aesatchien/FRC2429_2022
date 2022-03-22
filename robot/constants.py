@@ -87,7 +87,7 @@ k_sparkmax_conversion_factor_meters = k_wheel_diameter_m * math.pi / k_gear_rati
 
 k_start_x = 7.7
 k_start_y = 2.1
-k_start_heading = -90
+k_start_heading = -90 - 12
 
 # robot_characterization = {'ks':0.446, 'kv':1.55, 'ka':0.40, 'track_width':0.73}  # 2021 bot characterization
 robot_characterization = {'ks':0.291, 'kv':1.63, 'ka':0.293, 'track_width':0.89}  # 2022 climberbot

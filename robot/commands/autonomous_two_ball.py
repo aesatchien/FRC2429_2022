@@ -5,6 +5,7 @@ from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
 from commands.indexer_toggle import IndexerToggle
+from commands.indexer_hold import IndexerHold
 from commands2 import WaitCommand
 
 import trajectory_io
@@ -26,17 +27,16 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
 
         # next step - reverse to a ball
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2200, force='on'))
-        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=0.5, reverse=False)
+        status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=1, reverse=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_1))
 
         # hopefully pick up a ball
-        #self.addCommands(ToggleShooter(self.container, self.container.robot_shooter, rpm=2000))
-        self.addCommands(WaitCommand(0.5))
+        self.addCommands(WaitCommand(0.1))
 
         # next step - return to hub with the shooter on
         # status, self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)
         #self.addCommands(AutonomousRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_2))
-        self.addCommands(WaitCommand(.3))
+        self.addCommands(WaitCommand(.1))
 
         # next step - shoot twice
         self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
@@ -49,11 +49,15 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
                          andThen(WaitCommand(self.index_pulse_off)))
         self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
                          andThen(WaitCommand(self.index_pulse_on)))
-        
-        self.addCommands(WaitCommand(.5))
+
+        # commands2.ParallelCommandGroup(IndexerHold(self.container, self.container.robot_indexer, 3))
+        # self.addCommands(IndexerHold(self.container, self.container.robot_indexer, 3))
+        # self.container.robot_indexer.setDefaultCommand(IndexerHold(self.container, self.container.robot_indexer, 3))
+
+        self.addCommands(WaitCommand(.2))
 
         # close up, turn off shooter - maybe
         # self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
-        self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
+        # self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
         # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0, force='off'))
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))
