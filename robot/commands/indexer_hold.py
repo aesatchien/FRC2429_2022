@@ -4,7 +4,7 @@ from wpilib import SmartDashboard
 
 class IndexerHold(commands2.CommandBase):
 
-    def __init__(self, container, indexer, voltage=2, cycles=None, force=None) -> None:
+    def __init__(self, container, indexer, voltage=2, cycles=None, force=None, autonomous=False) -> None:
         super().__init__()
         self.setName('IndexerHold')
         self.indexer = indexer
@@ -15,6 +15,7 @@ class IndexerHold(commands2.CommandBase):
         self.on_pulse_time = 0.15
         self.off_pulse_time = 0.35
         self.direction = 1
+        self.autonomous = autonomous  # use this to feed the drive in auto
         self.cycles = cycles
 
 
@@ -41,6 +42,9 @@ class IndexerHold(commands2.CommandBase):
             if self.indexer.indexer_enabled:
                 self.indexer.stop_motor()
                 # print('wait')
+
+        if self.autonomous:
+            self.container.robot_drive.feed()
 
     def isFinished(self) -> bool:
         if self.cycles is None:

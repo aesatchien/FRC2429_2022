@@ -6,7 +6,7 @@ from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
 from commands.indexer_toggle import IndexerToggle
-from commands2 import WaitCommand
+from commands.drive_wait import DriveWait
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.auto_pickup import AutoPickup
 from commands.auto_shoot import AutoShoot
@@ -26,7 +26,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
         trajectory_files = ['two_ball_traversal', 'terminal_to_shot']
-        path_velocity = 1
+        path_velocity = 2
 
         # run the initial two-ball command
 
@@ -41,7 +41,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[0], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
                                      dash=False, source='trajectory', trajectory=trajectory))
-        self.addCommands(WaitCommand(0.1))
+        self.addCommands(DriveWait(container=self.container, duration=0.1))
 
 
         # we now have two balls, drive back to take the shot
@@ -50,25 +50,15 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
                                      dash=False, source='trajectory', trajectory=trajectory))
-        self.addCommands(WaitCommand(0.1))
+        self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # rotate towards the hub
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
 
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=3))
-        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-        #                  andThen(WaitCommand(self.index_pulse_on)))
-        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-        #                  andThen(WaitCommand(self.index_pulse_off)))
-        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-        #                  andThen(WaitCommand(self.index_pulse_on)))
-        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-        #                  andThen(WaitCommand(self.index_pulse_off)))
-        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-        #                  andThen(WaitCommand(self.index_pulse_on)))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=3.2, autonomous=True))
 
         # start the shooter and move to the hub
-        self.addCommands(WaitCommand(.5))
+        self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # get close enough to see it
         #status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.3, y=0, heading=0, velocity=2, reverse=True)
