@@ -39,16 +39,17 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         self.addCommands(WaitCommand(.1))
 
         # next step - shoot twice
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-                         andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-                         andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=3))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        #                  andThen(WaitCommand(self.index_pulse_on)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
+        #                  andThen(WaitCommand(self.index_pulse_off)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        #                  andThen(WaitCommand(self.index_pulse_on)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
+        #                  andThen(WaitCommand(self.index_pulse_off)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        #                  andThen(WaitCommand(self.index_pulse_on)))
 
         # commands2.ParallelCommandGroup(IndexerHold(self.container, self.container.robot_indexer, 3))
         # self.addCommands(IndexerHold(self.container, self.container.robot_indexer, 3))

@@ -35,7 +35,7 @@ class Vision(SubsystemBase):
         self.counter += 1
 
         # update five times a second
-        if self.counter % 25 == 0:
+        if self.counter % 20 == 0:
             allianceColor = self.driver_station.getAlliance()
             if allianceColor == DriverStation.Alliance.kRed:
                 self.team_color = 'red'

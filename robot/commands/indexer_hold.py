@@ -4,7 +4,7 @@ from wpilib import SmartDashboard
 
 class IndexerHold(commands2.CommandBase):
 
-    def __init__(self, container, indexer, voltage=2, force=None) -> None:
+    def __init__(self, container, indexer, voltage=2, cycles=None, force=None) -> None:
         super().__init__()
         self.setName('IndexerHold')
         self.indexer = indexer
@@ -15,21 +15,25 @@ class IndexerHold(commands2.CommandBase):
         self.on_pulse_time = 0.15
         self.off_pulse_time = 0.35
         self.direction = 1
+        self.cycles = cycles
+
 
     def initialize(self) -> None:
         
         """Called just before this Command runs the first time."""
-        self.start_time = round(self.container.get_enabled_time(), 2)
-        print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
-        SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
+        self.start_time = self.container.get_enabled_time()
+        self.current_time = self.start_time
+
+        print("\n" + f"** Started {self.getName()} with cycles={self.cycles} at {self.start_time:2.2f} s **", flush=True)
+        # SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
         if self.container.co_driver_controller is not None:
             self.direction = -1 if self.container.co_driver_controller.getStartButton() else 1
 
         # puslse the indexer off and on
-        current_time = self.container.get_enabled_time() - self.start_time
-        if current_time % (self.on_pulse_time + self.off_pulse_time) < self.on_pulse_time:
+        self.current_time = self.container.get_enabled_time() - self.start_time
+        if self.current_time % (self.on_pulse_time + self.off_pulse_time) < self.on_pulse_time:
             if not self.indexer.indexer_enabled:
                 self.indexer.set_voltage(self.voltage * self.direction)
                 # print('shoot')
@@ -38,8 +42,12 @@ class IndexerHold(commands2.CommandBase):
                 self.indexer.stop_motor()
                 # print('wait')
 
-    def isFinished(self) -> bool:  
-        return False
+    def isFinished(self) -> bool:
+        if self.cycles is None:
+            return False
+        else:
+            # end if we have completed our set number of cycles
+            return self.current_time > self.cycles * (self.on_pulse_time + self.off_pulse_time)
 
     def end(self, interrupted: bool) -> None:
         self.indexer.stop_motor()

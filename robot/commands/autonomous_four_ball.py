@@ -55,16 +55,17 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         # rotate towards the hub
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
 
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-                         andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
-                         andThen(WaitCommand(self.index_pulse_off)))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
-                         andThen(WaitCommand(self.index_pulse_on)))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=3))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        #                  andThen(WaitCommand(self.index_pulse_on)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
+        #                  andThen(WaitCommand(self.index_pulse_off)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        #                  andThen(WaitCommand(self.index_pulse_on)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0).
+        #                  andThen(WaitCommand(self.index_pulse_off)))
+        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=self.indexer_speed).
+        #                  andThen(WaitCommand(self.index_pulse_on)))
 
         # start the shooter and move to the hub
         self.addCommands(WaitCommand(.5))
