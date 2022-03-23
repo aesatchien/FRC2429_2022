@@ -210,7 +210,7 @@ class RobotContainer:
         SmartDashboard.putData(AutonomousTwoBall(container=self))
         SmartDashboard.putData(AutoRamsete(container=self, drive=self.robot_drive, source='pathweaver'))
         SmartDashboard.putData(CompressorToggle(self, self.robot_pneumatics))
-        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.85, source='None'))
+        SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.6, source='None')) # was 0.85
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(IndexerHold(self, self.robot_indexer, 3))
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 2000))
