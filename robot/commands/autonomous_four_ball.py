@@ -26,7 +26,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
         trajectory_files = ['two_ball_traversal', 'terminal_to_shot']
-        path_velocity = 2
+        path_velocity = 1
 
         # run the initial two-ball command
 

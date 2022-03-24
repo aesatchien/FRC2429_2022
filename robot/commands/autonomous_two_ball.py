@@ -21,7 +21,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         self.intake_speed = 0.75
         self.index_pulse_on = 0.2
         self.index_pulse_off = 0.5
-        self.path_velocity = 1.5
+        self.path_velocity = 1
 
         trajectory_src = 'hub_to_ball'
 
