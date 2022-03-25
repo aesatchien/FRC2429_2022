@@ -55,7 +55,8 @@ class AutoRamsete(commands2.CommandBase):
         self.exit = False  # it is so hard to kill this command
 
         self.dash = dash  # ToDo: decide if I ever want to hide this or to make it a choice
-        if self.dash is True:
+        # if self.dash is True:
+        if True:
             ntinst = NetworkTablesInstance.getDefault()
             self.ramsete_table = ntinst.getTable('Ramsete')
             self.ramsete_table.putBoolean("ramsete_relative", True)
@@ -267,7 +268,9 @@ class AutoRamsete(commands2.CommandBase):
 
         self.container.robot_drive.tank_drive_volts(0, 0)  # why was this commented out?
 
-        self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
+        # self.write_telemetry = SmartDashboard.getBoolean("/ramsete/ramsete_write", self.write_telemetry)
+        self.write_telemetry = self.ramsete_table.getBoolean("ramsete_write", self.write_telemetry)
+
         if self.write_telemetry:
             location = Path.cwd() if constants.k_is_simulation else Path('/home/lvuser/py/')  # it's not called robot on the robot
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
