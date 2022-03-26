@@ -1,7 +1,11 @@
+import wpilib
 from commands2 import SubsystemBase
 from wpilib import SmartDashboard
 from networktables import NetworkTables
 from wpilib import DriverStation
+
+import constants
+
 
 class Vision(SubsystemBase):
     def __init__(self) -> None:
@@ -36,6 +40,12 @@ class Vision(SubsystemBase):
 
         # update five times a second
         if self.counter % 20 == 0:
+
+            if constants.k_is_simulation:
+                SmartDashboard.putNumber('match_time', wpilib.Timer.getFPGATimestamp())
+            else:
+                SmartDashboard.putNumber('match_time', DriverStation.getMatchTime())
+
             allianceColor = self.driver_station.getAlliance()
             if allianceColor == DriverStation.Alliance.kRed:
                 self.team_color = 'red'

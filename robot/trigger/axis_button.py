@@ -1,14 +1,11 @@
-from commands2.button import Button, JoystickButton
-from commands2 import Trigger
+from commands2.button import Button
 from wpilib import XboxController
-from wpilib import Joystick
-from wpilib.interfaces import GenericHID
+
 
 class AxisButton(Button):
     """
     A custom button that is used when pretending an axis button is digital.
     Note - don't forget the init for the parent!  Will crash in 2020 w/o it.
-
     In 2022 it seems we have to override the isPressed in init
     """
 
