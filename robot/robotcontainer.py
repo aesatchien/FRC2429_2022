@@ -1,5 +1,5 @@
 import time
-from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger
+from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger, PrintCommand
 from commands2.button import JoystickButton, Button, POVButton
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 
@@ -113,7 +113,7 @@ class RobotContainer:
         """Configure the buttons for the driver's controller"""
 
         # Create the driver's controller.
-        self.driver_controller = Joystick(constants.k_driver_controller_port)
+        self.driver_controller = XboxController(constants.k_driver_controller_port)
         self.buttonA = JoystickButton(self.driver_controller, 1)
         self.buttonB = JoystickButton(self.driver_controller, 2)
         self.buttonX = JoystickButton(self.driver_controller, 3)
@@ -126,8 +126,8 @@ class RobotContainer:
         self.buttonDown = POVButton(self.driver_controller, 180)
         self.buttonLeft = POVButton(self.driver_controller, 270)
         self.buttonRight = POVButton(self.driver_controller, 90)
-        #self.buttonLeftAxis = AxisButton(self.driver_controller, 1)
-        #self.buttonRightAxis = AxisButton(self.driver_controller, 5)
+        self.buttonLeftAxis = AxisButton(self.driver_controller, 2)
+        self.buttonRightAxis = AxisButton(self.driver_controller, 3)
 
         if self.competition_mode:
             self.co_driver_controller = XboxController(constants.k_co_driver_controller_port)
@@ -143,12 +143,17 @@ class RobotContainer:
             self.co_buttonDown = POVButton(self.co_driver_controller, 180)
             self.co_buttonLeft = POVButton(self.co_driver_controller, 270)
             self.co_buttonRight = POVButton(self.co_driver_controller, 90)
-            self.co_rightTrigger = AxisButton(self.co_driver_controller, 3)
+            # self.co_rightTrigger = AxisButton(self.co_driver_controller, 3)
         
         else:
             self.co_driver_controller = None
 
-        self.buttonX.whenPressed(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
+
+        self.buttonRightAxis.whenPressed(PrintCommand('Right Axis was pressed'))
+        self.buttonLeftAxis.whenPressed(PrintCommand('Left Axis was pressed'))
+
+        # self.buttonX.whenPressed(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
+
         #climbing
         self.buttonRight.whenHeld(ClimberSpin(self, self.robot_climber))
 
@@ -200,7 +205,7 @@ class RobotContainer:
             #compressor
             #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
 
-            self.co_rightTrigger.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
+            # self.co_rightTrigger.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         # lots of putdatas for testing on the dash
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
