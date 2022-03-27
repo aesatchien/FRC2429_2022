@@ -54,7 +54,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         #self.addCommands(DriveWait(container=self.container, duration=0.2))
 
         # next step - shoot twice
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=4.2, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1, autonomous=True))
 
         # no need to wait - add wait time into the cycling of the indexer, each cycle is 0.6s
         # self.addCommands(WaitCommand(.2))

@@ -4,7 +4,7 @@ from wpilib import SmartDashboard
 
 class IndexerHold(commands2.CommandBase):
 
-    def __init__(self, container, indexer, voltage=2, cycles=None, force=None, autonomous=False) -> None:
+    def __init__(self, container, indexer, voltage=2, shot_time=None, force=None, autonomous=False) -> None:
         super().__init__()
         self.setName('IndexerHold')
         self.indexer = indexer
@@ -12,11 +12,11 @@ class IndexerHold(commands2.CommandBase):
         self.voltage = voltage
         self.force = force
         self.addRequirements(indexer)  # commandsv2 version of requirements
-        self.on_pulse_time = 0.15
-        self.off_pulse_time = 0.35
+        self.on_pulse_time = 0.12  # was 0.15
+        self.off_pulse_time = 0.13 # was 0.35
         self.direction = 1
         self.autonomous = autonomous  # use this to feed the drive in auto
-        self.cycles = cycles
+        self.shot_time = shot_time
 
 
     def initialize(self) -> None:
@@ -25,7 +25,7 @@ class IndexerHold(commands2.CommandBase):
         self.start_time = self.container.get_enabled_time()
         self.current_time = self.start_time
 
-        print("\n" + f"** Started {self.getName()} with cycles={self.cycles} at {self.start_time:2.2f} s **", flush=True)
+        print("\n" + f"** Started {self.getName()} with shot_time={self.shot_time} at {self.start_time:2.2f} s **", flush=True)
         # SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
@@ -34,6 +34,7 @@ class IndexerHold(commands2.CommandBase):
 
         # puslse the indexer off and on
         self.current_time = self.container.get_enabled_time() - self.start_time
+
         if self.current_time % (self.on_pulse_time + self.off_pulse_time) < self.on_pulse_time:
             if not self.indexer.indexer_enabled:
                 self.indexer.set_voltage(self.voltage * self.direction)
@@ -47,11 +48,12 @@ class IndexerHold(commands2.CommandBase):
             self.container.robot_drive.feed()
 
     def isFinished(self) -> bool:
-        if self.cycles is None:
+        if self.shot_time is None:
             return False
         else:
             # end if we have completed our set number of cycles
-            return self.current_time > self.cycles * (self.on_pulse_time + self.off_pulse_time)
+            # return self.current_time > self.cycles * (self.on_pulse_time + self.off_pulse_time)
+            return self.current_time > self.shot_time
 
     def end(self, interrupted: bool) -> None:
         self.indexer.stop_motor()

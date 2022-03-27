@@ -56,7 +56,7 @@ class AutonomousThreeBall(commands2.SequentialCommandGroup):  # change the name 
         # rotate towards the hub
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
 
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=3.2, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1, autonomous=True))
 
         # start the shooter and move to the hub
         self.addCommands(DriveWait(container=self.container, duration=0.1))

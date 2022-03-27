@@ -55,12 +55,13 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
                                      dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[1]))
-        self.addCommands(DriveWait(container=self.container, duration=0.1))
+
 
         # rotate towards the hub
+        self.addCommands(DriveWait(container=self.container, duration=0.2))
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
 
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, cycles=3.2, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.5, autonomous=True))
 
         # start the shooter and move to the hub
         self.addCommands(DriveWait(container=self.container, duration=0.1))
