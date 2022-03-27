@@ -29,6 +29,7 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
         # since the robot back heavy, so the reverse needs to be stronger than the fwd - rev should be 0.125, fwd 0.25
         # actually, that's not true.  it's pretty even.  It tips if you let either one more than 0.04
         self.max_thrust_differential = 0.04  # 0.05 starts to get a bit tippy but not that bad, cory likes 0.04
+        self.max_thrust_differential = 0.04  # 0.05 starts to get a bit tippy but not that bad, cory likes 0.04
         self.max_thrust_differential_fwd = 0.04  # still helps with brownouts
         self.max_thrust_differential_rev = 0.04 # 0.04 should be safe in most cases unless you rock it like AC/DC
 

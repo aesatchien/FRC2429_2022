@@ -9,6 +9,7 @@ from commands.indexer_hold import IndexerHold
 from commands.drive_wait import DriveWait
 from commands.auto_set_pose import AutoSetPose
 
+import constants
 import trajectory_io
 
 class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name for your command
@@ -21,7 +22,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         self.intake_speed = 0.75
         self.index_pulse_on = 0.2
         self.index_pulse_off = 0.5
-        self.path_velocity = 1
+        self.path_velocity = constants.k_path_velocity
 
         trajectory_src = 'hub_to_ball'
 

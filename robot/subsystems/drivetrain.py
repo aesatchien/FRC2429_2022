@@ -95,19 +95,25 @@ class Drivetrain(SubsystemBase):
             self.error_dict.update({'conv_vel_' + str(ix): encoder.setVelocityConversionFactor(conversion_factor / 60.0)})  # native is rpm
 
         # Create the object for our odometry, which will utilize sensor data to keep a record of our position on the field
-        self.odometry = DifferentialDriveOdometry(geo.Rotation2d.fromDegrees(-self.navx.getAngle()))
+        # self.odometry = DifferentialDriveOdometry(geo.Rotation2d.fromDegrees(-self.navx.getAngle()))
 
         # Reset the encoders upon the initialization of the robot
         self.reset_encoders()
 
+        self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+        time.sleep(0.01)  # how long does it take to reset the navX?
+        self.odometry = DifferentialDriveOdometry(gyroAngle=geo.Rotation2d.fromDegrees(-self.navx.getAngle()), initialPose=geo.Pose2d(constants.k_start_x, constants.k_start_y,
+                                                                         geo.Rotation2d.fromDegrees(constants.k_start_heading)))
+
         # set us on the board where we want to be in simulation
         if constants.k_is_simulation:
-            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y,0))
+            # pass
+            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y, geo.Rotation2d.fromDegrees(constants.k_start_heading)))
+            # self.odometry = DifferentialDriveOdometry(initialPose=geo.Pose2d(constants.k_start_x, constants.k_start_y, geo.Rotation2d.fromDegrees(constants.k_start_heading)))
         else:
-            self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
-            time.sleep(0.01)  # how long does it take to reset the navX?
-            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x,
-                                constants.k_start_y, geo.Rotation2d().fromDegrees(constants.k_start_heading)))
+            pass
+            # self.reset_odometry(pose=geo.Pose2d(constants.k_start_x,
+            #                     constants.k_start_y, geo.Rotation2d().fromDegrees(constants.k_start_heading)))
 
         # configure the controllers
         self.configure_controllers(pid_only=False, burn_flash=False)
@@ -125,13 +131,9 @@ class Drivetrain(SubsystemBase):
     def reset_odometry(self, pose):  # used in ramsete
         """ Resets the robot's odometry to a given position."""
         print(f'resetting odometry to {pose}')
+        self.reset_encoders()
         self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
-        time.sleep(0.01)
-        # self.reset_encoders()  # necessary?
-        # this worked for ramsete, but is not coming up on dash
-        self.odometry.resetPosition(pose, self.navx.getRotation2d())
-        # trying a hard reset for 2022
-        #self.odometry = DifferentialDriveOdometry(pose=pose)
+        self.odometry = DifferentialDriveOdometry(gyroAngle=pose.rotation(), initialPose=pose)
 
     def arcade_drive(self, fwd, rot):
         """Drive the robot with standard arcade controls."""
@@ -161,7 +163,11 @@ class Drivetrain(SubsystemBase):
     def reset_encoders(self):  # part of resetting odometry
         """Resets the encoders of the drivetrain."""
         self.left_encoder.setPosition(0)
+        time.sleep(0.05)
+        self.feed()
         self.right_encoder.setPosition(0)
+        time.sleep(0.05)
+        self.feed()
 
     def get_average_encoder_distance(self):  # never used
         """
@@ -237,6 +243,7 @@ class Drivetrain(SubsystemBase):
             SmartDashboard.putNumber('drive_rpos', self.right_encoder.getPosition())
             SmartDashboard.putNumber('drive_lvel', self.left_encoder.getVelocity())
             SmartDashboard.putNumber('drive_rvel', self.right_encoder.getVelocity())
+            SmartDashboard.putNumber('navX', self.navx.getAngle())
 
         if self.counter % 100 == 0:
             pass
@@ -331,3 +338,11 @@ class Drivetrain(SubsystemBase):
             for i, controller in enumerate(self.controllers):
                 can_error = controller.burnFlash()
                 print(f'Burn flash on controller {i}: {can_error} {int(1000*(time.time()-start_time)):2d}ms after starting')
+
+    def set_brake_mode(self, mode):
+        brake_mode = rev.CANSparkMax.IdleMode.kBrake
+        if mode == 'coast':
+            brake_mode = rev.CANSparkMax.IdleMode.kCoast
+
+        for controller in self.controllers:
+            controller.setIdleMode(brake_mode)

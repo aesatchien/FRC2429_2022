@@ -20,8 +20,11 @@ k_thrust_scale = 0.7 #halfed
 k_twist_scale = 0.45
 
 k_max_thrust_velocity = 2.75  # m/s
-# k_max_twist_velocity = 1.25 # Bradley
-k_max_twist_velocity = 0.75
+k_max_twist_velocity = 1.25 # Bradley
+# k_max_twist_velocity = 0.75
+
+# --------------  AUTONOMOUS  ---------------
+k_path_velocity = 1
 
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers

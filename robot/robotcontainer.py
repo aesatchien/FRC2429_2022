@@ -1,5 +1,5 @@
 import time
-from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger, PrintCommand
+from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger, PrintCommand, InstantCommand
 from commands2.button import JoystickButton, Button, POVButton
 from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
 
@@ -33,6 +33,7 @@ from commands.tune_sparkmax_climber import TuneSparkmaxClimber
 
 from commands.autonomous_two_ball import AutonomousTwoBall
 from commands.autonomous_stage_two import AutonomousStageTwo
+from commands.autonomous_three_ball import AutonomousThreeBall
 from commands.autonomous_four_ball import AutonomousFourBall
 
 from trigger.axis_button import AxisButton
@@ -219,6 +220,8 @@ class RobotContainer:
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(IndexerHold(self, self.robot_indexer, 3))
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 2000))
+        SmartDashboard.putData('Reset Encoders', InstantCommand(lambda: self.robot_drive.reset_encoders()))
+        SmartDashboard.putData('Reset NavX', InstantCommand(lambda: self.robot_drive.navx.setAngleAdjustment(-constants.k_start_heading - self.robot_drive.navx.getYaw())))
 
         SmartDashboard.putData(AutoRotateSparkmax(self, self.robot_drive, target='degrees', degrees=90))
         SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
@@ -260,6 +263,6 @@ class RobotContainer:
         self.autonomous_chooser = SendableChooser()
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
         self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousTwoBall(self))
-        self.autonomous_chooser.addOption('3 ball lower', AutonomousStageTwo(self))
+        self.autonomous_chooser.addOption('3 ball terminal', AutonomousThreeBall(self))
         self.autonomous_chooser.addOption('4 ball lower', AutonomousFourBall(self))
         self.autonomous_chooser.addOption("Ramsete Test", AutoRamsete(container=self, drive=self.robot_drive, dash=False, relative=False, source='pathweaver'))

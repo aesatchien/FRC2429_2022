@@ -16,17 +16,17 @@ import constants
 import trajectory_io
 
 
-class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name for your command
+class AutonomousThreeBall(commands2.SequentialCommandGroup):  # change the name for your command
 
     def __init__(self, container) -> None:
         super().__init__()
-        self.setName('AutonomousFourBall')  # change this to something appropriate for this command
+        self.setName('AutonomousThreeBall')  # change this to something appropriate for this command
         self.container = container
         self.indexer_speed = 3.0
         self.intake_speed = 0.75
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
-        trajectory_files = ['two_ball_traversal', 'terminal_to_shot']
+        trajectory_files = ['terminal_ball', 'terminal_to_shot']
         path_velocity = constants.k_path_velocity
 
         # run the initial two-ball command
