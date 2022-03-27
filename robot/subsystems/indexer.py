@@ -77,13 +77,13 @@ class Indexer(SubsystemBase):
         self.indexer_stage_two_enable = False
 
     def set_voltage(self, voltage):
-        self.set_voltage_stage_one(voltage)
+        # self.set_voltage_stage_one(voltage)
         self.set_voltage_stage_two(voltage)
         self.indexer_enabled = True
         SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
 
     def stop_motor(self):
-        self.stop_stage_one_motor()
+        # self.stop_stage_one_motor()
         self.stop_stage_two_motor()
         self.indexer_enabled = False
         SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)

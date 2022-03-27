@@ -23,6 +23,9 @@ k_max_thrust_velocity = 2.75  # m/s
 k_max_twist_velocity = 1.25 # Bradley
 # k_max_twist_velocity = 0.75  # Aiden
 
+# --------------  AUTONOMOUS  ---------------
+k_path_velocity = 1
+
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers
 k_left_motor1_port = 1

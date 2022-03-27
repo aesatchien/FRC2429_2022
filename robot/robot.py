@@ -31,6 +31,8 @@ class MyRobot(commands2.TimedCommandRobot):
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
+        self.container.robot_drive.set_brake_mode(mode='coast')
+
     def disabledPeriodic(self) -> None:
         """This function is called periodically when disabled"""
 
@@ -42,6 +44,8 @@ class MyRobot(commands2.TimedCommandRobot):
         self.autonomousCommand = self.container.get_autonomous_command()
         if self.autonomousCommand:
             self.autonomousCommand.schedule()
+
+        self.container.robot_drive.set_brake_mode(mode='brake')
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
@@ -56,6 +60,8 @@ class MyRobot(commands2.TimedCommandRobot):
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
+        self.container.robot_drive.set_brake_mode(mode='brake')
+
 
     def teleopPeriodic(self) -> None:
         """This function is called periodically during operator control"""
@@ -63,6 +69,8 @@ class MyRobot(commands2.TimedCommandRobot):
     def testInit(self) -> None:
         # Cancels all running commands at the start of test mode
         commands2.CommandScheduler.getInstance().cancelAll()
+
+        self.container.robot_drive.set_brake_mode(mode='brake')
 
 
 if __name__ == "__main__":
