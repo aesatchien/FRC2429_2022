@@ -201,7 +201,7 @@ class RobotContainer:
             self.co_buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 3))
 
             #shooter
-            self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 3000))
+            self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
 
             #compressor
             #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
