@@ -64,13 +64,16 @@ class RobotContainer:
         self.robot_indexer = Indexer()
         self.robot_vision = Vision()
 
+        self.disabled_counter = 0
+
         # Create the driver's controller
         self.driver_controller = None
         self.co_driver_controller = None
         # Configure and set the button bindings for the driver's controller.
         self.initialize_joysticks()
         self.initialize_dashboard()
-        
+
+
         #mode
         self.is_endgame = False
 

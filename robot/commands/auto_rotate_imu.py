@@ -39,10 +39,10 @@ class AutoRotateImu(commands2.CommandBase):
             self.degrees = rotation_offset if hub_detected else 0
 
         if abs(self.degrees) > 30:
-            self.feed_forward = 0.25
+            self.feed_forward = 0.22
             self.controller = PIDController(0.0025, 0, 0.0001)
         else:
-            self.feed_forward = 0.2
+            self.feed_forward = 0.20
             self.controller = PIDController(0.0025, 0, 0.0001)
 
         self.controller.reset()

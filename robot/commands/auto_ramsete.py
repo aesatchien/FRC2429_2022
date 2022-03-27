@@ -130,8 +130,9 @@ class AutoRamsete(commands2.CommandBase):
                 self.end(interrupted=True)
 
         elif self.source == 'trajectory':  # we sent it a trajectory when we called the function
-            print('Following trajectory passed in ...')
-            self.course = 'parameter'
+            print(f'Following trajectory passed in {self.course} ...')
+            self.velocity = constants.k_path_velocity
+            # self.course = 'parameter'
 
         elif self.source == 'ball': # generate a tajectory from ball location
             (ball_detected, rotation_offset, distance) = self.container.robot_vision.getBallValues()

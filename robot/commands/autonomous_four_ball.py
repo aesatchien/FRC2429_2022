@@ -34,8 +34,8 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.addCommands(AutonomousTwoBall(self.container))
 
         # spin so we can make a faster trajectory
-        # self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive,
-        #                                source='degrees', degrees=110))
+        self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive,
+                                       source='degrees', degrees=110))
 
         # make sure intake system is running
         # self.addCommands(IndexerHold(container=self.container, indexer=self.container.robot_indexer, voltage=3))

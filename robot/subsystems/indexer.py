@@ -14,22 +14,22 @@ class Indexer(SubsystemBase):
 
         # motor
         motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
-        self.indexer_stage_one = rev.CANSparkMax(constants.k_indexer_neo_port, motor_type)
+        #self.indexer_stage_one = rev.CANSparkMax(constants.k_indexer_neo_port, motor_type)
         self.indexer_stage_two = rev.CANSparkMax(constants.k_flywheel_stage_one_neo_port, motor_type)
 
         # encoder
-        self.indexer_stage_one_encoder = self.indexer_stage_one.getEncoder()
+        #self.indexer_stage_one_encoder = self.indexer_stage_one.getEncoder()
         self.indexer_stage_two_encoder = self.indexer_stage_two.getEncoder()
         
         # controller
-        self.indexer_stage_one_controller = self.indexer_stage_one.getPIDController()
+        #self.indexer_stage_one_controller = self.indexer_stage_one.getPIDController()
         self.indexer_stage_two_controller = self.indexer_stage_two.getPIDController()
 
         # invert
-        self.indexer_stage_one.setInverted(False)
+        #self.indexer_stage_one.setInverted(False)
 
         # indexer state
-        self.indexer_stage_one_enable = False
+        #self.indexer_stage_one_enable = False
         self.indexer_stage_two_enable = False
         self.indexer_enabled = False
         SmartDashboard.putBoolean('indexer_state', self.indexer_enabled)
@@ -59,8 +59,9 @@ class Indexer(SubsystemBase):
 
 
     def set_voltage_stage_one(self, voltage):
-        self.indexer_stage_one_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
-        self.indexer_stage_one_enable = True
+        pass
+        #self.indexer_stage_one_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
+        #self.indexer_stage_one_enable = True
 
 
     def set_voltage_stage_two(self, voltage):
@@ -69,8 +70,9 @@ class Indexer(SubsystemBase):
 
 
     def stop_stage_one_motor(self):
-        self.indexer_stage_one_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
-        self.indexer_stage_one_enable = False
+        pass
+        #self.indexer_stage_one_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
+        #self.indexer_stage_one_enable = False
 
     def stop_stage_two_motor(self):
         self.indexer_stage_two_controller.setReference(0, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
@@ -90,11 +92,12 @@ class Indexer(SubsystemBase):
 
 
     def toggle_stage_one(self, voltage):
-        if self.indexer_stage_one_enable:
-            self.stop__stage_one_motor()
-        else:
-            self.set_voltage_stage_one(voltage)
-            
+        pass
+        # if self.indexer_stage_one_enable:
+        #     self.stop__stage_one_motor()
+        # else:
+        #     self.set_voltage_stage_one(voltage)
+
     def toggle_stage_two(self, voltage):
         if self.indexer_stage_two_enable:
             self.stop__stage_two_motor()
@@ -108,7 +111,7 @@ class Indexer(SubsystemBase):
             self.set_voltage(voltage)
 
     def check_enabled(self):
-        if self.indexer_stage_two_enable and self.indexer_stage_one_enable:
+        if self.indexer_stage_two_enable: # and self.indexer_stage_one_enable:
             self.indexer_enabled = True
         else:
             self.indexer_enabled = False
@@ -119,6 +122,6 @@ class Indexer(SubsystemBase):
 
         if self.counter % 25 == 0:
             # moved the on/off state to the functions themselves
-            SmartDashboard.putNumber('indexer_v1', self.indexer_stage_one.getAppliedOutput())
+            # SmartDashboard.putNumber('indexer_v1', self.indexer_stage_one.getAppliedOutput())
             SmartDashboard.putNumber('indexer_v2', self.indexer_stage_two.getAppliedOutput())
             # SmartDashboard.putNumber('indexer_ballsensor', self.ball_sensor.getValue())
