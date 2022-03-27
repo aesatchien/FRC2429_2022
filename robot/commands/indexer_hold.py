@@ -12,8 +12,8 @@ class IndexerHold(commands2.CommandBase):
         self.voltage = voltage
         self.force = force
         self.addRequirements(indexer)  # commandsv2 version of requirements
-        self.on_pulse_time = 0.12  # was 0.15
-        self.off_pulse_time = 0.13 # was 0.35
+        self.on_pulse_time = 0.1  # was 0.15
+        self.off_pulse_time = 0.2 # was 0.35
         self.direction = 1
         self.autonomous = autonomous  # use this to feed the drive in auto
         self.shot_time = shot_time

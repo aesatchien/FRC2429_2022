@@ -221,7 +221,7 @@ class RobotContainer:
         SmartDashboard.putData(CompressorToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(IntakeMotorToggle(container=self, intake=self.robot_intake, velocity=0.5, source='dash')) # was 0.85
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
-        SmartDashboard.putData(IndexerHold(self, self.robot_indexer, 3))
+        SmartDashboard.putData(IndexerHold(self, self.robot_indexer, 2.5))  # was 3
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 3000))
         SmartDashboard.putData('Reset Encoders', InstantCommand(lambda: self.robot_drive.reset_encoders()))
         SmartDashboard.putData('Reset NavX', InstantCommand(lambda: self.robot_drive.navx.setAngleAdjustment(-constants.k_start_heading - self.robot_drive.navx.getYaw())))

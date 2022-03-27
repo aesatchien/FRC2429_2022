@@ -19,9 +19,9 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         self.setName('AutonomousTwoBall')  # change this to something appropriate for this command
         self.container = container
         self.indexer_speed = 3.0
-        self.intake_speed = 0.85
-        self.index_pulse_on = 0.2
-        self.index_pulse_off = 0.5
+        self.intake_speed = 0.6
+        # self.index_pulse_on = 0.2
+        # self.index_pulse_off = 0.5
         self.path_velocity = constants.k_path_velocity
 
         trajectory_src = 'hub_to_ball'
@@ -46,7 +46,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         # self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_1))
 
         # hopefully pick up a ball
-        self.addCommands(DriveWait(container=self.container, duration=0.1))
+        # self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # next step - return to hub with the shooter on
         # status, self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)
@@ -54,7 +54,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         #self.addCommands(DriveWait(container=self.container, duration=0.2))
 
         # next step - shoot twice
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.5, autonomous=True))
 
         # no need to wait - add wait time into the cycling of the indexer, each cycle is 0.6s
         # self.addCommands(WaitCommand(.2))

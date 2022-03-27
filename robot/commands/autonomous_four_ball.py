@@ -23,9 +23,9 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.setName('AutonomousFourBall')  # change this to something appropriate for this command
         self.container = container
         self.indexer_speed = 3.0
-        self.intake_speed = 0.75
-        self.index_pulse_on = 0.15
-        self.index_pulse_off = 0.4
+        self.intake_speed = 0.6
+        # self.index_pulse_on = 0.15
+        # self.index_pulse_off = 0.4
         trajectory_files = ['two_ball_traversal', 'terminal_to_shot']
         path_velocity = constants.k_path_velocity
 
@@ -61,7 +61,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.addCommands(DriveWait(container=self.container, duration=0.2))
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
 
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.5, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.75, autonomous=True))
 
         # start the shooter and move to the hub
         self.addCommands(DriveWait(container=self.container, duration=0.1))
