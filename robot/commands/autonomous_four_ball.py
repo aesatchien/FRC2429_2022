@@ -46,7 +46,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
 
 
         # we now have two balls, drive back to take the shot
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=1900, force='on'))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=constants.k_shooter_speed, force='on'))
 
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,

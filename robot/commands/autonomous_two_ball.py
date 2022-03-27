@@ -34,7 +34,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
         # next step - reverse to a ball
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2200, force='on'))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=constants.k_shooter_speed, force='on'))
 
         # follow trajectory from starting position against hub to intake lower ball
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_src, velocity=self.path_velocity, display=True, save=False)
@@ -45,7 +45,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         # self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_1))
 
         # hopefully pick up a ball
-        self.addCommands(DriveWait(container=self.container, duration=1))
+        self.addCommands(DriveWait(container=self.container, duration=0.5))
 
         # next step - return to hub with the shooter on
         # status, self.traj_2 = trajectory_io.generate_quick_trajectory(x=1, y=0, heading=0, velocity=3, reverse=True)
