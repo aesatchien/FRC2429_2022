@@ -100,7 +100,10 @@ class Drivetrain(SubsystemBase):
         # Reset the encoders upon the initialization of the robot
         self.reset_encoders()
 
-        self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+        # self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+        #self.navx.setAngleAdjustment(-constants.k_start_heading - self.navx.getYaw())
+        # self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getYaw())
+
         time.sleep(0.01)  # how long does it take to reset the navX?
         self.odometry = DifferentialDriveOdometry(gyroAngle=geo.Rotation2d.fromDegrees(-self.navx.getAngle()), initialPose=geo.Pose2d(constants.k_start_x, constants.k_start_y,
                                                                          geo.Rotation2d.fromDegrees(constants.k_start_heading)))
@@ -108,7 +111,8 @@ class Drivetrain(SubsystemBase):
         # set us on the board where we want to be in simulation
         if constants.k_is_simulation:
             # pass
-            self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y, geo.Rotation2d.fromDegrees(constants.k_start_heading)))
+            pass
+            # self.reset_odometry(pose=geo.Pose2d(constants.k_start_x, constants.k_start_y, geo.Rotation2d.fromDegrees(constants.k_start_heading)))
             # self.odometry = DifferentialDriveOdometry(initialPose=geo.Pose2d(constants.k_start_x, constants.k_start_y, geo.Rotation2d.fromDegrees(constants.k_start_heading)))
         else:
             pass
@@ -132,7 +136,8 @@ class Drivetrain(SubsystemBase):
         """ Resets the robot's odometry to a given position."""
         print(f'resetting odometry to {pose}')
         self.reset_encoders()
-        self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+        self.navx.setAngleAdjustment(-constants.k_start_heading - self.navx.getYaw())
+        # self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
         self.odometry = DifferentialDriveOdometry(gyroAngle=pose.rotation(), initialPose=pose)
 
     def arcade_drive(self, fwd, rot):
