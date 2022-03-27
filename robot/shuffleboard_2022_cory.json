@@ -1049,6 +1049,17 @@
               "_source0": "network_table:///SmartDashboard/CompressorToggle",
               "_title": "SmartDashboard/CompressorToggle"
             }
+          },
+          "24,10": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/set shooter rpm",
+              "_title": "SmartDashboard/set shooter rpm"
+            }
           }
         }
       }

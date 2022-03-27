@@ -14,7 +14,7 @@ class Shooter(SubsystemBase):
         self.setName('Shooter')
         self.counter = 0
         self.PID_dict_vel = {'kP': 0.00021, 'kI': 0, 'kD': 0, 'kIz': 0, 'kFF': 0.000192}
-        self.smartmotion_maxvel = 2501  # rpm
+        self.smartmotion_maxvel = 5001  # rpm
         self.smartmotion_maxacc = 5001
         self.current_limit = 35
 
@@ -67,7 +67,7 @@ class Shooter(SubsystemBase):
         else:
             self.set_flywheel(rpm)
 
-    def set_pids(self, burn_flash=False):
+    def set_pids(self, burn_flash=True):
         self.error_dict = {}
         i = 0
         self.error_dict.update({'kP0_' + str(i): self.flywheel_left_controller.setP(self.PID_dict_vel['kP'], 0)})
@@ -90,6 +90,8 @@ class Shooter(SubsystemBase):
             # not too often
             SmartDashboard.putNumber('shooter_rpm', self.flywheel_left_encoder.getVelocity())
             SmartDashboard.putBoolean('shooter_ready', self.flywheel_left_encoder.getVelocity() > 1800)
+            SmartDashboard.putNumber('shooter_current', self.flywheel_left.getOutputCurrent())
+            SmartDashboard.putNumber('shooter_output', self.flywheel_left.getAppliedOutput())
             
             
 

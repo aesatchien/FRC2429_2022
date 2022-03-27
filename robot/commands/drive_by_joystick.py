@@ -59,19 +59,19 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
             if abs(d_thrust) > max_thrust_differential:
                 thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
                 thrust_sign = '+' if math.copysign(1, thrust) > 0 else '-'
-                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+                # print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
         if limit_decel == 'thrust':  # just look at the sign of the stick.  FWD-> REV is fine but 0->FWD as bad as REV-FWD so you are too slow to start
             max_thrust_differential = self.max_thrust_differential_rev if thrust > 0 else self.max_thrust_differential_fwd
             if abs(d_thrust) > max_thrust_differential:
                 thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
                 thrust_sign = '+' if math.copysign(1, thrust) > 0 else '-'
-                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+                # print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
         elif limit_decel == 'dthrust':  # look at the sign of the change in the stick - behaves the same as thrust control
             max_thrust_differential = self.max_thrust_differential_rev if d_thrust < 0 else self.max_thrust_differential_fwd
             if abs(d_thrust) > max_thrust_differential:
                 thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
                 thrust_sign = '+' if math.copysign(1, d_thrust) > 0 else '-'
-                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+                # print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
         elif limit_decel == 'momentum':  # look at the sign of the current momentum, seems to work well
             # may need to allow some neg velocity before switching limits or an intermediate value if we haven't built up speed
             vel = self.drive.get_average_encoder_rate()  # should be avg fwd velocity of robot
@@ -79,7 +79,7 @@ class DriveByJoytick(commands2.CommandBase):  # change the name for your command
             if abs(d_thrust) > max_thrust_differential:
                 thrust = self.previous_thrust - max_thrust_differential * math.copysign(1, d_thrust)
                 thrust_sign = '+' if math.copysign(1, vel) > 0 else '-'
-                print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
+                # print(f'Applying {thrust_sign} limit {max_thrust_differential} type {limit_decel}: previous thrust: {self.previous_thrust:.3f} delta_thrust: {d_thrust:0.3f}')
 
         self.previous_thrust = thrust
 

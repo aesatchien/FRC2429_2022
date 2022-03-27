@@ -6,7 +6,7 @@ class ShooterToggle(commands2.CommandBase):
 
     SmartDashboard.putNumber('set shooter rpm', 3000)
 
-    def __init__(self, container, shooter, rpm=2000, force=None) -> None:
+    def __init__(self, container, shooter, rpm=3000, force=None) -> None:
         super().__init__()
         self.setName('ShooterToggle')
         self.shooter = shooter
