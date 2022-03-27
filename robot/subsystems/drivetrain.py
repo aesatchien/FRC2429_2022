@@ -137,7 +137,9 @@ class Drivetrain(SubsystemBase):
         print(f'resetting odometry to {pose}')
         self.reset_encoders()
         self.navx.setAngleAdjustment(-constants.k_start_heading - self.navx.getYaw())
+
         # self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
+        #self.navx.setAngleAdjustment(constants.k_start_heading - self.navx.getAngle())
         self.odometry = DifferentialDriveOdometry(gyroAngle=pose.rotation(), initialPose=pose)
 
     def arcade_drive(self, fwd, rot):

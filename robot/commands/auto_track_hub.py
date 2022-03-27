@@ -21,7 +21,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
     def initialize(self) -> None:
         self.drive.arcade_drive(0, 0)
 
-        self.container.robot_shooter.set_flywheel(rpm=3000)
+        self.container.robot_shooter.set_flywheel(rpm=2500)
 
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
