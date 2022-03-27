@@ -9,6 +9,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "13,0": {
             "size": [
@@ -467,6 +468,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -679,6 +681,24 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
                   "_title": "PowerDistributionPanel[0]",
                   "Visuals/Show voltage and current values": true
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
+                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[3]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
+                  "_title": "LiveWindow/Ungrouped/Spark[5]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
+                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[1]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -734,6 +754,7 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
+        "titleType": 0,
         "tiles": {
           "3,0": {
             "size": [

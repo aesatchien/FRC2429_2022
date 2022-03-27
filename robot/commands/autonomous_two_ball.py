@@ -38,7 +38,8 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
 
         # follow trajectory from starting position against hub to intake lower ball
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_src, velocity=self.path_velocity, display=True, save=False)
-        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False, dash=False, source='trajectory', trajectory=trajectory))
+        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
+                                     dash=False, source='trajectory', trajectory=trajectory, course=trajectory_src))
 
         # drive straight backwards to intake ball
         # status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.4, y=0, heading=0, velocity=self.path_velocity, reverse=False)

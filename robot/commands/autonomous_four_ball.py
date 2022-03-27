@@ -33,6 +33,10 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
 
         self.addCommands(AutonomousTwoBall(self.container))
 
+        # spin so we can make a faster trajectory
+        # self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive,
+        #                                source='degrees', degrees=110))
+
         # make sure intake system is running
         # self.addCommands(IndexerHold(container=self.container, indexer=self.container.robot_indexer, voltage=3))
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
@@ -41,7 +45,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         # drive to terminal, getting open ball on the way
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[0], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
-                                     dash=False, source='trajectory', trajectory=trajectory))
+                                     dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[0]))
         self.addCommands(DriveWait(container=self.container, duration=0.1))
 
 
@@ -50,7 +54,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
 
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
-                                     dash=False, source='trajectory', trajectory=trajectory))
+                                     dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[1]))
         self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # rotate towards the hub

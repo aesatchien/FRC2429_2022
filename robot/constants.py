@@ -24,8 +24,8 @@ k_max_twist_velocity = 1.25 # Bradley
 # k_max_twist_velocity = 0.75  # Aiden
 
 # --------------  AUTONOMOUS  ---------------
-k_path_velocity = 2
-k_shooter_speed = 2500
+k_path_velocity = 1
+k_shooter_speed = 2700
 
 # --------------  DRIVETRAIN  ---------------
 # The CAN IDs for the drivetrain SparkMAX motor controllers
@@ -119,7 +119,7 @@ k_autonomous_voltage_constraint = DifferentialDriveVoltageConstraint(k_feed_forw
 k_ramsete_b = 2
 k_ramsete_zeta = 0.9
 # The P gain for our turn controllers.
-k_kp_drive_vel = 0.05 # 0.2  # used in Ramsete command
+k_kp_drive_vel = 0.15 # 0.2  # used in Ramsete command
 
 # The number of motors on the robot.
 k_drivetrain_motor_count = 4

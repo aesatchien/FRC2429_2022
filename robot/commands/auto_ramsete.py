@@ -30,7 +30,7 @@ class AutoRamsete(commands2.CommandBase):
     velocity = constants.k_max_speed_meters_per_second
     write_telemetry = False
 
-    def __init__(self, container, drive: Drivetrain, dash=True, relative=True, source=None, trajectory=None) -> None:
+    def __init__(self, container, drive: Drivetrain, dash=True, relative=True, source=None, trajectory=None, course=None) -> None:
         super().__init__()
         self.setName('AutoRamsete')
         self.drive = drive
@@ -50,7 +50,7 @@ class AutoRamsete(commands2.CommandBase):
         self.feed_forward = constants.k_feed_forward
         self.kinematics = constants.k_drive_kinematics
         self.start_time = None
-        self.course = None
+        self.course = course
 
         self.exit = False  # it is so hard to kill this command
 

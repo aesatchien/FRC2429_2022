@@ -31,7 +31,7 @@ class MyRobot(commands2.TimedCommandRobot):
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
-        self.container.robot_drive.set_brake_mode(mode='coast')
+        # self.container.robot_drive.set_brake_mode(mode='coast')
 
     def disabledPeriodic(self) -> None:
         """This function is called periodically when disabled"""
@@ -45,7 +45,7 @@ class MyRobot(commands2.TimedCommandRobot):
         if self.autonomousCommand:
             self.autonomousCommand.schedule()
 
-        #self.container.robot_drive.set_brake_mode(mode='brake')
+        self.container.robot_drive.set_brake_mode(mode='brake')
 
     def autonomousPeriodic(self) -> None:
         """This function is called periodically during autonomous"""
@@ -60,7 +60,7 @@ class MyRobot(commands2.TimedCommandRobot):
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
-        # self.container.robot_drive.set_brake_mode(mode='brake')
+        self.container.robot_drive.set_brake_mode(mode='brake')
 
 
     def teleopPeriodic(self) -> None:
