@@ -24,7 +24,7 @@ k_max_twist_velocity = 1.25 # Bradley
 # k_max_twist_velocity = 0.75  # Aiden
 
 # --------------  AUTONOMOUS  ---------------
-k_path_velocity = 1.9
+k_path_velocity = 2.25
 k_shooter_speed = 2700
 
 # --------------  DRIVETRAIN  ---------------
@@ -94,9 +94,9 @@ k_sparkmax_conversion_factor_meters = k_wheel_diameter_m * math.pi / k_gear_rati
 # k_start_y = 2.1
 # k_start_heading = -90 - 12
 
-k_start_x = 7.76
-k_start_y = 2.688
-k_start_heading = -111  # looking at the drawing originally tried -109
+k_start_x = 7.647
+k_start_y = 1.935
+k_start_heading = -90  # looking at the drawing originally tried -109
 
 # robot_characterization = {'ks':0.446, 'kv':1.55, 'ka':0.40, 'track_width':0.73}  # 2021 bot characterization
 robot_characterization = {'ks':0.291, 'kv':1.63, 'ka':0.293, 'track_width':0.89}  # 2022 climberbot

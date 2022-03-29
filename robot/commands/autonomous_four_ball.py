@@ -26,16 +26,21 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.intake_speed = 0.6
         # self.index_pulse_on = 0.15
         # self.index_pulse_off = 0.4
-        trajectory_files = ['two_ball_traversal', 'terminal_to_shot']
+        trajectory_files = ['two_ball_traversal', 'terminal_to_shot', 'ball_backup']
         path_velocity = constants.k_path_velocity
 
         # run the initial two-ball command
-
         self.addCommands(AutonomousTwoBall(self.container))
 
         # spin so we can make a faster trajectory
-        self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive,
-                                       source='degrees', degrees=110))
+        """self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive,
+                                       source='degrees', degrees=110))"""
+
+        # reverse and turn towards terminal to set up next trajectory
+        trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[2], velocity=path_velocity, display=True, save=False)
+        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
+                                     dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[0]))
+        # self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # make sure intake system is running
         # self.addCommands(IndexerHold(container=self.container, indexer=self.container.robot_indexer, voltage=3))
@@ -58,7 +63,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
 
 
         # rotate towards the hub
-        self.addCommands(DriveWait(container=self.container, duration=0.2))
+        self.addCommands(DriveWait(container=self.container, duration=0.3))
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
 
         self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.75, autonomous=True))
