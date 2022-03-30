@@ -26,15 +26,18 @@ class AutonomousThreeBall(commands2.SequentialCommandGroup):  # change the name 
         self.intake_speed = 0.75
         self.index_pulse_on = 0.15
         self.index_pulse_off = 0.4
-        trajectory_files = ['terminal_ball', 'terminal_to_shot']
+        trajectory_files = ['terminal_ball', 'terminal_to_shot', 'ball_backup']
         path_velocity = constants.k_path_velocity
 
         # run the initial two-ball command
-
         self.addCommands(AutonomousTwoBall(self.container))
 
+        # reverse and turn towards terminal to set up next trajectory
+        trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[2], velocity=path_velocity, display=True, save=False)
+        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
+                                     dash=False, source='trajectory', trajectory=trajectory))
+
         # make sure intake system is running
-        # self.addCommands(IndexerHold(container=self.container, indexer=self.container.robot_indexer, voltage=3))
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
@@ -54,19 +57,10 @@ class AutonomousThreeBall(commands2.SequentialCommandGroup):  # change the name 
         self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # rotate towards the hub
+        self.addCommands(DriveWait(container=self.container, duration=0.3)) # give time for camera to update targets
         self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
-
         self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1, autonomous=True))
-
-        # start the shooter and move to the hub
         self.addCommands(DriveWait(container=self.container, duration=0.1))
-
-        # get close enough to see it
-        #status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.3, y=0, heading=0, velocity=2, reverse=True)
-        #self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=True, source='trajectory', trajectory=self.traj_1))
-
-        # call the shooting routine
-        # self.addCommands(AutoShoot(self.container))
 
         # close up, turn off shooter
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
