@@ -8,6 +8,7 @@
 # on after that period of time. This can help you do more complex simulations
 # of your robot code without too much extra effort.
 #
+import math
 
 from wpilib import RobotController, SmartDashboard
 from wpilib.simulation import DifferentialDrivetrainSim
@@ -15,6 +16,7 @@ import wpilib.simulation as simlib  # 2021 name for the simulation library
 from wpimath.system import LinearSystemId
 from wpimath.system.plant import DCMotor
 import wpimath.geometry as geo
+from networktables import NetworkTables
 
 import constants
 
@@ -95,6 +97,12 @@ class PhysicsEngine:
         #self.physics_controller.move_robot(initial_position_transform)
         self.previous_pose = self.drivesim.getPose()
 
+        key = 'green'
+        self.ballcam_table = NetworkTables.getTable('BallCam')
+        self.targets_entry = self.ballcam_table.getEntry(f"/{key}/targets")
+        self.distance_entry =  self.ballcam_table.getEntry(f"/{key}/distance")
+        self.rotation_entry =  self.ballcam_table.getEntry(f"/{key}/rotation")
+
     def update_sim(self, now: float, tm_diff: float) -> None:
         """
         Called when the simulation parameters for the program need to be
@@ -144,11 +152,24 @@ class PhysicsEngine:
             SmartDashboard.putNumber('/sim/field_x', round(self.x, 2))  # ramsete reads this for new trajectories
             SmartDashboard.putNumber('/sim/field_y', round(self.y, 2))
             SmartDashboard.putNumber('/sim/field_rot', round(self.rot.degrees(), 2))
+            hub_dist, hub_rot = self.distance_to_hub()
+            SmartDashboard.putNumber('/sim/hub_dist', round(hub_dist, 2))
+            SmartDashboard.putNumber('/sim/hub_rot', round(hub_rot, 2))
+            self.targets_entry.setDouble(2)
+            self.distance_entry.setDouble(hub_dist)
+            self.rotation_entry.setDouble(self.pose.rotation().degrees() -hub_rot)
 
             #SmartDashboard.putNumber('sim/state', self.drivesim)
 
-    # ------------------  ROBOT PLACEMENT OPTIONS --------------------
+    def distance_to_hub(self): # example way, but VERY rigid - can't drag robot
+        hub_x, hub_y  = 8.25, 4.1
+        dx = self.pose.X() - hub_x
+        dy = self.pose.Y() - hub_y
+        distance = (dx**2 + dy**2)**0.5
+        rotation = math.atan2(dy, dx) * 180/math.pi
+        return distance, rotation
 
+    # ------------------  ROBOT PLACEMENT OPTIONS --------------------
     def place_robot(self): # example way, but VERY rigid - can't drag robot
         self.physics_controller.field.setRobotPose(self.drivesim.getPose())
 
