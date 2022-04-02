@@ -4,7 +4,7 @@ from wpilib import SmartDashboard
 
 class ShooterToggle(commands2.CommandBase):
 
-    SmartDashboard.putNumber('set shooter rpm', 3000)
+    SmartDashboard.putNumber('set shooter rpm', 2500)
 
     def __init__(self, container, shooter, rpm=3000, force=None) -> None:
         super().__init__()
@@ -17,7 +17,7 @@ class ShooterToggle(commands2.CommandBase):
 
     def initialize(self) -> None:
 
-        rpm = SmartDashboard.getNumber('set shooter rpm', 3000)
+        rpm = SmartDashboard.getNumber('set shooter rpm', 2500)
         
         if self.force == 'on':
             self.shooter.set_flywheel(self.rpm)

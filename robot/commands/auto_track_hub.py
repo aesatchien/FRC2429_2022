@@ -5,23 +5,26 @@ from wpimath.controller import PIDController
 
 class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
-    def __init__(self, container, drive, vision) -> None:
+    def __init__(self, container, drive, shooter, vision) -> None:
         super().__init__()
         self.setName('AutoTrackHub')  # change this to something appropriate for this command
         self.container = container
         self.drive = drive
+        self.shooter = shooter
         self.vision = vision
 
         self.controller = PIDController(0.01, 0, 0.0001)
         self.feed_forward = 0.15
         self.min_approach = 0.7
 
+        self.counter = 0
         self.addRequirements(drive)  # commandsv2 version of requirements
 
     def initialize(self) -> None:
         self.drive.arcade_drive(0, 0)
+        self.counter = 0
 
-        self.container.robot_shooter.set_flywheel(rpm=2500)
+        # self.container.robot_shooter.set_flywheel(rpm=2500)
 
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
@@ -31,6 +34,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
     def execute(self) -> None:
         self.drive.feed()
+        self.counter += 1
 
         (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
 
@@ -44,6 +48,17 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
             #thrust_output = 0.35 if distance > self.min_approach else 0
             self.drive.arcade_drive(0, twist_output)
+
+            # update shooter RPM 10 times per second
+            if self.counter % 5 == 0:
+                if distance < 1.4:
+                    self.shooter.set_flywheel(2300)
+                elif distance > 3.5:
+                    self.shooter.set_flywheel(2900)
+                else:
+                    # find RPM based on fit
+                    rpm = 275 * distance + 1958
+                    self.shooter.set_flywheel(rpm)
         else:
             print('hub not detected')
             self.drive.arcade_drive(0, 0)
