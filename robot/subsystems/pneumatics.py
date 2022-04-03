@@ -1,6 +1,6 @@
 import wpilib
 from commands2 import SubsystemBase
-from wpilib import SmartDashboard, Solenoid, Compressor, DoubleSolenoid
+from wpilib import SmartDashboard, Solenoid, Compressor, AnalogInput
 
 
 import constants
@@ -17,6 +17,8 @@ class Pneumatics(SubsystemBase):
         self.shifter = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_shifter_pneumatics_port)
         self.climber_piston_long = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_climber_long_port)
         self.climber_piston_short = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_climber_short_port)
+
+        self.pressure_sensor = AnalogInput(0)
 
         self.close_loop_enable = True
 
@@ -93,13 +95,25 @@ class Pneumatics(SubsystemBase):
         self.climber_piston_short.toggle()
         SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
 
+    def get_analog_pressure(self):
+        pressure = 250 * self.pressure_sensor.getVoltage() / 5 - 25
+        return pressure
+
     def periodic(self) -> None:
         
         self.counter += 1
 
+        if self.counter % 10 == 0:
+            pressure = self.get_analog_pressure()
+            if pressure >= 120:
+                self.stop_compressor()
+            elif pressure <= 110:
+                self.start_compressor()
+
         if self.counter % 25 == 1:
             # the compressor turns itself off and on, so we have to ask it its state
             SmartDashboard.putBoolean('compressor_state', self.compressor.enabled())
+            SmartDashboard.putNumber('pressure', self.get_analog_pressure())
 
 
 

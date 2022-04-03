@@ -39,39 +39,35 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.feed()
         self.counter += 1
 
-        (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
+        if self.counter % 10 == 0:
 
-        error = abs(rotation_offset)
-        
-        if hub_detected and (error > 2):
-            # print(f"attempting to turn  to hub at {rotation_offset:2.1f}...")
-            if constants.k_is_simulation:  # keep sim from going crazy
-                orientation = self.drive.navx.getAngle()
-                SmartDashboard.putNumber('/sim/track_sp', orientation + rotation_offset)
-                twist_output = self.controller.calculate(orientation,  orientation + rotation_offset)
-                twist_output = min(0.2, twist_output) if twist_output > 0 else max(-.2, twist_output)
-                twist_output += copysign(1, rotation_offset) * self.feed_forward * 0.2
-            else:
-                orientation = self.drive.navx.getAngle()
-                twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
-                twist_output += copysign(1, rotation_offset) * self.feed_forward
+            (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
 
-            #thrust_output = 0.35 if distance > self.min_approach else 0
-            self.drive.arcade_drive(0, twist_output)
+            error = abs(rotation_offset)
 
-            # update shooter RPM 10 times per second
-            if self.counter % 5 == 0:
-                if distance < 1.4:
-                    self.shooter.set_flywheel(2300)
-                elif distance > 3.5:
-                    self.shooter.set_flywheel(2900)
+            if hub_detected and (error > 2):
+                # print(f"attempting to turn  to hub at {rotation_offset:2.1f}...")
+                if constants.k_is_simulation:  # keep sim from going crazy
+                    orientation = self.drive.navx.getAngle()
+                    SmartDashboard.putNumber('/sim/track_sp', orientation + rotation_offset)
+                    twist_output = self.controller.calculate(orientation,  orientation + rotation_offset)
+                    twist_output = min(0.2, twist_output) if twist_output > 0 else max(-.2, twist_output)
+                    twist_output += copysign(1, rotation_offset) * self.feed_forward * 0.2
                 else:
-                    # find RPM based on fit
-                    rpm = 275 * distance + 1958
-                    self.shooter.set_flywheel(rpm)
-        else:
-            print('hub not detected')
-            self.drive.arcade_drive(0, 0)
+                    orientation = self.drive.navx.getAngle()
+                    twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
+                    twist_output += copysign(1, rotation_offset) * self.feed_forward
+
+                #thrust_output = 0.35 if distance > self.min_approach else 0
+                self.drive.arcade_drive(0, twist_output)
+
+                # update shooter RPM 10 times per second
+
+            else:
+                # print('hub not detected')
+                self.drive.arcade_drive(0, 0)
+
+        self.shooter.set_flywheel(self.vision.getShooterRpm())
 
     def isFinished(self) -> bool:
         return False

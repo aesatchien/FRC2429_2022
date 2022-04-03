@@ -6,16 +6,25 @@ from wpilib import SmartDashboard
 
 class ClimberRotateSetDistance(commands2.CommandBase):
 
-    def __init__(self, container, climber) -> None:
+    def __init__(self, container, climber, setpoint) -> None:
         super().__init__()
         self.setName('ClimberRotateSetDistance')
         self.climber = climber
         self.container = container
+        self.setpoint = setpoint
+        self.max_vel = 20
+        self.max_accel = 500
         self.addRequirements(climber)  # commandsv2 version of requirements
 
     def initialize(self) -> None:
         """Called just before this Command runs the first time."""
-        start_angle = self.climber.get_angle()
+        self.climber.configure_controllers(pid_only=False)
+
+        self.initial_position = self.climber.climber_left_encoder.getPosition()
+
+        self.climber.climber_left_controller.setSmartMotionMaxVelocity(self.max_vel, 0)
+        self.climber.climber_left_controller.setSmartMotionMaxAccel(self.max_accel, 0)
+        self.climber.smart_motion(self.setpoint, relative=False)
 
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)
@@ -26,7 +35,7 @@ class ClimberRotateSetDistance(commands2.CommandBase):
 
     def isFinished(self) -> bool:
         # return not self.container.driver_controller.getYButton()
-        return False
+        return True
 
     def end(self, interrupted: bool) -> None:
         self.climber.stop_motor()

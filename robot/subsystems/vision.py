@@ -80,3 +80,15 @@ class Vision(SubsystemBase):
 
     def getHubValues(self):
         return (self.hub_targets > 0, self.hub_rotation + self.hub_offset , self.hub_distance)
+
+    def getShooterRpm(self):
+        if self.hub_targets > 0:
+            if self.hub_distance < 1.4:
+                return 2300
+            elif self.hub_distance > 3.5:
+                return 2900
+            else:
+                # find RPM based on fit
+                return 275 * self.hub_distance + 1958
+        else:
+            return 2500

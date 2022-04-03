@@ -37,6 +37,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
                                        source='degrees', degrees=110))"""
 
         # reverse and turn towards terminal to set up next trajectory
+
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[2], velocity=path_velocity, display=True, save=False)
         self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
                                      dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[0]))
@@ -46,6 +47,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         # self.addCommands(IndexerHold(container=self.container, indexer=self.container.robot_indexer, voltage=3))
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
+        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=3, force='on'))
 
         # drive to terminal, getting open ball on the way
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[0], velocity=path_velocity, display=True, save=False)
@@ -55,6 +57,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
 
 
         # we now have two balls, drive back to take the shot
+        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=3, force='off'))
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=constants.k_shooter_speed, force='on'))
 
         trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)

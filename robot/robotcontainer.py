@@ -30,8 +30,10 @@ from commands.shifter_toggle import ShifterToggle
 from commands.shooter_toggle import ShooterToggle
 from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.tune_sparkmax_climber import TuneSparkmaxClimber
+from commands.climber_rotate_set_distance import ClimberRotateSetDistance
 
 from commands.autonomous_two_ball import AutonomousTwoBall
+from commands.autonomous_general_two_ball import AutonomousGeneralTwoBall
 from commands.autonomous_stage_two import AutonomousStageTwo
 from commands.autonomous_three_ball import AutonomousThreeBall
 from commands.autonomous_four_ball import AutonomousFourBall
@@ -192,8 +194,7 @@ class RobotContainer:
 
         if self.competition_mode:
             #climber
-            #self.co_buttonY.whileHeld(SpinClimber(self, self.robot_climber))
-
+            # self.co_buttonY.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 57))
             #intake
             self.co_buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
             self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.6))
@@ -266,6 +267,7 @@ class RobotContainer:
         self.autonomous_chooser = SendableChooser()
         SmartDashboard.putData('autonomous routines', self.autonomous_chooser)
         self.autonomous_chooser.setDefaultOption('2 ball only', AutonomousTwoBall(self))
+        self.autonomous_chooser.addOption('2 ball general', AutonomousGeneralTwoBall(self))
         self.autonomous_chooser.addOption('3 ball terminal', AutonomousThreeBall(self))
         self.autonomous_chooser.addOption('4 ball lower', AutonomousFourBall(self))
         self.autonomous_chooser.addOption("Ramsete Test", AutoRamsete(container=self, drive=self.robot_drive, dash=False, relative=False, source='pathweaver'))
