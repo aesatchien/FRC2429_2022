@@ -51,6 +51,8 @@ k_intake_pneumatic_port = 2 # PCM
 k_flywheel_left_neo_port = 8 # CAN ID
 k_flywheel_right_neo_port = 6 # CAN ID
 k_flywheel_stage_one_neo_port = 7 # CAN ID
+k_shooter_hood_bottom_port = 4 # PCM
+k_shooter_hood_top_port = 5 # PCM
 
 # --------------  CLIMBER  ---------------
 k_climber_left_port = 10 # CAN ID

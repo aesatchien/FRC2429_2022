@@ -197,9 +197,7 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/drive_lvel": true,
-              "Visible data/SmartDashboard/drive_rvel": true
+              "Y-axis/Unit": "ul"
             }
           },
           "5,4": {
@@ -217,9 +215,7 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/drive_lpos": true,
-              "Visible data/SmartDashboard/drive_rpos": true
+              "Y-axis/Unit": "ul"
             }
           },
           "2,0": {
@@ -412,11 +408,6 @@
                 },
                 {
                   "_type": "Text View",
-                  "_source0": "network_table:///Rev_Climber/kD_pos",
-                  "_title": "Rev_Climber/kD_pos"
-                },
-                {
-                  "_type": "Text View",
                   "_source0": "network_table:///Rev_Climber/pos_sp",
                   "_title": "Rev_Climber/pos_sp"
                 },
@@ -434,6 +425,11 @@
                   "_type": "Text View",
                   "_source0": "network_table:///Rev_Climber/pos_max_vel",
                   "_title": "/Rev_Climber/pos_max_vel"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///Rev_Climber/kD_pos",
+                  "_title": "Rev_Climber/kD_pos"
                 }
               ]
             }
@@ -452,8 +448,7 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/climber_velocity": true
+              "Y-axis/Unit": "ul"
             }
           }
         }

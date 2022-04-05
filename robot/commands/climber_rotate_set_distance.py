@@ -3,7 +3,6 @@ import math
 import commands2
 from wpilib import SmartDashboard
 
-
 class ClimberRotateSetDistance(commands2.CommandBase):
 
     def __init__(self, container, climber, setpoint) -> None:
@@ -12,8 +11,10 @@ class ClimberRotateSetDistance(commands2.CommandBase):
         self.climber = climber
         self.container = container
         self.setpoint = setpoint
+
         self.max_vel = 20
         self.max_accel = 500
+
         self.addRequirements(climber)  # commandsv2 version of requirements
 
     def initialize(self) -> None:
@@ -34,8 +35,8 @@ class ClimberRotateSetDistance(commands2.CommandBase):
         pass
 
     def isFinished(self) -> bool:
-        # return not self.container.driver_controller.getYButton()
-        return True
+        error = self.setpoint - (self.climber.climber_left_encoder.getPosition() - self.initial_position)
+        return abs(error) < 0.1
 
     def end(self, interrupted: bool) -> None:
         self.climber.stop_motor()

@@ -149,8 +149,9 @@ class RobotContainer:
             self.co_buttonDown = POVButton(self.co_driver_controller, 180)
             self.co_buttonLeft = POVButton(self.co_driver_controller, 270)
             self.co_buttonRight = POVButton(self.co_driver_controller, 90)
-            # self.co_rightTrigger = AxisButton(self.co_driver_controller, 3)
-        
+            self.co_leftTrigger = AxisButton(self.co_driver_controller, 2)
+            self.co_rightTrigger = AxisButton(self.co_driver_controller, 3)
+
         else:
             self.co_driver_controller = None
 
@@ -194,18 +195,24 @@ class RobotContainer:
 
         if self.competition_mode:
             #climber
-            # self.co_buttonY.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 57))
+            self.co_buttonB.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 37))
+            self.co_buttonY.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 127))
+
+
             #intake
             self.co_buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
             self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.6))
 
             #indexer
-            self.co_buttonRB.whenPressed(IndexerToggle(self, self.robot_indexer, 2))
+            self.co_buttonRB.whenPressed(IndexerToggle(self, self.robot_indexer, 6))
             # self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
-            self.co_buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 3))
+            self.co_buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 5))
 
             #shooter
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
+            self.co_rightTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='retract'))
+            self.co_leftTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='extend'))
+            self.co_buttonX.whenPressed(lambda: self.robot_pneumatics.toggle_shooter_hood())
 
             #compressor
             #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))

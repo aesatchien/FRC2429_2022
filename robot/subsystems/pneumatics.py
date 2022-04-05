@@ -1,6 +1,6 @@
 import wpilib
 from commands2 import SubsystemBase
-from wpilib import SmartDashboard, Solenoid, Compressor, AnalogInput
+from wpilib import SmartDashboard, Solenoid, Compressor, AnalogInput, DoubleSolenoid
 
 
 import constants
@@ -17,6 +17,7 @@ class Pneumatics(SubsystemBase):
         self.shifter = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_shifter_pneumatics_port)
         self.climber_piston_long = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_climber_long_port)
         self.climber_piston_short = Solenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_climber_short_port)
+        self.shooter_hood_piston = DoubleSolenoid(wpilib.PneumaticsModuleType.CTREPCM, constants.k_shooter_hood_top_port, constants.k_shooter_hood_bottom_port)
 
         self.pressure_sensor = AnalogInput(0)
 
@@ -30,11 +31,14 @@ class Pneumatics(SubsystemBase):
 
         # Decide on init piston position
         self.intake_extended = False
+        self.shooter_hood_extended = False
+
         SmartDashboard.putBoolean('intake_extended', self.intake_extended)
         SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
         SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
         SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
         SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
+        SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
 
     def set_intake_piston(self, position):
@@ -83,7 +87,23 @@ class Pneumatics(SubsystemBase):
     def toggle_shifting(self):
         self.shifter.toggle()
         SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
-    
+
+    def set_shooter_hood_position(self, position):
+        if position == 'extend':
+            self.shooter_hood_extended = True
+            self.shooter_hood_piston.set(DoubleSolenoid.Value.kForward)
+        elif position == 'retract':
+            self.shooter_hood_extended = False
+            self.shooter_hood_piston.set(DoubleSolenoid.Value.kReverse)
+
+        SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
+
+    def toggle_shooter_hood(self):
+        self.shooter_hood_piston.toggle()
+        self.shooter_hood_extended = not self.shooter_hood_extended
+
+        SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
+
     def get_shifting_state(self):
         self.shifter.get()
 

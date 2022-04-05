@@ -10,8 +10,6 @@ class Indexer(SubsystemBase):
         self.setName('Indexer')
         self.counter = 0
 
-        self.ball_sensor = AnalogInput(0)
-
         # motor
         motor_type = rev.CANSparkMaxLowLevel.MotorType.kBrushless
         #self.indexer_stage_one = rev.CANSparkMax(constants.k_indexer_neo_port, motor_type)
