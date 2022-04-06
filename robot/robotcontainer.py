@@ -170,8 +170,8 @@ class RobotContainer:
             self.co_driver_controller = None
 
 
-        self.buttonRightAxis.whenPressed(PrintCommand('Right Axis was pressed'))
-        self.buttonLeftAxis.whenPressed(PrintCommand('Left Axis was pressed'))
+        #self.buttonRightAxis.whenPressed(PrintCommand('Right Axis was pressed'))
+        #self.buttonLeftAxis.whenPressed(PrintCommand('Left Axis was pressed'))
 
         # self.buttonX.whenPressed(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
 
@@ -201,7 +201,7 @@ class RobotContainer:
         self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_shooter, self.robot_vision))
         #self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         # Testing autonomous calls - may want to bind them to calling on the dashboard
-        self.buttonB.whileHeld((AutoShoot(self)))
+        # self.buttonB.whileHeld((AutoShoot(self)))
 
         #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
         #self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))

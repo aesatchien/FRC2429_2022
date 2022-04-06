@@ -22,7 +22,7 @@ class Pneumatics(SubsystemBase):
 
         self.close_loop_enable = True
 
-        competition = False
+        competition = True
         if competition:
             self.start_compressor()
         else:
@@ -31,14 +31,14 @@ class Pneumatics(SubsystemBase):
         # Decide on init piston position
         self.intake_extended = False
         self.shooter_hood_extended = False
-        self.set_shooter_hood_position(position='retracted')  # make sure this is set since it remembers previous
+        self.set_shooter_hood_position(position='retract')  # make sure this is set since it remembers previous
 
         SmartDashboard.putBoolean('intake_extended', self.intake_extended)
         SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
         SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
         SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
         SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
-        SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
+        # SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
 
 
@@ -92,13 +92,13 @@ class Pneumatics(SubsystemBase):
     def set_shooter_hood_position(self, position):
         if position == 'extend':
             self.shooter_hood_extended = True
-            self.shooter_hood_piston.set(DoubleSolenoid.Value.kForward)
+            self.shooter_hood_piston.set(DoubleSolenoid.Value.kReverse)
         elif position == 'retract':
             self.shooter_hood_extended = False
-            self.shooter_hood_piston.set(DoubleSolenoid.Value.kReverse)
+            self.shooter_hood_piston.set(DoubleSolenoid.Value.kForward)
         SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
-    def toggle_shooter_hood(self):
+    def toggle_shooter_hood_position(self):
         self.shooter_hood_piston.toggle()
         self.shooter_hood_extended = not self.shooter_hood_extended
         SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
@@ -122,12 +122,13 @@ class Pneumatics(SubsystemBase):
         
         self.counter += 1
 
-        if self.counter % 10 == 0:
-            pressure = self.get_analog_pressure()
-            if pressure >= 120:
-                self.stop_compressor()
-            elif pressure <= 110:
-                self.start_compressor()
+        # got rid of analog sensor
+        # if self.counter % 10 == 0:
+        #     pressure = self.get_analog_pressure()
+        #     if pressure >= 120:
+        #         self.stop_compressor()
+        #     elif pressure <= 110:
+        #         self.start_compressor()
 
         if self.counter % 25 == 1:
             # the compressor turns itself off and on, so we have to ask it its state

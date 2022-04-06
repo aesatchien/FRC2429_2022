@@ -20,7 +20,8 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.shooter = shooter
         self.vision = vision
 
-        self.controller = PIDController(0.01, 0, 0.0001)
+        self.controller = PIDController(0.005, 0.005, 0.0001)
+        self.controller.setIntegratorRange(0, 0.1)  # integral reacts quickly but is capped at a low value
         self.feed_forward = 0.15
         self.min_approach = 0.7
 
@@ -31,10 +32,12 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.arcade_drive(0, 0)
         self.counter = 0
 
-        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', 0.01))
-        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', 0))
-        self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', 0.0001))
+        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', 0.005))
+        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', 0.005))
+        self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', 0.0000))
         self.feed_forward = SmartDashboard.getNumber('AutoTrackHub/ff', 0.15)
+
+        self.shooter.set_flywheel(2500)
 
         print(f"\nkp: {self.controller.getP()}\tki: {self.controller.getI()}\tkd: {self.controller.getD()}\tff: {self.feed_forward}")
 
@@ -48,7 +51,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.feed()
         self.counter += 1
 
-        if self.counter % 10 == 0:
+        if self.counter % 5 == 0:
             (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
 
             error = abs(rotation_offset)
@@ -75,7 +78,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
                 # print('hub not detected')
                 self.drive.arcade_drive(0, 0)
 
-        # self.shooter.set_flywheel(self.vision.getShooterRpm())
+            self.shooter.set_flywheel(self.vision.getShooterRpm())
 
     def isFinished(self) -> bool:
         return False

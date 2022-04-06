@@ -13,7 +13,7 @@ class Vision(SubsystemBase):
         self.setName('Vision')
         self.counter = 0
 
-        self.hub_offset = 0
+        self.hub_offset = -4
 
         self.ballcam_table = NetworkTables.getTable('BallCam')
         self.driver_station = DriverStation.getInstance()
