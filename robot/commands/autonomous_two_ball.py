@@ -18,7 +18,7 @@ class AutonomousTwoBall(commands2.SequentialCommandGroup):  # change the name fo
         super().__init__()
         self.setName('AutonomousTwoBall')  # change this to something appropriate for this command
         self.container = container
-        self.indexer_speed = 3.0
+        self.indexer_speed = 6.0
         self.intake_speed = 0.6
         # self.index_pulse_on = 0.2
         # self.index_pulse_off = 0.5

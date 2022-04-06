@@ -9,6 +9,9 @@ from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
 import math
 import wpimath.controller
 
+# --------------  LED  --------------
+k_led_strip_port = 0 # PWM
+
 # --------------  OI  ---------------
 # ID for the driver's joystick (template)
 k_driver_controller_port = 0

@@ -197,7 +197,9 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/drive_lvel": true,
+              "Visible data/SmartDashboard/drive_rvel": true
             }
           },
           "5,4": {
@@ -215,7 +217,9 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/drive_lpos": true,
+              "Visible data/SmartDashboard/drive_rpos": true
             }
           },
           "2,0": {
@@ -448,7 +452,8 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/climber_velocity": true
             }
           }
         }
@@ -694,6 +699,11 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
                   "_title": "LiveWindow/Ungrouped/PWMSparkMax[1]",
                   "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[0,5]/Value",
+                  "_title": "LiveWindow/Ungrouped/DoubleSolenoid[0,5]/Value"
                 }
               ]
             }

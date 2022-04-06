@@ -5,6 +5,10 @@ from wpimath.controller import PIDController
 
 import constants
 
+SmartDashboard.putNumber('AutoTrackHub/kp', .01)
+SmartDashboard.putNumber('AutoTrackHub/ki', 0)
+SmartDashboard.putNumber('AutoTrackHub/kd', 0.0001)
+SmartDashboard.putNumber('AutoTrackHub/ff', 0.15)
 
 class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
@@ -27,7 +31,12 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.arcade_drive(0, 0)
         self.counter = 0
 
-        # self.container.robot_shooter.set_flywheel(rpm=2500)
+        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', 0.01))
+        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', 0))
+        self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', 0.0001))
+        self.feed_forward = SmartDashboard.getNumber('AutoTrackHub/ff', 0.15)
+
+        print(f"\nkp: {self.controller.getP()}\tki: {self.controller.getI()}\tkd: {self.controller.getD()}\tff: {self.feed_forward}")
 
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
@@ -40,7 +49,6 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.counter += 1
 
         if self.counter % 10 == 0:
-
             (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
 
             error = abs(rotation_offset)
@@ -67,7 +75,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
                 # print('hub not detected')
                 self.drive.arcade_drive(0, 0)
 
-        self.shooter.set_flywheel(self.vision.getShooterRpm())
+        # self.shooter.set_flywheel(self.vision.getShooterRpm())
 
     def isFinished(self) -> bool:
         return False

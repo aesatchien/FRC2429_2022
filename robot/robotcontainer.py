@@ -1,7 +1,7 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger, PrintCommand, InstantCommand
 from commands2.button import JoystickButton, Button, POVButton
-from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
+from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick, AddressableLED
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.intake import Intake
@@ -78,6 +78,13 @@ class RobotContainer:
 
         #mode
         self.is_endgame = False
+
+        # not sure where this should go (LED)
+        self.led_strip = AddressableLED(constants.k_led_strip_port)
+        self.led_data = [AddressableLED.LEDData() for _ in range(20)]
+        self.led_strip.setLength(len(self.led_data))
+        self.led_strip.setData(self.led_data)
+        self.led_strip.start()
 
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
@@ -195,8 +202,8 @@ class RobotContainer:
 
         if self.competition_mode:
             #climber
-            self.co_buttonB.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 37))
-            self.co_buttonY.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 127))
+            self.co_buttonB.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 36))
+            self.co_buttonY.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 126))
 
 
             #intake
