@@ -21,7 +21,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.vision = vision
 
         self.controller = PIDController(0.005, 0.005, 0.0001)
-        self.controller.setIntegratorRange(0, 0.1)  # integral reacts quickly but is capped at a low value
+        self.controller.setIntegratorRange(0, 0.12)  # integral reacts quickly but is capped at a low value
         self.feed_forward = 0.15
         self.min_approach = 0.7
 
@@ -32,8 +32,8 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.arcade_drive(0, 0)
         self.counter = 0
 
-        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', 0.005))
-        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', 0.005))
+        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', 0.014))
+        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', 0.014))
         self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', 0.0000))
         self.feed_forward = SmartDashboard.getNumber('AutoTrackHub/ff', 0.15)
 
@@ -51,7 +51,7 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.feed()
         self.counter += 1
 
-        if self.counter % 5 == 0:
+        if self.counter % 10 == 0:
             (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
 
             error = abs(rotation_offset)
