@@ -28,6 +28,7 @@ from commands.climber_spin import ClimberSpin
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.shifter_toggle import ShifterToggle
 from commands.shooter_toggle import ShooterToggle
+from commands.shooter_hood_toggle import ShooterHoodToggle
 from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.tune_sparkmax_climber import TuneSparkmaxClimber
 from commands.climber_rotate_set_distance import ClimberRotateSetDistance
@@ -124,6 +125,12 @@ class RobotContainer:
 
     def initialize_joysticks(self):
         """Configure the buttons for the driver's controller"""
+
+        led = AddressableLED(0)
+        data = [AddressableLED.LEDData(255, 0, 0) for x in range(10)]
+        led.setLength(len(data))
+        led.setData(data)
+        led.start()
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)
@@ -238,6 +245,7 @@ class RobotContainer:
         SmartDashboard.putData(IntakePositionToggle(self, self.robot_pneumatics))
         SmartDashboard.putData(IndexerHold(self, self.robot_indexer, 2.5))  # was 3
         SmartDashboard.putData(ShooterToggle(self, self.robot_shooter, 3000))
+        SmartDashboard.putData(ShooterHoodToggle(self, self.robot_pneumatics))
         SmartDashboard.putData('Reset Encoders', InstantCommand(lambda: self.robot_drive.reset_encoders()))
         SmartDashboard.putData('Reset NavX', InstantCommand(lambda: self.robot_drive.navx.setAngleAdjustment(-constants.k_start_heading - self.robot_drive.navx.getYaw())))
 
