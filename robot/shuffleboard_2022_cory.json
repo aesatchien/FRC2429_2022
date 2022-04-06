@@ -188,8 +188,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_lvel",
-              "_source1": "network_table:///SmartDashboard/drive_rvel",
+              "_source0": "network_table:///SmartDashboard/drive_rvel",
+              "_source1": "network_table:///SmartDashboard/drive_lvel",
               "_title": "Drivetrain Velocity",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -208,8 +208,8 @@
             ],
             "content": {
               "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/drive_lpos",
-              "_source1": "network_table:///SmartDashboard/drive_rpos",
+              "_source0": "network_table:///SmartDashboard/drive_rpos",
+              "_source1": "network_table:///SmartDashboard/drive_lpos",
               "_title": "Drivetrain Position",
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
@@ -1127,7 +1127,7 @@
     }
   ],
   "windowGeometry": {
-    "x": -10.0,
+    "x": -7.0,
     "y": 113.0,
     "width": 1898.0,
     "height": 841.0

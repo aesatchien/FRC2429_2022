@@ -2,7 +2,6 @@ import wpilib
 from commands2 import SubsystemBase
 from wpilib import SmartDashboard, Solenoid, Compressor, AnalogInput, DoubleSolenoid
 
-
 import constants
 
 
@@ -32,6 +31,7 @@ class Pneumatics(SubsystemBase):
         # Decide on init piston position
         self.intake_extended = False
         self.shooter_hood_extended = False
+        self.set_shooter_hood_position(position='retracted')  # make sure this is set since it remembers previous
 
         SmartDashboard.putBoolean('intake_extended', self.intake_extended)
         SmartDashboard.putBoolean('climber_long_arm', self.climber_piston_long.get())
@@ -39,6 +39,7 @@ class Pneumatics(SubsystemBase):
         SmartDashboard.putBoolean('compressor_close_loop', self.close_loop_enable)
         SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
         SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
+
 
 
     def set_intake_piston(self, position):
@@ -95,13 +96,11 @@ class Pneumatics(SubsystemBase):
         elif position == 'retract':
             self.shooter_hood_extended = False
             self.shooter_hood_piston.set(DoubleSolenoid.Value.kReverse)
-
         SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
     def toggle_shooter_hood(self):
         self.shooter_hood_piston.toggle()
         self.shooter_hood_extended = not self.shooter_hood_extended
-
         SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
     def get_shifting_state(self):
