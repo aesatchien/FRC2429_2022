@@ -1,7 +1,7 @@
 import time
 from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger, PrintCommand, InstantCommand
 from commands2.button import JoystickButton, Button, POVButton
-from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick
+from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick, AddressableLED
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.intake import Intake
@@ -117,6 +117,12 @@ class RobotContainer:
 
     def initialize_joysticks(self):
         """Configure the buttons for the driver's controller"""
+
+        led = AddressableLED(0)
+        data = [AddressableLED.LEDData(255, 0, 0) for x in range(10)]
+        led.setLength(len(data))
+        led.setData(data)
+        led.start()
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)

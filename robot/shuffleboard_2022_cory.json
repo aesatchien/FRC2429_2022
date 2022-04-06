@@ -9,7 +9,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "13,0": {
             "size": [
@@ -197,7 +196,9 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/drive_lvel": true,
+              "Visible data/SmartDashboard/drive_rvel": true
             }
           },
           "5,4": {
@@ -215,7 +216,9 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/drive_lpos": true,
+              "Visible data/SmartDashboard/drive_rpos": true
             }
           },
           "2,0": {
@@ -448,7 +451,8 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/climber_velocity": true
             }
           }
         }
@@ -463,7 +467,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "0,0": {
             "size": [
@@ -678,22 +681,52 @@
                   "Visuals/Show voltage and current values": true
                 },
                 {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[3]",
-                  "Visuals/Orientation": "HORIZONTAL"
+                  "_type": "Encoder",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[4]",
+                  "_title": "LiveWindow/Ungrouped/Encoder[4]"
                 },
                 {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/Spark[5]",
-                  "_title": "LiveWindow/Ungrouped/Spark[5]",
-                  "Visuals/Orientation": "HORIZONTAL"
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[7]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[7]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 },
                 {
-                  "_type": "Motor Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "_title": "LiveWindow/Ungrouped/PWMSparkMax[1]",
-                  "Visuals/Orientation": "HORIZONTAL"
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[6]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[6]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[5]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[5]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[4]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[4]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon[7]/Value",
+                  "_title": "LiveWindow/Ungrouped/Talon[7]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon[5]/Value",
+                  "_title": "LiveWindow/Ungrouped/Talon[5]/Value"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[0,5]/Value",
+                  "_title": "LiveWindow/Ungrouped/DoubleSolenoid[0,5]/Value"
                 }
               ]
             }
@@ -736,6 +769,19 @@
               "Layout/Label position": "BOTTOM",
               "_children": []
             }
+          },
+          "16,0": {
+            "size": [
+              4,
+              7
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/drivetrain",
+              "_title": "drivetrain",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
           }
         }
       }
@@ -749,7 +795,6 @@
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
-        "titleType": 0,
         "tiles": {
           "3,0": {
             "size": [
