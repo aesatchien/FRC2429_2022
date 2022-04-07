@@ -10,6 +10,7 @@ from subsystems.climber import Climber
 from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
 from subsystems.vision import Vision
+from subsystems.led import Led
 
 from commands.auto_set_pose import AutoSetPose
 from commands.auto_shoot import AutoShoot
@@ -32,6 +33,7 @@ from commands.shooter_hood_toggle import ShooterHoodToggle
 from commands.tune_sparkmax_drive import TuneSparkmax
 from commands.tune_sparkmax_climber import TuneSparkmaxClimber
 from commands.climber_rotate_set_distance import ClimberRotateSetDistance
+from commands.led_loop import LedLoop
 
 from commands.autonomous_two_ball import AutonomousTwoBall
 from commands.autonomous_general_two_ball import AutonomousGeneralTwoBall
@@ -66,6 +68,7 @@ class RobotContainer:
         self.robot_climber = Climber()
         self.robot_indexer = Indexer()
         self.robot_vision = Vision()
+        self.robot_led = Led()
 
         self.disabled_counter = 0
 
@@ -80,12 +83,8 @@ class RobotContainer:
         #mode
         self.is_endgame = False
 
-        # not sure where this should go (LED)
-        self.led_strip = AddressableLED(constants.k_led_strip_port)
-        self.led_data = [AddressableLED.LEDData() for _ in range(20)]
-        self.led_strip.setLength(len(self.led_data))
-        self.led_strip.setData(self.led_data)
-        self.led_strip.start()
+        # Set the default command for the LED strip
+        self.robot_led.setDefaultCommand(LedLoop(self))
 
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
@@ -125,12 +124,6 @@ class RobotContainer:
 
     def initialize_joysticks(self):
         """Configure the buttons for the driver's controller"""
-
-        led = AddressableLED(0)
-        data = [AddressableLED.LEDData(255, 0, 0) for x in range(10)]
-        led.setLength(len(data))
-        led.setData(data)
-        led.start()
 
         # Create the driver's controller.
         self.driver_controller = XboxController(constants.k_driver_controller_port)
