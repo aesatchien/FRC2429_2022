@@ -10,7 +10,7 @@ from subsystems.climber import Climber
 from subsystems.pneumatics import Pneumatics
 from subsystems.indexer import Indexer
 from subsystems.vision import Vision
-from subsystems.led import Led
+#from subsystems.led import Led
 
 from commands.auto_set_pose import AutoSetPose
 from commands.auto_shoot import AutoShoot
@@ -68,7 +68,7 @@ class RobotContainer:
         self.robot_climber = Climber()
         self.robot_indexer = Indexer()
         self.robot_vision = Vision()
-        self.robot_led = Led()
+        # self.robot_led = Led()
 
         self.disabled_counter = 0
 
