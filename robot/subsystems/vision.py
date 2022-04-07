@@ -81,7 +81,7 @@ class Vision(SubsystemBase):
     def getHubValues(self):
         return (self.hub_targets > 0, self.hub_rotation + self.hub_offset , self.hub_distance)
 
-    def getShooterRpm(self):
+    def getShooterRpmNoHood(self):
         if self.hub_targets > 0:
             if self.hub_distance < 1.4:
                 return 2300
@@ -92,3 +92,14 @@ class Vision(SubsystemBase):
                 return 275 * self.hub_distance + 1958
         else:
             return 2500
+
+    def getShooterHoodRpm(self):
+        if self.hub_targets > 0:
+            if self.hub_distance < 2.5:
+                return 2600
+            elif self.hub_distance > 4:
+                return 3000
+            else:
+                return 2486 - 103 * self.hub_distance + 57.1 * self.hub_distance ** 2
+        else:
+            return 2800

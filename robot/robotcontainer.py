@@ -198,7 +198,7 @@ class RobotContainer:
         self.buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 3))
 
         #vision
-        self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_shooter, self.robot_vision))
+        self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_shooter, self.robot_vision, self.robot_pneumatics))
         #self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         # Testing autonomous calls - may want to bind them to calling on the dashboard
         # self.buttonB.whileHeld((AutoShoot(self)))

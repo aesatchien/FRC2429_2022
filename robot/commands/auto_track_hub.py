@@ -12,13 +12,14 @@ SmartDashboard.putNumber('AutoTrackHub/ff', 0.15)
 
 class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
-    def __init__(self, container, drive, shooter, vision) -> None:
+    def __init__(self, container, drive, shooter, vision, pneumatics) -> None:
         super().__init__()
         self.setName('AutoTrackHub')  # change this to something appropriate for this command
         self.container = container
         self.drive = drive
         self.shooter = shooter
         self.vision = vision
+        self.pneumatics = pneumatics
 
         self.controller = PIDController(0.005, 0.005, 0.0001)
         self.controller.setIntegratorRange(0, 0.12)  # integral reacts quickly but is capped at a low value
@@ -73,12 +74,29 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
                 self.drive.arcade_drive(0, twist_output)
 
                 # update shooter RPM 10 times per second
+                if distance < 3:
+                    if self.pneumatics.shooter_hood_extended:
+                        self.pneumatics.set_shooter_hood_position(position='retract')
+
+                    rpm = self.vision.getShooterRpmNoHood()
+                elif distance >= 3 and distance <= 3.2:
+                    if self.pneumatics.shooter_hood_extended:
+                        rpm = self.vision.getShooterHoodRpm()
+                    else:
+                        rpm = self.vision.getShooterRpmNoHood()
+                elif distance > 3.2:
+                    if not self.pneumatics.shooter_hood_extended:
+                        self.pneumatics.set_shooter_hood_position(position='extend')
+
+                    rpm = self.vision.getShooterHoodRpm()
+
+                self.shooter.set_flywheel(rpm)
 
             else:
                 # print('hub not detected')
                 self.drive.arcade_drive(0, 0)
 
-            self.shooter.set_flywheel(self.vision.getShooterRpm())
+
 
     def isFinished(self) -> bool:
         return False
