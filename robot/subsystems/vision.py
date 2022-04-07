@@ -13,7 +13,8 @@ class Vision(SubsystemBase):
         self.setName('Vision')
         self.counter = 0
 
-        self.hub_offset = -4
+        self.hub_rotation_offset = -4
+        self.hub_distance_offset = 0.2  # add an extra distance from what the camera sees
 
         self.ballcam_table = NetworkTables.getTable('BallCam')
         self.driver_station = DriverStation.getInstance()
@@ -79,7 +80,7 @@ class Vision(SubsystemBase):
         return (self.ball_targets > 0, self.ball_rotation, self.ball_distance)
 
     def getHubValues(self):
-        return (self.hub_targets > 0, self.hub_rotation + self.hub_offset , self.hub_distance)
+        return (self.hub_targets > 0, self.hub_rotation + self.hub_rotation_offset , self.hub_distance + self.hub_distance_offset)
 
     def getShooterRpmNoHood(self):
         if self.hub_targets > 0:

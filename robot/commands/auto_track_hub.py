@@ -57,20 +57,23 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
             error = abs(rotation_offset)
 
-            if hub_detected and (error > 2):
+            if hub_detected:
                 # print(f"attempting to turn  to hub at {rotation_offset:2.1f}...")
-                if constants.k_is_simulation:  # keep sim from going crazy
-                    orientation = self.drive.navx.getAngle()
-                    SmartDashboard.putNumber('/sim/track_sp', orientation + rotation_offset)
-                    twist_output = self.controller.calculate(orientation,  orientation + rotation_offset)
-                    twist_output = min(0.2, twist_output) if twist_output > 0 else max(-.2, twist_output)
-                    twist_output += copysign(1, rotation_offset) * self.feed_forward * 0.2
-                else:
-                    orientation = self.drive.navx.getAngle()
-                    twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
-                    twist_output += copysign(1, rotation_offset) * self.feed_forward
+                twist_output = 0
+                if error > 2:
+                    if constants.k_is_simulation:  # keep sim from going crazy
+                        orientation = self.drive.navx.getAngle()
+                        SmartDashboard.putNumber('/sim/track_sp', orientation + rotation_offset)
+                        twist_output = self.controller.calculate(orientation,  orientation + rotation_offset)
+                        twist_output = min(0.2, twist_output) if twist_output > 0 else max(-.2, twist_output)
+                        twist_output += copysign(1, rotation_offset) * self.feed_forward * 0.2
+                    else:
+                        orientation = self.drive.navx.getAngle()
+                        twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
+                        twist_output += copysign(1, rotation_offset) * self.feed_forward
 
-                #thrust_output = 0.35 if distance > self.min_approach else 0
+                    #thrust_output = 0.35 if distance > self.min_approach else 0
+
                 self.drive.arcade_drive(0, twist_output)
 
                 # update shooter RPM 10 times per second

@@ -224,8 +224,8 @@ class RobotContainer:
 
             #shooter
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
-            self.co_rightTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='retract'))
-            self.co_leftTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='extend'))
+            self.co_rightTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='extend'))
+            self.co_leftTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='retract'))
             self.co_buttonX.whenPressed(lambda: self.robot_pneumatics.toggle_shooter_hood())
 
             #compressor
