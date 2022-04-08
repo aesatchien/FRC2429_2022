@@ -10,6 +10,7 @@ from commands.drive_wait import DriveWait
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.auto_pickup import AutoPickup
 from commands.auto_shoot import AutoShoot
+from commands.auto_track_hub import AutoTrackHub
 from commands.indexer_hold import IndexerHold
 
 import constants
@@ -26,7 +27,7 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.intake_speed = 0.6
         # self.index_pulse_on = 0.15
         # self.index_pulse_off = 0.4
-        trajectory_files = ['two_ball_traversal', 'terminal_to_shot', 'ball_backup']
+        trajectory_files = ['two_ball_traversal', 'terminal_to_shot', 'ball_backup', 'terminal_to_shot2']
         path_velocity = constants.k_path_velocity
 
         # run the initial two-ball command
@@ -60,19 +61,23 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=3, force='off'))
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=constants.k_shooter_speed, force='on'))
 
-        trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)
-        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
-                                     dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[1]))
+        # trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[1], velocity=path_velocity, display=True, save=False)
+        # self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
+        #                              dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[1]))
 
+        trajectory = trajectory_io.generate_trajectory(path_name=trajectory_files[3], velocity=path_velocity, display=True, save=False)
+        self.addCommands(AutoRamsete(container=self.container, drive=self.container.robot_drive, relative=False,
+                                     dash=False, source='trajectory', trajectory=trajectory, course=trajectory_files[3]))
 
         # rotate towards the hub
         self.addCommands(DriveWait(container=self.container, duration=0.3))
-        self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
+        # self.addCommands(AutoRotateImu(self.container, self.container.robot_drive, source='hub'))
+        self.addCommands(AutoTrackHub(container=self.container, drive=self.container.robot_drive, shooter=self.container.robot_shooter, vision=self.container.robot_vision, pneumatics=self.container.robot_pneumatics, autonomous=True))
 
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.75, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=1.5, autonomous=True))
 
         # start the shooter and move to the hub
-        self.addCommands(DriveWait(container=self.container, duration=0.1))
+        # self.addCommands(DriveWait(container=self.container, duration=0.1))
 
         # get close enough to see it
         #status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.3, y=0, heading=0, velocity=2, reverse=True)
@@ -84,5 +89,5 @@ class AutonomousFourBall(commands2.SequentialCommandGroup):  # change the name f
         # close up, turn off shooter
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
-        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0, force='off'))
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))
+        self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=2.5, force='on'))
+        # self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))

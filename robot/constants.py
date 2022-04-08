@@ -27,7 +27,7 @@ k_max_twist_velocity = 1.25 # Bradley
 # k_max_twist_velocity = 0.75  # Aiden
 
 # --------------  AUTONOMOUS  ---------------
-k_path_velocity = 2
+k_path_velocity = 2.25
 k_shooter_speed = 2700
 
 # --------------  DRIVETRAIN  ---------------

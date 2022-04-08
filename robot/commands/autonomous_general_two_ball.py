@@ -47,7 +47,7 @@ class AutonomousGeneralTwoBall(commands2.SequentialCommandGroup):  # change the 
 
         # next step - shoot twice
         self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive, source='hub'))
-        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=2, autonomous=True))
+        self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=5, autonomous=True))
 
         # no need to wait - add wait time into the cycling of the indexer, each cycle is 0.6s
         # self.addCommands(WaitCommand(.2))

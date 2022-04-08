@@ -84,7 +84,7 @@ class RobotContainer:
         self.is_endgame = False
 
         # Set the default command for the LED strip
-        self.robot_led.setDefaultCommand(LedLoop(self))
+        # self.robot_led.setDefaultCommand(LedLoop(self))
 
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
         #TODO: set different twist multipliers when stopped for high and low gear for consistent turning performance, reduce acceleration limit: motors stutter in high gear when at full throttle from stop
@@ -208,7 +208,7 @@ class RobotContainer:
 
             #intake
             self.co_buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
-            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.6))
+            self.co_buttonLB.whenPressed(IntakeMotorToggle(self, self.robot_intake, 0.7))
 
             #indexer
             self.co_buttonRB.whenPressed(IndexerToggle(self, self.robot_indexer, 6))
@@ -219,7 +219,7 @@ class RobotContainer:
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
             self.co_rightTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='extend'))
             self.co_leftTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='retract'))
-            self.co_buttonX.whenPressed(lambda: self.robot_pneumatics.toggle_shooter_hood())
+            self.co_buttonX.whenPressed(lambda: self.robot_pneumatics.toggle_shooter_hood_position())
 
             #compressor
             #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))

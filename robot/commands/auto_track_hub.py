@@ -5,14 +5,19 @@ from wpimath.controller import PIDController
 
 import constants
 
-SmartDashboard.putNumber('AutoTrackHub/kp', .01)
-SmartDashboard.putNumber('AutoTrackHub/ki', 0)
-SmartDashboard.putNumber('AutoTrackHub/kd', 0.0001)
-SmartDashboard.putNumber('AutoTrackHub/ff', 0.15)
-
 class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
-    def __init__(self, container, drive, shooter, vision, pneumatics) -> None:
+    kp = 0.006
+    ki = 0.005
+    kd = 0
+    feed_forward = 0.15
+
+    SmartDashboard.putNumber('AutoTrackHub/kp', kp)
+    SmartDashboard.putNumber('AutoTrackHub/ki', ki)
+    SmartDashboard.putNumber('AutoTrackHub/kd', kd)
+    SmartDashboard.putNumber('AutoTrackHub/ff', feed_forward)
+
+    def __init__(self, container, drive, shooter, vision, pneumatics, autonomous=False) -> None:
         super().__init__()
         self.setName('AutoTrackHub')  # change this to something appropriate for this command
         self.container = container
@@ -21,10 +26,12 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.vision = vision
         self.pneumatics = pneumatics
 
-        self.controller = PIDController(0.005, 0.005, 0.0001)
-        self.controller.setIntegratorRange(0, 0.12)  # integral reacts quickly but is capped at a low value
-        self.feed_forward = 0.15
+        self.controller = PIDController(Kp=self.kp, Ki=self.ki, Kd=self.kd)
+        self.controller.setIntegratorRange(0, 0.1)  # integral reacts quickly but is capped at a low value
         self.min_approach = 0.7
+
+        self.autonomous = autonomous
+        self.error = 2.1
 
         self.counter = 0
         self.addRequirements(drive)  # commandsv2 version of requirements
@@ -33,10 +40,11 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.drive.arcade_drive(0, 0)
         self.counter = 0
 
-        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', 0.014))
-        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', 0.014))
-        self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', 0.0000))
-        self.feed_forward = SmartDashboard.getNumber('AutoTrackHub/ff', 0.15)
+        self.controller.reset()
+        self.controller.setP(SmartDashboard.getNumber('AutoTrackHub/kp', self.kp))
+        self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', self.ki))
+        self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', self.kd))
+        self.feed_forward = SmartDashboard.getNumber('AutoTrackHub/ff', self.feed_forward)
 
         self.shooter.set_flywheel(2500)
 
@@ -55,12 +63,12 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         if self.counter % 10 == 0:
             (hub_detected, rotation_offset, distance) = self.vision.getHubValues()
 
-            error = abs(rotation_offset)
+            self.error = abs(rotation_offset)
 
             if hub_detected:
                 # print(f"attempting to turn  to hub at {rotation_offset:2.1f}...")
                 twist_output = 0
-                if error > 2:
+                if self.error > 2:
                     if constants.k_is_simulation:  # keep sim from going crazy
                         orientation = self.drive.navx.getAngle()
                         SmartDashboard.putNumber('/sim/track_sp', orientation + rotation_offset)
@@ -102,7 +110,10 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
 
     def isFinished(self) -> bool:
-        return False
+        if self.autonomous:
+            return self.error < 2
+        else:
+            return False
 
     def end(self, interrupted: bool) -> None:
         end_time = self.container.get_enabled_time()
