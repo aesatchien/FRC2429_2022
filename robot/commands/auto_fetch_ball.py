@@ -21,6 +21,9 @@ class AutoFetchBall(commands2.CommandBase):  # change the name for your command
     def initialize(self) -> None:
         self.drive.arcade_drive(0, 0)
 
+        self.container.robot_pneumatics.set_intake_piston(position='extend')
+        self.container.robot_intake.set_velocity(0.7)
+
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Started {self.getName()} at {self.start_time} s **", flush=True)

@@ -173,7 +173,8 @@ class RobotContainer:
 
         #shooting
         #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
-        self.buttonB.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
+        # self.buttonB.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
+        self.buttonB.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         #pneumatics
         self.buttonStart.whenPressed(ShifterToggle(self, self.robot_pneumatics))
@@ -195,6 +196,7 @@ class RobotContainer:
         #self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
         # Testing autonomous calls - may want to bind them to calling on the dashboard
         # self.buttonB.whileHeld((AutoShoot(self)))
+
 
         #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
         #self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))

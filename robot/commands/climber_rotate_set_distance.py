@@ -12,7 +12,7 @@ class ClimberRotateSetDistance(commands2.CommandBase):
         self.container = container
         self.setpoint = setpoint
 
-        self.max_vel = 20
+        self.max_vel = 40
         self.max_accel = 500
 
         self.addRequirements(climber)  # commandsv2 version of requirements

@@ -33,7 +33,7 @@ class AutonomousGeneralTwoBall(commands2.SequentialCommandGroup):  # change the 
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=self.intake_speed, force='on'))
 
         # next step - reverse to a ball
-        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=constants.k_shooter_speed, force='on'))
+        self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=2600, force='on'))
 
         # drive straight backwards to intake ball
         status, self.traj_1 = trajectory_io.generate_quick_trajectory(x=1.2, y=0, heading=0, velocity=self.path_velocity, reverse=False)

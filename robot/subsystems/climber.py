@@ -24,7 +24,7 @@ class Climber(SubsystemBase):
         self.climber_left_encoder = self.climber_left_neo.getEncoder()
         self.climber_right_encoder = self.climber_right_neo.getEncoder()  # not necessary if follower
 
-        conversion_factor = 360 * 15 / (75 * 48)
+        conversion_factor = 360 * 15 / (100 * 48)  # 553 is 75, 554 is 100
         self.climber_left_encoder.setPositionConversionFactor(conversion_factor)  # 75 Rev GB * 48 big sprocket / 15 little sprocket
         self.climber_left_encoder.setVelocityConversionFactor(conversion_factor / 60)
         self.start_angle = 0  # we start at 54 degrees from the vertical
