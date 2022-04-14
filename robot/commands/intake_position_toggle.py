@@ -22,6 +22,7 @@ class IntakePositionToggle(commands2.CommandBase):
             # ToDo: force the intake on if it isn't - 20220409
             if self.pneumatics.intake_extended:
                 self.container.robot_intake.set_velocity(0.7)
+                self.container.robot_shooter.stop_shooter()
             else:
                 self.container.robot_intake.stop_motor()
                 pass  # ToDo - determine if we want to shut it off every time it comes in (don't we?)

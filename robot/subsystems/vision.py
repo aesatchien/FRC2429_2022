@@ -14,7 +14,7 @@ class Vision(SubsystemBase):
         self.counter = 0
 
         self.hub_rotation_offset = -4
-        self.hub_distance_offset = 0.2  # add an extra distance from what the camera sees
+        self.hub_distance_offset = 0.4  # add an extra distance from what the camera sees.  stared as 0.2, now 0.4 in finals
 
         self.ballcam_table = NetworkTables.getTable('BallCam')
         self.driver_station = DriverStation.getInstance()
