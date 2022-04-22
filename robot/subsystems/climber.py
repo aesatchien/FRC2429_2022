@@ -4,8 +4,6 @@ from wpilib import SmartDashboard
 from wpimath.filter import MedianFilter
 import rev
 
-from networktables import NetworkTablesInstance, NetworkTables
-
 import constants
 
 
@@ -43,14 +41,6 @@ class Climber(SubsystemBase):
         self.PID_dict_vel = constants.PID_dict_vel_climber
         self.smartmotion_maxvel = constants.smartmotion_maxvel
         self.smartmotion_maxacc = constants.smartmotion_maxacc
-
-        # self.climber_left_controller.setSmartMotionAccelStrategy()
-
-        # add encoder later
-        #ntinst = NetworkTablesInstance.getDefault()
-        #self.climber_table = ntinst.getTable('Climber')
-        #self.climber_voltage = self.climber_table.getEntry('voltage')
-        #self.climber_current = self.climber_table.getEntry('current')
 
     def set_voltage(self, voltage):
         self.climber_left_controller.setReference(voltage, rev.CANSparkMaxLowLevel.ControlType.kVoltage)
@@ -101,17 +91,7 @@ class Climber(SubsystemBase):
         self.climber_left_controller.setSmartMotionAllowedClosedLoopError(1,slotID=0)
 
         if not pid_only:
-            # error_dict.append(controller.restoreFactoryDefaults())
-            # self.error_dict.update({'OpenRamp_' + str(i): controller.setOpenLoopRampRate(self.ramp_rate)})
-            # self.error_dict.update({'ClosedRamp_' + str(i): controller.setClosedLoopRampRate(self.ramp_rate)})
-            # self.error_dict.update({'CurLimit_'+str(i):controller.setSmartCurrentLimit(self.current_limit)})
             self.error_dict.update({'VoltComp_'+str(i):self.climber_left_neo.enableVoltageCompensation(12)})
-            # some of these got moved to the controller, not the PID controller
-            # self.error_dict.update({'Idle_' + str(i): controller.setIdleMode(rev.IdleMode.kBrake)})
-            # defaults are 10, 20, 20 on the frame rates - trying to cut down a bit on CAN bandwidth
-            #self.error_dict.update({'PeriodicStatus0_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus0, 20)})
-            #self.error_dict.update({'PeriodicStatus1_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus1, 40)})
-            #self.error_dict.update({'PeriodicStatus2_'+str(i):controller.setPeriodicFramePeriod(rev.CANSparkMax.PeriodicFrame.kStatus2, 20)})
 
         if len(set(self.error_dict)) > 1:
             print('\n*Sparkmax setting*     *Response*')
@@ -135,14 +115,9 @@ class Climber(SubsystemBase):
             self.current_filter.calculate(self.climber_left_neo.getOutputCurrent())  # update the current filter
 
         if self.counter % 10 == 0:
-            # ten per second updates
+            # five per second updates
             SmartDashboard.putNumber('climber_voltage', self.climber_left_neo.getAppliedOutput() * 12)
             SmartDashboard.putNumber('climber_position', self.climber_left_encoder.getPosition())
             SmartDashboard.putNumber('climber_current', self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
             SmartDashboard.putNumber('climber_velocity', self.climber_left_encoder.getVelocity())
-
-            #self.climber_voltage.setValue(self.climber_left_neo.getAppliedOutput())  # does not like setNumber for some reason
-            #self.climber_current.setValue(self.current_filter.calculate(self.climber_left_neo.getOutputCurrent()))
-
-
 

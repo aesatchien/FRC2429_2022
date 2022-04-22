@@ -1,7 +1,7 @@
 import time
-from commands2 import RunCommand, RamseteCommand, ConditionalCommand, Trigger, PrintCommand, InstantCommand
-from commands2.button import JoystickButton, Button, POVButton
-from wpilib import XboxController, SmartDashboard, SendableChooser, Joystick, AddressableLED
+from commands2 import RunCommand, InstantCommand
+from commands2.button import JoystickButton, POVButton
+from wpilib import XboxController, SmartDashboard, SendableChooser
 
 from subsystems.drivetrain import Drivetrain
 from subsystems.intake import Intake
@@ -70,18 +70,12 @@ class RobotContainer:
         self.robot_vision = Vision()
         # self.robot_led = Led()
 
-        self.disabled_counter = 0
-
         # Create the driver's controller
         self.driver_controller = None
         self.co_driver_controller = None
         # Configure and set the button bindings for the driver's controller.
         self.initialize_joysticks()
         self.initialize_dashboard()
-
-
-        #mode
-        self.is_endgame = False
 
         # Set the default command for the LED strip
         # self.robot_led.setDefaultCommand(LedLoop(self))
@@ -93,23 +87,6 @@ class RobotContainer:
         else:
             self.robot_drive.setDefaultCommand(
                 DriveByJoytick(self, self.robot_drive, control_type='simulation', scaling=1.0))
-        if False:
-            # test arcade drive
-            self.robot_drive.setDefaultCommand(
-                RunCommand(
-                    lambda: self.robot_drive.arcade_drive(
-                        -1 * constants.k_thrust_scale * self.driver_controller.getRawAxis(
-                            constants.k_controller_thrust_axis),
-                        constants.k_twist_scale * self.driver_controller.getRawAxis(
-                            constants.k_controller_twist_axis), ),
-                    self.robot_drive, ))
-
-            # test tank drive
-            self.robot_drive.setDefaultCommand(
-                RunCommand(
-                    lambda: self.robot_drive.tank_drive_volts(-self.driver_controller.getRawAxis(constants.k_controller_thrust_axis) * 12,
-                                                          self.driver_controller.getRawAxis(constants.k_controller_twist_axis) * 12, ),
-                    self.robot_drive,))
 
     def set_start_time(self):  # call in teleopInit and autonomousInit in the robot
         self.start_time = time.time()
@@ -162,18 +139,11 @@ class RobotContainer:
         else:
             self.co_driver_controller = None
 
-
-        #self.buttonRightAxis.whenPressed(PrintCommand('Right Axis was pressed'))
-        #self.buttonLeftAxis.whenPressed(PrintCommand('Left Axis was pressed'))
-
-        # self.buttonX.whenPressed(lambda: self.driver_controller.setRumble(XboxController.RumbleType.kRightRumble, 1))
-
         #climbing
         self.buttonRight.whenHeld(ClimberSpin(self, self.robot_climber))
 
         #shooting
-        #todo: aim assist self.buttonA.whenHeld(AIM ASSIST)
-        # self.buttonB.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
+        self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_shooter, self.robot_vision, self.robot_pneumatics))
         self.buttonB.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
 
         #pneumatics
@@ -183,30 +153,14 @@ class RobotContainer:
         self.buttonLB.whenPressed(lambda: self.robot_pneumatics.pp_short())
         self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
 
-        #climbing
-        # todo: reset to horizontal self.buttonRight.whenPressed(reset to horizontl)
-
         #intake
         self.buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
-        #self.buttonDown.whenPressed(TimedFeed(self, self.robot_indexer, 2, 5))
         self.buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 3))
-
-        #vision
-        self.buttonA.whileHeld(AutoTrackHub(self, self.robot_drive, self.robot_shooter, self.robot_vision, self.robot_pneumatics))
-        #self.buttonA.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
-        # Testing autonomous calls - may want to bind them to calling on the dashboard
-        # self.buttonB.whileHeld((AutoShoot(self)))
-
-
-        #self.buttonX.whenPressed(AutoRotateImu(container=self, drive=self.robot_drive, degrees=90).withTimeout(2))
-        #self.buttonX.whileHeld(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='velocity', spin=False))
-
 
         if self.competition_mode:
             #climber
             self.co_buttonB.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 36))
             self.co_buttonY.whenPressed(ClimberRotateSetDistance(self, self.robot_climber, 126))
-
 
             #intake
             self.co_buttonDown.whenPressed(IntakePositionToggle(self, self.robot_pneumatics))
@@ -214,19 +168,15 @@ class RobotContainer:
 
             #indexer
             self.co_buttonRB.whenPressed(IndexerToggle(self, self.robot_indexer, 6))
-            # self.co_buttonRB.whenPressed(TimedFeed(self, self.robot_indexer, 3, 4))
             self.co_buttonUp.whileHeld(IndexerHold(self, self.robot_indexer, 5))
 
             #shooter
             self.co_buttonA.whenPressed(ShooterToggle(self, self.robot_shooter, 2500))
             self.co_rightTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='extend'))
             self.co_leftTrigger.whenPressed(lambda: self.robot_pneumatics.set_shooter_hood_position(position='retract'))
-            self.co_buttonX.whenPressed(lambda: self.robot_pneumatics.toggle_shooter_hood_position())
 
             #compressor
-            #self.co_buttonStart.whenPressed(ToggleCompressor(self, self.robot_pneumatics))
-
-            # self.co_rightTrigger.whileHeld(AutoFetchBall(self, self.robot_drive, self.robot_vision))
+            self.co_buttonBack.whenPressed(CompressorToggle(self, self.robot_pneumatics))
 
         # lots of putdatas for testing on the dash
         SmartDashboard.putData(TuneSparkmax(container=self, drive=self.robot_drive, setpoint=1, control_type='position', spin=False))
@@ -246,16 +196,11 @@ class RobotContainer:
 
         SmartDashboard.putData(AutoRotateSparkmax(self, self.robot_drive, target='degrees', degrees=90))
         SmartDashboard.putData(AutoFetchBall(self, self.robot_drive, self.robot_vision))
-        SmartDashboard.putNumber('/AutoFetchBall/kp', 0)
-        SmartDashboard.putNumber('/AutoFetchBall/kd', 0)
-        SmartDashboard.putNumber('/AutoFetchBall/kf', 0)
 
         SmartDashboard.putData(AutoRotateImu(self, self.robot_drive, source='degrees', degrees=90))
-        SmartDashboard.putData(AutonomousStageTwo(self))
 
         SmartDashboard.putData(AutoShoot(self))
         SmartDashboard.putData(AutoPickup(self))
-
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         # self.buttonRB.whenPressed(lambda: self.robot_drive.set_max_output(0.25)).whenReleased(lambda: self.robot_drive.set_max_output(1))

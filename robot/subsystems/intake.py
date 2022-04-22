@@ -28,15 +28,11 @@ class Intake(SubsystemBase):
         self.intake_enable = False
         SmartDashboard.putBoolean('intake_motor_state', self.intake_enable)
 
-    def get_velocity(self):
-        return self.intake_775.get()
-
     def toggle_intake_motor(self, velocity):
         if self.intake_enable:
             self.stop_motor()
         else:
             self.set_velocity(velocity)
-
 
     def periodic(self) -> None:
         

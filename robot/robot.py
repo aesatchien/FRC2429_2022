@@ -31,8 +31,6 @@ class MyRobot(commands2.TimedCommandRobot):
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 
-        self.container.disabled_counter += 1
-        print(f'Disabled counter is {self.container.disabled_counter} at {self.container.get_enabled_time():.1f}')
         self.container.robot_drive.set_brake_mode(mode='coast')
 
     def disabledPeriodic(self) -> None:

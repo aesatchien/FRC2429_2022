@@ -40,8 +40,6 @@ class Pneumatics(SubsystemBase):
         SmartDashboard.putBoolean('pneumatics_high_gear', self.shifter.get())
         # SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
-
-
     def set_intake_piston(self, position):
         if position == 'extend':
             self.intake_extended = True
@@ -98,11 +96,6 @@ class Pneumatics(SubsystemBase):
             self.shooter_hood_piston.set(DoubleSolenoid.Value.kForward)
         SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
 
-    def toggle_shooter_hood_position(self):
-        self.shooter_hood_piston.toggle()
-        self.shooter_hood_extended = not self.shooter_hood_extended
-        SmartDashboard.putBoolean('shooter_hood_extended', self.shooter_hood_extended)
-
     def get_shifting_state(self):
         self.shifter.get()
 
@@ -114,26 +107,15 @@ class Pneumatics(SubsystemBase):
         self.climber_piston_short.toggle()
         SmartDashboard.putBoolean('climber_short_arm', self.climber_piston_short.get())
 
-    def get_analog_pressure(self):
-        pressure = 250 * self.pressure_sensor.getVoltage() / 5 - 25
-        return pressure
-
     def periodic(self) -> None:
         
         self.counter += 1
 
-        # got rid of analog sensor
-        # if self.counter % 10 == 0:
-        #     pressure = self.get_analog_pressure()
-        #     if pressure >= 120:
-        #         self.stop_compressor()
-        #     elif pressure <= 110:
-        #         self.start_compressor()
-
         if self.counter % 25 == 1:
             # the compressor turns itself off and on, so we have to ask it its state
             SmartDashboard.putBoolean('compressor_state', self.compressor.enabled())
-            SmartDashboard.putNumber('pressure', self.get_analog_pressure())
+            # SmartDashboard.putNumber('pressure', self.get_analog_pressure())
+            # todo: intergrate pressure sensor into compressor class
 
 
 

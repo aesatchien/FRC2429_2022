@@ -1,6 +1,6 @@
 import wpilib
 from commands2 import SubsystemBase
-from wpilib import SmartDashboard, AddressableLED
+from wpilib import SmartDashboard, AddressableLED, Spark
 import constants
 
 
@@ -11,15 +11,19 @@ class Led(SubsystemBase):
         self.counter = 0
         self.led_counter = 0
 
-        self.led_count = 20
-        self.led_strip = AddressableLED(constants.k_led_strip_port)
+        self.spark = Spark(8)
+        self.spark.set(1)
+
+        self.led_count = 15
+        self.led_strip = AddressableLED(7)
         self.led_data = [AddressableLED.LEDData() for _ in range(self.led_count)]
+
+        [led.setRGB(255, 0, 0) for led in self.led_data]
 
         self.led_strip.setLength(self.led_count)
         self.led_strip.setData(self.led_data)
         self.led_strip.start()
         self.mode = 'static'
-        # self.LED_on = False
 
     def periodic(self) -> None:
         if self.counter % 10 == 0:
@@ -37,6 +41,8 @@ class Led(SubsystemBase):
                         led.setRGB(0, 255, 0)
                     else:
                         led.setRGB(0, 0, 0)
+
+            self.led_strip.setData(self.led_data)
 
             self.led_counter += 1
 

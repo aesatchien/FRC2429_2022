@@ -1,7 +1,6 @@
 import commands2
 from wpilib import SmartDashboard
 
-
 class LedLoop(commands2.CommandBase):
 
     def __init__(self, container) -> None:
@@ -17,7 +16,21 @@ class LedLoop(commands2.CommandBase):
         SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
     def execute(self) -> None:
-        pass
+        if self.container.robot_shooter.shooter_enable:
+            rpm = self.container.robot_shooter.get_flywheel()
+            target_rpm = self.container.robot_vision.getShooterRpmNoHood()
+
+            hub_detected = self.container.robot_vision.hub_targets > 0
+            aligned = abs(self.container.robot_vision.hub_rotation) < 2
+
+            if hub_detected and aligned and abs(rpm - target_rpm) < 10:
+                self.container.robot_led.mode = 'flash'
+            else:
+                self.container.robot_led.mode = 'loading'
+        else:
+            self.container.robot_led.mode = 'static'
+
+        self.container.robot_led.spark.set(-1)
 
     def isFinished(self) -> bool:
         return False
