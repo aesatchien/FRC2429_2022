@@ -1,5 +1,4 @@
 import commands2
-from wpilib import SmartDashboard
 import wpimath.geometry as geo
 import constants
 
@@ -10,7 +9,6 @@ class AutoSetPose(commands2.CommandBase):  # change the name for your command
         super().__init__()
         self.setName('AutoSetPose')  # change this to something appropriate for this command
         self.container = container
-        # self.addRequirements(self.container.)  # commandsv2 version of requirements
         self.pose = pose
 
     def initialize(self) -> None:

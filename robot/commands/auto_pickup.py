@@ -1,11 +1,8 @@
 import commands2
-from wpilib import SmartDashboard
 from commands.auto_ramsete import AutoRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
-from commands.shooter_toggle import ShooterToggle
 from commands.indexer_toggle import IndexerToggle
-from commands.auto_rotate_sparkmax import AutoRotateSparkmax
 from commands.auto_rotate_imu import AutoRotateImu
 from commands2 import WaitCommand
 

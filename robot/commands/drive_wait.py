@@ -1,4 +1,3 @@
-import commands2
 from commands2 import WaitCommand
 
 # overload the WaitCommand so our drive does not complain

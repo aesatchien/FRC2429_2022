@@ -22,7 +22,6 @@ class TuneSparkmaxClimber(commands2.CommandBase):  # change the name for your co
     sparkmax_table.putNumber('pos_arbff', 0)
     sparkmax_table.putNumber('vel_arbff', 0)
     sparkmax_table.putNumber('pos_max_vel', 20)
-    # sparkmax_table.putNumber('vel_max_vel', )
     sparkmax_table.putNumber('vel_max_accel', constants.smartmotion_maxacc)
     sparkmax_table.putNumber('pos_max_accel', constants.smartmotion_maxacc)
 

@@ -1,16 +1,12 @@
 import commands2
-from wpilib import SmartDashboard
 from commands.auto_ramsete import AutoRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
-from commands.indexer_toggle import IndexerToggle
 from commands.indexer_hold import IndexerHold
 from commands.drive_wait import DriveWait
-from commands.auto_set_pose import AutoSetPose
 from commands.auto_rotate_imu import AutoRotateImu
 
-import constants
 import trajectory_io
 
 class AutonomousGeneralTwoBall(commands2.SequentialCommandGroup):  # change the name for your command
@@ -21,12 +17,9 @@ class AutonomousGeneralTwoBall(commands2.SequentialCommandGroup):  # change the 
         self.container = container
         self.indexer_speed = 6.0
         self.intake_speed = 0.6
-        # self.index_pulse_on = 0.2
-        # self.index_pulse_off = 0.5
+
         self.path_velocity = 1
 
-        # try to reset the pose to the current position
-        # self.addCommands(AutoSetPose(self.container))
 
         # open and start intake
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='extend'))
@@ -49,11 +42,7 @@ class AutonomousGeneralTwoBall(commands2.SequentialCommandGroup):  # change the 
         self.addCommands(AutoRotateImu(container=self.container, drive=self.container.robot_drive, source='hub'))
         self.addCommands(IndexerHold(self.container, self.container.robot_indexer, voltage=3, shot_time=5, autonomous=True))
 
-        # no need to wait - add wait time into the cycling of the indexer, each cycle is 0.6s
-        # self.addCommands(WaitCommand(.2))
-
         # close up, turn off shooter - maybe
         self.addCommands(IntakePositionToggle(self.container, self.container.robot_pneumatics, force='retract'))
         self.addCommands(IntakeMotorToggle(self.container, self.container.robot_intake, velocity=0.0, force='off'))
-        # self.addCommands(IndexerToggle(self.container, self.container.robot_indexer, voltage=0, force='off'))
         self.addCommands(ShooterToggle(self.container, self.container.robot_shooter, rpm=0, force='off'))

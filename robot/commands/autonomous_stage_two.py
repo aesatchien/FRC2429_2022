@@ -1,12 +1,10 @@
 import commands2
-from wpilib import SmartDashboard
 from commands.autonomous_two_ball import AutonomousTwoBall
 from commands.auto_ramsete import AutoRamsete
 from commands.intake_position_toggle import IntakePositionToggle
 from commands.intake_motor_toggle import IntakeMotorToggle
 from commands.shooter_toggle import ShooterToggle
 from commands.indexer_toggle import IndexerToggle
-from commands2 import WaitCommand
 from commands.auto_rotate_imu import AutoRotateImu
 from commands.auto_pickup import AutoPickup
 from commands.auto_shoot import AutoShoot

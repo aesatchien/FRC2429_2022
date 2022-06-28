@@ -80,8 +80,6 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
                         twist_output = self.controller.calculate(orientation, orientation + rotation_offset)
                         twist_output += copysign(1, rotation_offset) * self.feed_forward
 
-                    #thrust_output = 0.35 if distance > self.min_approach else 0
-
                 self.drive.arcade_drive(0, twist_output)
 
                 # update shooter RPM 10 times per second

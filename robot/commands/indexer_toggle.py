@@ -1,9 +1,6 @@
 import commands2
-from wpilib import SmartDashboard
-
 
 class IndexerToggle(commands2.CommandBase):
-
 
     def __init__(self, container, indexer, voltage=2, force=None) -> None:
         super().__init__()

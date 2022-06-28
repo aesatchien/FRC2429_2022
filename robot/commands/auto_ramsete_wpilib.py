@@ -4,7 +4,7 @@ CJH moving the wpilib ramsete example outside of robotcontainer
 from commands2 import RunCommand, RamseteCommand, CommandBase
 from wpimath.controller import RamseteController, PIDController, SimpleMotorFeedforwardMeters
 from wpimath.trajectory.constraint import DifferentialDriveVoltageConstraint
-from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator, Trajectory
+from wpimath.trajectory import TrajectoryConfig, TrajectoryGenerator
 from wpimath.geometry import Pose2d, Rotation2d, Translation2d, Transform2d
 from subsystems.drivetrain import Drivetrain
 import constants

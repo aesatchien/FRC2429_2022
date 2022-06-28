@@ -1,7 +1,6 @@
 import commands2
 from wpilib import SmartDashboard
 
-
 class IntakePositionToggle(commands2.CommandBase):
 
     def __init__(self, container, pneumatics, force=None) -> None:
@@ -19,14 +18,12 @@ class IntakePositionToggle(commands2.CommandBase):
             self.pneumatics.set_intake_piston(position='retract')
         else:
             self.pneumatics.toggle_intake()
-            # ToDo: force the intake on if it isn't - 20220409
             if self.pneumatics.intake_extended:
                 self.container.robot_intake.set_velocity(0.7)
                 self.container.robot_shooter.stop_shooter()
             else:
                 self.container.robot_intake.stop_motor()
-                pass  # ToDo - determine if we want to shut it off every time it comes in (don't we?)
-        
+
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Firing {self.getName()} with force={self.force} at {self.start_time} s **", flush=True)

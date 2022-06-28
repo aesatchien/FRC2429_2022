@@ -1,7 +1,6 @@
 import commands2
 from wpilib import SmartDashboard
 
-
 class ShooterToggle(commands2.CommandBase):
 
     SmartDashboard.putNumber('set shooter rpm', 2500)
@@ -31,8 +30,6 @@ class ShooterToggle(commands2.CommandBase):
         print("\n" + f"** Firing {self.getName()} with force={self.force} at {self.start_time} s **", flush=True)
         # SmartDashboard.putString("alert", f"** Started {self.getName()} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
 
-
-        
     def execute(self) -> None:
         pass
 

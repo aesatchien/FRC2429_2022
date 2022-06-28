@@ -1,7 +1,6 @@
 import commands2
 from wpilib import SmartDashboard
 
-
 class IndexerHold(commands2.CommandBase):
 
     def __init__(self, container, indexer, voltage=2, shot_time=None, force=None, autonomous=False) -> None:

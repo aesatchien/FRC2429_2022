@@ -2,7 +2,6 @@ import commands2
 from math import copysign
 from wpilib import SmartDashboard
 from wpimath.controller import PIDController
-import time
 
 SmartDashboard.putNumber('/Imu/kf', 0)
 SmartDashboard.putNumber('/Imu/kp', 0)

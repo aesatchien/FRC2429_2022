@@ -1,5 +1,5 @@
 import time
-from commands2 import RunCommand, InstantCommand
+from commands2 import InstantCommand
 from commands2.button import JoystickButton, POVButton
 from wpilib import XboxController, SmartDashboard, SendableChooser
 

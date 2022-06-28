@@ -1,6 +1,4 @@
 import commands2
-from wpilib import SmartDashboard
-
 
 class CompressorToggle(commands2.CommandBase):
 

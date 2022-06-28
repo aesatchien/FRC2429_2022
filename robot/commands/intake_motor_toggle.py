@@ -1,4 +1,3 @@
-
 import commands2
 from wpilib import SmartDashboard
 
@@ -38,7 +37,6 @@ class IntakeMotorToggle(commands2.CommandBase):
         self.start_time = round(self.container.get_enabled_time(), 2)
         print("\n" + f"** Firing {self.getName()} with force={self.force} at {self.start_time} s **", flush=True)
         # SmartDashboard.putString("alert", f"** Started {self.getName()} with speed {self.velocity} at {self.start_time - self.container.get_enabled_time():2.2f} s **")
-
 
     def execute(self) -> None:
         pass
