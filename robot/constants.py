@@ -19,11 +19,11 @@ k_co_driver_controller_port = 1
 k_controller_thrust_axis = 1
 k_controller_twist_axis = 4
 # controller axis scales
-k_thrust_scale = 0.7 #halfed
-k_twist_scale = 0.45
+k_thrust_scale = 1.4
+k_twist_scale = .55
 
-k_max_thrust_velocity = 2.75  # m/s
-k_max_twist_velocity = 1.25 # Bradley
+k_max_thrust_velocity = 6  # m/s 2.75
+k_max_twist_velocity = 3 # Bradley 1.25
 # k_max_twist_velocity = 0.75  # Aiden
 
 # --------------  AUTONOMOUS  ---------------
@@ -44,30 +44,6 @@ smartmotion_maxvel = 1000  # rpm
 smartmotion_maxacc = 30 # rpm/s?
 current_limit = 60
 ramp_rate = 0.0
-
-
-# --------------  INTAKE  ---------------
-k_intake_motor_port = 5 # PWM
-k_intake_pneumatic_port = 2 # PCM
-
-# --------------  SHOOTER  ---------------
-k_flywheel_left_neo_port = 8 # CAN ID
-k_flywheel_right_neo_port = 6 # CAN ID
-k_flywheel_stage_one_neo_port = 7 # CAN ID
-k_shooter_hood_bottom_port = 4 # PCM
-k_shooter_hood_top_port = 5 # PCM
-
-# --------------  CLIMBER  ---------------
-k_climber_left_port = 10 # CAN ID
-k_climber_right_port = 11 # CAN ID
-k_climber_long_port = 0 # PCM
-k_climber_short_port = 1 # PCM
-PID_dict_pos_climber = {'kP': 0.002, 'kI': 0.004, 'kD': 0, 'kIz': 0.002, 'kFF': 0.0075, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
-PID_dict_vel_climber = {'kP': 0.002, 'kI': 0.004, 'kD': 0, 'kIz': 0.002, 'kFF': 0.0075, 'kArbFF':0, 'kMaxOutput': 0.99, 'kMinOutput': -0.99}
-
-
-# --------------  INDEXER  ---------------
-k_indexer_neo_port = 5 # CAN ID
 
 
 # ToDo: figure out which need to be reversed - these are not implemented yet

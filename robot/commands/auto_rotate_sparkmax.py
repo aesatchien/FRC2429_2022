@@ -3,8 +3,6 @@ import math
 import commands2
 from wpilib import SmartDashboard
 from subsystems.drivetrain import Drivetrain
-import constants
-import rev
 
 class AutoRotateSparkmax(commands2.CommandBase):
     """
@@ -53,8 +51,7 @@ class AutoRotateSparkmax(commands2.CommandBase):
         self.drive.drive.feed()
 
     def isFinished(self) -> bool:
-        #error = self.degrees * self.distance_per_degree - abs(self.drive.left_encoder.getPosition() - self.encoder_start_position)
-        #return abs(error) < 0.1
+
         return self.container.get_enabled_time() - self.start_time > self.drive_time
 
 

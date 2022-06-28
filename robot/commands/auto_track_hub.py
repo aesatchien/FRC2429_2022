@@ -17,14 +17,12 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
     SmartDashboard.putNumber('AutoTrackHub/kd', kd)
     SmartDashboard.putNumber('AutoTrackHub/ff', feed_forward)
 
-    def __init__(self, container, drive, shooter, vision, pneumatics, autonomous=False) -> None:
+    def __init__(self, container, drive, vision, autonomous=False) -> None:
         super().__init__()
         self.setName('AutoTrackHub')  # change this to something appropriate for this command
         self.container = container
         self.drive = drive
-        self.shooter = shooter
         self.vision = vision
-        self.pneumatics = pneumatics
 
         self.controller = PIDController(Kp=self.kp, Ki=self.ki, Kd=self.kd)
         self.controller.setIntegratorRange(0, 0.1)  # integral reacts quickly but is capped at a low value
@@ -45,8 +43,6 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
         self.controller.setI(SmartDashboard.getNumber('AutoTrackHub/ki', self.ki))
         self.controller.setD(SmartDashboard.getNumber('AutoTrackHub/kd', self.kd))
         self.feed_forward = SmartDashboard.getNumber('AutoTrackHub/ff', self.feed_forward)
-
-        self.shooter.set_flywheel(2500)
 
         print(f"\nkp: {self.controller.getP()}\tki: {self.controller.getI()}\tkd: {self.controller.getD()}\tff: {self.feed_forward}")
 
@@ -84,24 +80,6 @@ class AutoTrackHub(commands2.CommandBase):  # change the name for your command
 
                 self.drive.arcade_drive(0, twist_output)
 
-                # update shooter RPM 10 times per second
-                if distance < 3:
-                    if self.pneumatics.shooter_hood_extended:
-                        self.pneumatics.set_shooter_hood_position(position='retract')
-
-                    rpm = self.vision.getShooterRpmNoHood()
-                elif distance >= 3 and distance <= 3.2:
-                    if self.pneumatics.shooter_hood_extended:
-                        rpm = self.vision.getShooterHoodRpm()
-                    else:
-                        rpm = self.vision.getShooterRpmNoHood()
-                elif distance > 3.2:
-                    if not self.pneumatics.shooter_hood_extended:
-                        self.pneumatics.set_shooter_hood_position(position='extend')
-
-                    rpm = self.vision.getShooterHoodRpm()
-
-                self.shooter.set_flywheel(rpm)
 
             else:
                 # print('hub not detected')
