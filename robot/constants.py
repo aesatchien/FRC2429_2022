@@ -10,7 +10,8 @@ import math
 import wpimath.controller
 
 # --------------  LED  --------------
-k_led_strip_port = 0 # PWM
+k_led_strip_port = 4 # PWM
+k_led_count = 70
 
 # --------------  OI  ---------------
 # ID for the driver's joystick (template)

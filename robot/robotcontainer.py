@@ -1,12 +1,12 @@
 import time
 from commands2 import InstantCommand
 from commands2.button import JoystickButton, POVButton
-from wpilib import XboxController, SmartDashboard, SendableChooser
+from wpilib import XboxController, SmartDashboard, SendableChooser, AddressableLED
 
 from subsystems.drivetrain import Drivetrain
 
 from subsystems.vision import Vision
-# from subsystems.led import Led
+from subsystems.led import Led
 
 from commands.drive_by_joystick import DriveByJoytick
 from commands.tune_sparkmax_drive import TuneSparkmax
@@ -35,7 +35,7 @@ class RobotContainer:
         self.robot_drive = Drivetrain()
 
         self.robot_vision = Vision()
-        # fvfko ;gmj[0fyb self.robot_led = Led()
+        self.robot_led = Led()
 
         # Create the driver's controller
         self.driver_controller = None
@@ -45,6 +45,7 @@ class RobotContainer:
         self.initialize_dashboard()
 
         # Set the default command for the LED strip
+        # depends on other subsystems being present
         # self.robot_led.setDefaultCommand(LedLoop(self))
 
         # Set the default command for the drive subsystem. It allows the robot to drive with the controller.
