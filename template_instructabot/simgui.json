@@ -1,0 +1,14 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/Pneumatics": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/SmartDashboard/CompressorToggle": "Command",
+      "/SmartDashboard/ShooterHoodToggle": "Command",
+      "/SmartDashboard/autonomous routines": "String Chooser",
+      "/SmartDashboard/path velocity": "String Chooser",
+      "/SmartDashboard/ramsete path": "String Chooser"
+    }
+  }
+}
