@@ -76,6 +76,7 @@ class MyRobot(commands2.TimedCommandRobot):
 if __name__ == "__main__":
     debug = False
 
+# CJH trying to figure out issues with load times and watchdog overruns - advanced students can google profiling
     if debug:
         import cProfile, pstats
         cProfile.run('wpilib.run(MyRobot)', 'stats')

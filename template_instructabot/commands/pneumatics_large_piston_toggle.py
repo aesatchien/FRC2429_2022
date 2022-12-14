@@ -2,11 +2,11 @@ import commands2
 from wpilib import SmartDashboard
 
 
-class ShooterHoodToggle(commands2.CommandBase):
+class LargePistonToggle(commands2.CommandBase):
 
     def __init__(self, container, pneumatics, force=None) -> None:
         super().__init__()
-        self.setName('ShooterHoodToggle')
+        self.setName('SmallPistonToggle')
         self.container = container
         self.pneumatics = pneumatics
         self.addRequirements(pneumatics)  # commandsv2 version of requirements
@@ -14,11 +14,11 @@ class ShooterHoodToggle(commands2.CommandBase):
     def initialize(self) -> None:
 
         if self.force == 'extend':
-            self.pneumatics.set_shooter_hood_position(position='extend')
+            self.pneumatics.set_large_piston_position(position='extend')
         elif self.force == 'retract':
-            self.pneumatics.set_shooter_hood_position(position='retract')
+            self.pneumatics.set_large_piston_position(position='retract')
         else:
-            self.pneumatics.toggle_shooter_hood_position()
+            self.pneumatics.toggle_large_piston_position()
         
         """Called just before this Command runs the first time."""
         self.start_time = round(self.container.get_enabled_time(), 2)
