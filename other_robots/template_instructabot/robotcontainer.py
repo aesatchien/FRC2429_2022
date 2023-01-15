@@ -57,7 +57,7 @@ class RobotContainer:
         self.buttonB = JoystickButton(self.driver_controller, 2)
         self.buttonX = JoystickButton(self.driver_controller, 3)
         self.buttonY = JoystickButton(self.driver_controller, 4)
-        # self.buttonLB = JoystickButton(self.driver_controller, 5)
+        self.buttonLB = JoystickButton(self.driver_controller, 5)
         # self.buttonRB = JoystickButton(self.driver_controller, 6)
         self.buttonBack = JoystickButton(self.driver_controller, 7)
         # self.buttonStart = JoystickButton(self.driver_controller, 8)
@@ -85,6 +85,8 @@ class RobotContainer:
         self.buttonX.whenPressed(lambda: self.robot_pneumatics.set_large_piston_position(position='extend'))
         self.buttonY.whenPressed(lambda: self.robot_pneumatics.set_large_piston_position(position='retract'))
 
+        self.buttonLB.whenPressed(lambda: self.robot_pneumatics.set_small_piston_position(position='extend')).whenReleased(lambda: self.robot_pneumatics.set_small_piston_position(position='retract'))
+
         #self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
 
         #intake
@@ -93,7 +95,9 @@ class RobotContainer:
 
         # lots of putdatas for testing on the dash
         SmartDashboard.putData(CompressorToggle(self, self.robot_pneumatics))
-        SmartDashboard.putData(ShooterHoodToggle(self, self.robot_pneumatics))
+        SmartDashboard.putData(SmallPistonToggle(self, self.robot_pneumatics))
+        #SmartDashboard.putData(CompressorToggle(self, self.robot_pneumatics))
+        #SmartDashboard.putData(ShooterHoodToggle(self, self.robot_pneumatics))
 
         # We won't do anything with this button itself, so we don't need to define a variable.
         # self.buttonRB.whenPressed(lambda: self.robot_drive.set_max_output(0.25)).whenReleased(lambda: self.robot_drive.set_max_output(1))

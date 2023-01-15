@@ -12,6 +12,7 @@ class Pneumatics(SubsystemBase):
         self.counter = 0
 
         self.compressor = Compressor(0, wpilib.PneumaticsModuleType.CTREPCM)
+
         self.small_piston = DoubleSolenoid(wpilib.PneumaticsModuleType.CTREPCM, 4, 5)
         self.large_piston = DoubleSolenoid(wpilib.PneumaticsModuleType.CTREPCM, 0, 1)
 

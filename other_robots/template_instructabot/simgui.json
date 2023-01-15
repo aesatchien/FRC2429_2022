@@ -10,5 +10,10 @@
       "/SmartDashboard/path velocity": "String Chooser",
       "/SmartDashboard/ramsete path": "String Chooser"
     }
+  },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "open": true
+    }
   }
 }
