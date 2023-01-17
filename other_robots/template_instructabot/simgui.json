@@ -6,6 +6,7 @@
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/SmartDashboard/CompressorToggle": "Command",
       "/SmartDashboard/ShooterHoodToggle": "Command",
+      "/SmartDashboard/SmallPistonToggle": "Command",
       "/SmartDashboard/autonomous routines": "String Chooser",
       "/SmartDashboard/path velocity": "String Chooser",
       "/SmartDashboard/ramsete path": "String Chooser"

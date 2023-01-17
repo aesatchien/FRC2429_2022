@@ -4,6 +4,7 @@ from commands2.button import JoystickButton, POVButton
 from wpilib import XboxController, SmartDashboard, SendableChooser
 
 from subsystems.pneumatics import Pneumatics
+from subsystems.turret import Turret
 
 from commands.compressor_toggle import CompressorToggle
 from commands.pneumatics_small_piston_toggle import SmallPistonToggle
@@ -26,6 +27,7 @@ class RobotContainer:
 
         # Create an instance of the appropriate subsystems.
         self.robot_pneumatics = Pneumatics()
+        self.robot_turret = Turret()
 
         # Create the driver's controller
         self.driver_controller = None
@@ -79,13 +81,16 @@ class RobotContainer:
         self.buttonBack.whenPressed(CompressorToggle(self, self.robot_pneumatics))
         #self.buttonA.whenPressed(lambda: self.robot_pneumatics.toggle_intake())
 
-        self.buttonA.whenPressed(lambda: self.robot_pneumatics.set_small_piston_position(position='extend'))
-        self.buttonB.whenPressed(lambda: self.robot_pneumatics.set_small_piston_position(position='retract'))
+        # self.buttonA.whenPressed(lambda: self.robot_pneumatics.set_small_piston_position(position='extend'))
+        # self.buttonB.whenPressed(lambda: self.robot_pneumatics.set_small_piston_position(position='retract'))
 
         self.buttonX.whenPressed(lambda: self.robot_pneumatics.set_large_piston_position(position='extend'))
         self.buttonY.whenPressed(lambda: self.robot_pneumatics.set_large_piston_position(position='retract'))
 
         self.buttonLB.whenPressed(lambda: self.robot_pneumatics.set_small_piston_position(position='extend')).whenReleased(lambda: self.robot_pneumatics.set_small_piston_position(position='retract'))
+        
+        self.buttonA.whenPressed(lambda: self.robot_turret.set_voltage(voltage=3)).whenReleased(lambda: self.robot_turret.stop_motor())
+        self.buttonB.whenPressed(lambda: self.robot_turret.set_voltage(voltage=9)).whenReleased(lambda: self.robot_turret.stop_motor())
 
         #self.buttonRB.whenPressed(lambda: self.robot_pneumatics.pp_long())
 
