@@ -1,0 +1,47 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/Climber": "Subsystem",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/Indexer": "Subsystem",
+      "/LiveWindow/Ungrouped/Intake": "Subsystem",
+      "/LiveWindow/Ungrouped/Led": "Subsystem",
+      "/LiveWindow/Ungrouped/PWMSparkMax[1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/PWMSparkMax[3]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Pneumatics": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Shooter": "Subsystem",
+      "/LiveWindow/Ungrouped/Spark[5]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Vision": "Subsystem",
+      "/LiveWindow/Ungrouped/class frc2::SubsystemBase": "Subsystem",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/AutoFetchBall": "Command",
+      "/SmartDashboard/AutoPickup": "Command",
+      "/SmartDashboard/AutoRamsete": "Command",
+      "/SmartDashboard/AutoRotateIMU": "Command",
+      "/SmartDashboard/AutoRotateSparkmax": "Command",
+      "/SmartDashboard/AutoSetPose": "Command",
+      "/SmartDashboard/AutoShoot": "Command",
+      "/SmartDashboard/AutonomousStageTwo": "Command",
+      "/SmartDashboard/AutonomousTwoBall": "Command",
+      "/SmartDashboard/CompressorToggle": "Command",
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/IndexerHold": "Command",
+      "/SmartDashboard/IntakeMotorToggle": "Command",
+      "/SmartDashboard/IntakePistonToggle": "Command",
+      "/SmartDashboard/Led/led_modes": "String Chooser",
+      "/SmartDashboard/Reset Encoders": "Command",
+      "/SmartDashboard/Reset NavX": "Command",
+      "/SmartDashboard/ShooterToggle": "Command",
+      "/SmartDashboard/TuneSparkmax": "Command",
+      "/SmartDashboard/TuneSparkmaxClimber": "Command",
+      "/SmartDashboard/autonomous routines": "String Chooser",
+      "/SmartDashboard/path velocity": "String Chooser",
+      "/SmartDashboard/ramsete path": "String Chooser"
+    }
+  },
+  "NetworkTables View": {
+    "visible": false
+  }
+}

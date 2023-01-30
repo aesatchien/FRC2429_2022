@@ -19,6 +19,7 @@ class Turret(SubsystemBase):
         self.turret_left_neo = rev.CANSparkMax(6, motor_type) #looking for a motor with id6
 
         self.turret_left_encoder = self.turret_left_neo.getEncoder()
+        # self.turret_left_neo.getA
 
         conversion_factor = 1 
         self.turret_left_encoder.setPositionConversionFactor(conversion_factor)  
